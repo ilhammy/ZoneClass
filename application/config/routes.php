@@ -53,9 +53,11 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['logout'] = 'auth/logout';
 $route['con'] = 'contoh';
 $route['con/ad'] = 'contoh/admin';
 
-$route['admin'] = 'admin/home';
+$route['dashboard'] = 'admin/home';
+$route['dashboard/siswa'] = 'admin/home/siswa';
 
 $route['materi/(:any)'] = 'materi/index/$1';

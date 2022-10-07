@@ -7,7 +7,10 @@ class Kelas_model extends CI_Model {
 	private $tku = 'kelas_user';
 
 	function getAllData() {
-		return $this->db->get($this->tk)->result();
+		$q = $this->db->from($this->tk)
+		->order_by('dibuat', 'desc')->get();
+		return $q->result();
+		//return $this->db->get($this->tk)->result();
 	}
 
 	function getAllByUser($uid) {
@@ -15,6 +18,24 @@ class Kelas_model extends CI_Model {
 		$this->db->from('kelas a');
 		$this->db->join('kelas_user b', 'b.id_kelas=a.id_kelas', 'left');
 		$this->db->where('b.id_user', $uid);
+		$this->db->order_by('b.bergabung', 'desc');
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	function getMyClass() {
+		return $this->db->get_where($this->tk, [$this->tk . '.creator_id' => myUid()])->result();
+	}
+	
+	function getAllSiswa($kid = null) {
+		$this->db->select('a.username, a.user_id, a.role_id, b.id_kelas, c.*');
+		$this->db->from('users a, kelas_user b');
+		$this->db->join('profile c', 'c.uid=a.user_id', 'left');
+		$this->db->where('a.role_id', '2');
+		$this->db->group_by('user_id');
+		if (!is_null($kid)) {
+			$this->db->where('b.id_kelas', $kid);
+		}
 		$query = $this->db->get();
 		return $query->result();
 	}

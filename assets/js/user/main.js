@@ -24,17 +24,16 @@ $(function() {
 });
 
 function ikutKelas(e, kid) {
-	let txtType = (e.innerText == 'Keluar') ? 'Keluar dari': 'Ikut';
+	let txtType = (e.innerText == 'Keluar') ? 'keluar dari': 'Ikut';
 	Swal.fire({
-		title: 'Apakah kamu akan ' + txtType + ' kelas ini?',
+		icon: 'question', 
+		title: 'Konfirmasi', 
+		text: 'Apakah kamu akan ' + txtType + ' kelas ini?',
 		showDenyButton: true,
 		confirmButtonText: 'Iya',
 		denyButtonText: `Batal`,
 	}).then((result) => {
-		/* Read more about isConfirmed, isDenied below */
-		if (result.isConfirmed) {
-			ajaxIkutKelas(kid);
-		}
+		if (result.isConfirmed) ajaxIkutKelas(kid);
 	});
 }
 

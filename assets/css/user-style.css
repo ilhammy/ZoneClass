@@ -22,6 +22,7 @@
 	--search-area-bg: #fff;
 	--star: #1ff1c2e;
 	--message-btn: #fff;
+	--list-line: rgba(0,0,0,.2);
 }
 
 .dark:root {
@@ -43,6 +44,7 @@
 	--more-list-bg-hover: rgba(195, 207, 244, 0.1);
 	--more-list-shadow: rgba(195, 207, 244, 0.1);
 	--message-btn: rgba(195, 207, 244, 0.1);
+	--list-line: rgba(255,255,255,.2);
 }
 
 html, body {
@@ -711,6 +713,59 @@ button, a {
 	display: none;
 }
 
+/* List Materi */
+.list-materi {
+	padding: 0;
+	background: var(--projects-section);
+	border: 1px solid var(--more-list-shadow);
+	color: var(--link-color);
+}
+.list-materi .thumb {
+	width: 100%;
+	display: block;
+	border-radius: 10px;
+	max-height: 200px;
+	padding: 0 0 .8rem 0;
+}
+.list-materi-links {
+	padding: .5rem .8rem .2rem .8rem;
+	opacity: .8;
+	font-size: .8em;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.list-materi-links a {
+	border-radius: 50px;
+	margin: 0 0 .3rem 0;
+	background: var(--more-list-shadow);
+	color: var(--link-color);
+	padding: .3rem .7rem;
+}
+.list-materi-links a:before {
+	content: '$';
+}
+.list-materi-caption {
+	padding: 0 .8rem .5rem .8rem;
+	opacity: .8;
+	font-size: .9em;
+}
+.list-materi-footer {
+	display: block;
+	padding: .5rem .8rem .5rem .8rem;
+	border-top: 1px solid var(--list-line);
+}
+.list-materi-judul {
+	margin: 0;
+	font-size: 1em;
+	font-weight: 600;
+}
+.list-materi-waktu {
+	margin: .2rem 0 0 0;
+	font-size: .8em;
+	opacity: .7;
+}
+
 /* Profile Box */
 .profile-box {
 	border-radius: 10px;
@@ -742,6 +797,27 @@ button, a {
 }
 .profile-box-header h2:before {
 	content: "@";
+}
+.profile-box-menus {
+	margin-top: .9rem;
+}
+.profile-box-menus a {
+	color: var(--link-color);
+	display: flex;
+	padding: .5rem .7rem;
+	border-radius: 10px;
+	background: var(--app-container);
+	align-items: center;
+	margin-bottom: .7rem;
+}
+.profile-box-menus .icon {
+	margin-right: 1rem;
+	background: var(--projects-section);
+	border-radius: 10px;
+	padding: .3rem;
+}
+.profile-box-menus .arrow {
+	margin-left: auto;
 }
 
 @media screen and (max-width: 980px) {

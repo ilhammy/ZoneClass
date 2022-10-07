@@ -9,7 +9,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
 	<link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
 
-	<title>ZoneClass</title>
+	<title><?= $web_name ?></title>
 
 	<script src="//cdn.jsdelivr.net/npm/eruda"></script>
 	<script>
@@ -18,8 +18,8 @@
 	</script>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
-	<link rel="stylesheet" href="/assets/css/tabbar.css?ses=<?= time() ?>" />
-	<link rel="stylesheet" href="/assets/css/user-style.css?ses=<?= time() ?>" />
+	<link rel="stylesheet" href="/assets/css/tabbar.css<?= ($web_devmode) ? '?time=' . time() : '' ?>" />
+	<link rel="stylesheet" href="/assets/css/user-style.css<?= ($web_devmode) ? '?time=' . time() : '' ?>" />
 	<link rel="stylesheet" href="/assets/css/loader.css" />
 
 	<link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal@4/minimal.css" rel="stylesheet">
@@ -34,7 +34,7 @@
 		<div class="app-header">
 			<div class="app-header-left">
 				<p class="app-name">
-					ZoneClass
+					<?= $web_name ?>
 				</p>
 				<div class="search-wrapper">
 					<input class="search-input" type="text" placeholder="Search">
@@ -53,9 +53,9 @@
 					</svg>
 				</button>
 				<button class="profile-btn">
-					<img src="https://assets.codepen.io/3306515/IMG_2025.jpg" />
+					<img onclick="window.location.assign('/')" src="<?= profileValue('foto') ?>" />
 					<span><?= profileValue('fullname') ?></span>
 				</button>
 			</div>
 		</div>
-		<div class="app-content" id="konten" style="padding-bottom: 80px">
+		<div class="app-content" id="konten" style="<?= (!isset($nonav)) ? 'padding-bottom: 80px' : null ?>">

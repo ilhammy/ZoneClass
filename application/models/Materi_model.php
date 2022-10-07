@@ -6,7 +6,12 @@ class Materi_model extends CI_Model
 	public $tmk = "materi_kelas";
 
 	public function getByClass($kls) {
-		return $this->db->get_where($this->tmk, ['id_kelas' => $kls])->result();
+		$q = $this->db
+		->from($this->tmk)
+		->where('id_kelas', $kls)
+		->order_by('waktu', 'desc')
+		->get();
+		return $q->result();
 	}
 
 }

@@ -7,6 +7,9 @@ class Materi extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Kelas_model');
 		$this->load->model('Materi_model');
+		
+		cekLogin();
+		if (!isAdminSiswa()) redirect('dashboard');
 	}
 
 	public function index($idkel) {
