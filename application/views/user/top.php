@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="/assets/css/user-style.css<?= ($web_devmode) ? '?time=' . time() : '' ?>" />
 	<link rel="stylesheet" href="/assets/css/loader.css" />
 
-	<link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal@4/minimal.css" rel="stylesheet">
+	<link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
 

@@ -777,6 +777,7 @@ button, a {
 	background-color: var(--projects-section);
 	color: var(--link-color);
 	text-align: center;
+	overflow-y: auto;
 }
 .profile-box-header {
 	margin-bottom: 10px;

@@ -46,7 +46,7 @@ class Auth extends CI_Controller {
 		redirect('auth');
 	}
 
-	private function login() {
+	public function login() {
 		$this->form_validation->set_rules($this->Auth_model->log_rules);
 
 		if ($this->form_validation->run() !== false) {
@@ -72,8 +72,9 @@ class Auth extends CI_Controller {
 				redirect('auth');
 			} // End cek hasil
 		} else {
-			//redirect('auth');
-			$this->index();
+			$this->session->set_flashdata('auth_msg', '<div class="mt-1 mb-2 alert alert-danger">'. validation_errors() .'</div>');
+			redirect('auth');
+			//$this->index();
 		} // End validasi
 	}
 
