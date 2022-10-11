@@ -13,6 +13,7 @@ class Materi extends CI_Controller {
 	}
 
 	public function index($idkel) {
+		$data['title'] = 'Materi';
 		$data['kelid'] = intval(base64_decode(urldecode($idkel), false));
 		$data['data_kelas'] = $this->Kelas_model->getSingle($data['kelid']);
 		$data['data_materi'] = $this->Materi_model->getByClass($data['kelid']);
