@@ -30,9 +30,6 @@
 					<p class="list-materi-judul">
 						<?= $val->judul ?>
 					</p>
-					<p class="list-materi-waktu">
-						<?= timeago($val->waktu) ?>
-					</p>
 				</div>
 			</div>
 		</div>

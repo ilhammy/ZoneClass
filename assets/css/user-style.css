@@ -76,15 +76,18 @@ button, a {
 	background-color: var(--app-container);
 	transition: 0.2s;
 	max-width: 1800px;
+	align-items: center;
 }
 .app-container button, .app-container input, .app-container optgroup, .app-container select, .app-container textarea {
 	font-family: "DM Sans", sans-serif;
 }
 .app-content {
 	display: flex;
+	width: 100%;
 	height: 100%;
 	overflow: hidden;
 	padding: 16px 24px 24px 0;
+	max-width: 520px;
 }
 .app-header {
 	display: flex;
@@ -799,7 +802,7 @@ button, a {
 	content: "@";
 }
 .profile-box-menus {
-	margin-top: .9rem;
+	margin: 5rem 0 5rem 0;
 }
 .profile-box-menus a {
 	color: var(--link-color);
@@ -987,6 +990,10 @@ button, a {
 .hide {
 	display: none !important;
 }
+.text-center {
+	display: flex;
+	justify-content: center;
+}
 
 .pelangi > .project-box-wrapper:nth-child(1n+0) > .project-box {
 	background: #fee4cb;
@@ -1015,4 +1022,78 @@ button, a {
 }
 .pelangi > .project-box-wrapper:nth-child(4n+0) .days-left {
 	color: #34c471 !important;
+}
+
+/* FORM INPUT */
+.input-wrapper {
+	padding: .5rem .5rem;
+}
+.input-wrapper .label {
+	display: block;
+	font-size: .9rem;
+	color: var(--light-font);
+}
+.myinput {
+	font-size: .95rem;
+	outline: none;
+	margin: .7rem 0 0 0;
+	border: 0px;
+	border-radius: 10px;
+	background-color: var(--search-area-bg);
+	padding: .7rem 1rem;
+	width: 100%;
+	max-width: 480px;
+	color: var(--light-font);
+	box-shadow: 0 1px 7px 0 rgba(136, 148, 171, 0.2), 0 24px 20px -24px rgba(71, 82, 107, 0.1);
+}
+.myinput:placeholder {
+	color: var(--main-color);
+	opacity: 0.6;
+}
+.myinput:disabled {
+		background: var(--app-container);
+	}
+
+/* BUTTONS */
+.btn {
+	font-size: .9rem;
+	border-radius: 7px;
+	border: none;
+	padding: .5rem .9rem;
+}
+.btn-primary {
+	background: #1976d2;
+	color: #fff;
+}
+.btn-second {
+	background: #9c27b0;
+	color: #fff;
+}
+.btn-info {
+	background: #0288d1;
+	color: #fff;
+}
+.btn-danger {
+	background: #d32f2f;
+	color: #fff;
+}
+.btn-warn {
+	background: #ed6c02;
+	color: #000;
+}
+.btn-dark {
+	background: #000;
+	color: #fff;
+}
+
+/* ALERTS */
+.alert {
+	padding: .7rem .9rem;
+	margin: .5rem;
+	border-radius: 10px;
+	font-size: .9rem;
+}
+.alert-info {
+	background: #0288d1;
+	color: #fff;
 }

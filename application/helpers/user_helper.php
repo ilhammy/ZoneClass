@@ -1,5 +1,12 @@
 <?php
 
+// Get data dari tabel users
+function dataUserValue($key) {
+	$ci = get_instance();
+	$ci->load->model('User_model');
+	return $ci->User_model->getUserData($_SESSION['uid'], $key);
+}
+
 // Get data dari tabel profile
 function profileValue($key) {
 	$ci = get_instance();

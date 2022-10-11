@@ -5,7 +5,8 @@ const index_pages = {
 	'kelas': 'ajax/kelasUser',
 	'notif': 'ajax/notifUser',
 	'profile': 'ajax/profileUser',
-	'materi': 'ajax/materi'
+	'materi': 'ajax/materi',
+	'kelasku': 'settings/kelasku'
 }
 //const currPage = window.location.pathname.split("/");
 
@@ -26,8 +27,8 @@ $(function() {
 function ikutKelas(e, kid) {
 	let txtType = (e.innerText == 'Keluar') ? 'keluar dari': 'Ikut';
 	Swal.fire({
-		icon: 'question', 
-		title: 'Konfirmasi', 
+		icon: 'question',
+		title: 'Konfirmasi',
 		text: 'Apakah kamu akan ' + txtType + ' kelas ini?',
 		showDenyButton: true,
 		confirmButtonText: 'Iya',
@@ -54,4 +55,23 @@ function ajaxIkutKelas(kid) {
 			} catch (e) {}
 		}
 	});
+}
+
+const showMsg = (tipe, msg) => {
+	const Toast = Swal.mixin({
+		toast: true,
+		position: 'top-end',
+		showConfirmButton: false,
+		timer: 3000,
+		timerProgressBar: true,
+		didOpen: (toast) => {
+			toast.addEventListener('mouseenter', Swal.stopTimer)
+			toast.addEventListener('mouseleave', Swal.resumeTimer)
+		}
+	})
+
+	Toast.fire({
+		icon: tipe,
+		title: msg
+	})
 }

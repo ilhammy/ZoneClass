@@ -11,7 +11,7 @@ class Auth extends CI_Controller {
 	}
 
 	public function index() {
-		//if ($this->session->has_userdata('uid')) redirect('home');
+		if ($this->session->has_userdata('uid')) redirect((isAdminGuru()) ? 'dashboard' : '');
 		//if ($this->input->post('login') !== null) $this->cek_login();
 		$this->load->view('auth/head');
 		$this->load->view('auth/home');
@@ -46,7 +46,7 @@ class Auth extends CI_Controller {
 		redirect('auth');
 	}
 
-	public function login() {
+	private function login() {
 		$this->form_validation->set_rules($this->Auth_model->log_rules);
 
 		if ($this->form_validation->run() !== false) {
@@ -93,7 +93,7 @@ class Auth extends CI_Controller {
 			$prof = [
 				'fullname' => $this->input->post('fullname', true),
 				'foto' => (!$guru) ? '/assets/img/default-siswa.png' : '/assets/img/default-guru.png',
-				'kelamin' => 0,
+				'kelamin' => 'Pria',
 				'whatsapp' => formatHp($this->input->post('what', true)),
 				'kelas' => '[]',
 				'tgl_lahir' => 0,

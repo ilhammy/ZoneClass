@@ -55,7 +55,7 @@ function guidv4($data = null) {
 function formatHp($nohp) {
 	$nohp = preg_replace('/\D/', '', $nohp);
 	if (!preg_match('/[^+0-9]/', trim($nohp))) {
-		if (substr(trim($nohp), 0, 3) == '62') {
+		if (substr(trim($nohp), 0, 2) == '62') {
 			return trim($nohp);
 		} else if (substr(trim($nohp), 0, 1) == '0') {
 			return '62'.substr(trim($nohp), 1);

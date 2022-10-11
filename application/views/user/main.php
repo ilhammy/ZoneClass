@@ -8,3 +8,5 @@
 		<div></div>
 	</div>
 </div>
+
+<script><?= (is_null($this->session->flashdata('alert'))) ? '' : $this->session->flashdata('alert') ?></script>

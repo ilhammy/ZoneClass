@@ -41,4 +41,14 @@ class Ajax extends CI_Controller {
 		echo json_encode($result);
 	}
 	
+	/* CEK USERNAME */
+	public function cekUsername($uname) {
+		echo ($this->User_model->hasUsername($uname)) ? 'true' : 'false';
+	}
+	
+	/* CEK EMAIL */
+	public function cekEmail($em) {
+		echo ($this->User_model->hasUsername($em)) ? 'true' : 'false';
+	}
+	
 }

@@ -5,6 +5,43 @@ class User_model extends CI_Model {
 
 	private $tu = 'users';
 	private $tp = 'profile';
+	
+	public $prof_rules = array(
+		array(
+			'field' => 'fname',
+			'label' => 'Nama Lengkap',
+			'rules' => 'trim|required|min_length[5]|max_length[30]',
+			'errors' => array(
+				'required' => 'Nama Lengkap kosong',
+				'min_length' => 'Minimal 5 karakter',
+				'max_length' => 'Maksimal 32 karakter!'
+			)
+		),
+		array(
+			'field' => 'kel',
+			'label' => 'Jenis Kelamin',
+			'rules' => 'trim|required|in_list[Pria,Wanita]',
+			'errors' => array(
+				'required' => 'Jenis Kelamin kosong', 
+			),
+		),
+		array(
+			'field' => 'ttl',
+			'label' => 'Tanggal Lahir',
+			'rules' => 'trim|required',
+			'errors' => array(
+				'required' => 'Tanggal Lahir kosong', 
+			),
+		),
+		array(
+			'field' => 'whatsapp',
+			'label' => 'No WhatsApp',
+			'rules' => 'trim|required',
+			'errors' => array(
+				'required' => '%s kosong',
+			),
+		)
+	);
 
 	public function getUserData($uid, $key) {
 		$res = $this->db->get_where($this->tu, ['user_id' => $uid])->row_array();
@@ -18,6 +55,39 @@ class User_model extends CI_Model {
 		if ($res) return $res[$key];
 		$this->db->close();
 		return null;
+	}
+	
+	public function hasUsername($u) {
+		$res = $this->db->get_where($this->tu, ['username' => $u])->row();
+		$this->db->close();
+		if ($res) return true;
+		return false;
+	}
+	
+	public function hasEmail($e) {
+		$res = $this->db->get_where($this->tu, ['email' => $e])->row();
+		$this->db->close();
+		if ($res) return true;
+		return false;
+	}
+	
+	public function updateUserData($data, $uid = null) {
+		if (is_null($uid)) $uid = myUid();
+		$this->db->update($this->tu, $data, array('user_id' => $uid));
+		return ($this->db->affected_rows() > 0);
+	}
+	
+	public function updateProfile($data, $uid = null) {
+		if (is_null($uid)) $uid = myUid();
+		$this->db->update($this->tp, $data, array('uid' => $uid));
+		return ($this->db->affected_rows() > 0);
+	}
+	
+	public function updateFoto($url = null) {
+		if (is_null($url)) return false;
+		$data['foto'] = $url;
+		$this->db->update($this->tp, $data, array('uid' => myUid()));
+		return ($this->db->affected_rows() > 0);
 	}
 
 	public function hasProfile() {
