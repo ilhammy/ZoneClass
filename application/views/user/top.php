@@ -2,7 +2,7 @@
 <html>
 <head>
 
-	<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
 	<meta name="apple-mobile-web-app-title" content="CodePen">
 
@@ -13,7 +13,7 @@
 
 	<script src="//cdn.jsdelivr.net/npm/eruda"></script>
 	<script>
-		eruda.init();
+		<?= ($web_devmode) ? 'eruda.init();' : '' ?>
 		const baseUrl = '<?= base_url() ?>';
 	</script>
 

@@ -46,27 +46,28 @@ class User_model extends CI_Model {
 	public function getUserData($uid, $key) {
 		$res = $this->db->get_where($this->tu, ['user_id' => $uid])->row_array();
 		if ($res) return $res[$key];
-		$this->db->close();
 		return null;
 	}
 
 	public function getProfile($uid, $key) {
 		$res = $this->db->get_where($this->tp, ['uid' => $uid])->row_array();
 		if ($res) return $res[$key];
-		$this->db->close();
 		return null;
+	}
+	
+	public function getByUid($uid) {
+		$res = $this->db->get_where($this->tp, ['uid' => $uid])->row();
+		return $res;
 	}
 	
 	public function hasUsername($u) {
 		$res = $this->db->get_where($this->tu, ['username' => $u])->row();
-		$this->db->close();
 		if ($res) return true;
 		return false;
 	}
 	
 	public function hasEmail($e) {
 		$res = $this->db->get_where($this->tu, ['email' => $e])->row();
-		$this->db->close();
 		if ($res) return true;
 		return false;
 	}

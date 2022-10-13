@@ -39,9 +39,21 @@ class Kelas_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->result();
 	}
+	
+	function getAllSiswaByKelas($kelas) {
+		$this->db->select('*');
+		$this->db->from($this->tku);
+		$this->db->group_by('id_user');
+		$this->db->where('id_kelas', '2');
+		return $this->db->get()->result();
+	}
 
 	function getSingle($id) {
 		return $this->db->get_where($this->tk, ['id_kelas' => $id])->row();
+	}
+	
+	function getJoinDatr($id, $uid) {
+		return $this->db->get_where($this->tku, ['id_kelas' => $id, 'id_user' => $uid])->row();
 	}
 	
 	function cekUserInClass($uid, $clid) {
