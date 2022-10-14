@@ -3,38 +3,9 @@
 		<div class="login__img">
 			<img src="/assets/img/img-login.svg" alt="">
 		</div>
-		<div class="login__forms">
+		<div class="login__forms" id="login-up">
 			<form action="/auth/login" class="login__registre" id="login-in" method="post">
-				<h1 class="login__title">Masuk Untuk Melanjutkan</h1>
-
-				<div class="login_msg">
-					<?= $this->session->flashdata('auth_msg') ?>
-					<?= validation_errors(); ?>
-				</div>
-
-
-				<div class="login__box">
-					<i class='bx bx-user login__icon'></i>
-					<input type="text" name="username" placeholder="Username" class="login__input">
-				</div>
-
-				<div class="login__box">
-					<i class='bx bx-lock-alt login__icon'></i>
-					<input type="password" name="password" placeholder="Password" class="login__input">
-				</div>
-
-				<a href="/auth/lost_password" class="login__forgot">Lupa password?</a>
-
-				<button type="submit" class="login__button">Masuk</button>
-
-				<div>
-					<span class="login__account">Belum punya akun ?</span>
-					<span class="login__signin" id="sign-up">Mendaftar</span>
-				</div>
-			</form>
-
-			<form class="login__create none" id="login-up">
-				<h1 class="login__title">Membuat Akun</h1>
+				<h1 class="login__title">Buat Akun Guru</h1>
 
 				<div class="login__box">
 					<i class='bx bx-user login__icon'></i>
@@ -66,12 +37,15 @@
 					<input type="number" name="reg_code" placeholder="Token (Opsional)" class="login__input">
 				</div>
 
+				<input type="hidden" name="is_guru" id="is_guru" value="oke" />
+
 				<button type="submit" class="login__button" id="btn_reg">Buat Akun</button>
 
 				<div>
 					<span class="login__account">Sudah punya akun ?</span>
-					<span class="login__signup" id="sign-in">Masuk</span>
+					<span class="login__signup" onclick="window.location.assign('/auth')">Masuk</span>
 				</div>
+
 
 			</form>
 		</div>

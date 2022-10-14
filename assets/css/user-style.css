@@ -87,7 +87,7 @@ button, a {
 	height: 100%;
 	overflow: hidden;
 	padding: 16px 24px 24px 0;
-	max-width: 520px;
+	max-width: 800px;
 	flex-direction: column;
 }
 .app-header {
@@ -747,6 +747,7 @@ button, a {
 	display: block;
 	border-radius: 10px;
 	max-height: 200px;
+	max-width: 300px;
 	padding: 0 0 .8rem 0;
 }
 .list-materi iframe {
@@ -754,6 +755,7 @@ button, a {
 	display: block;
 	border-radius: 10px;
 	height: auto;
+	max-width: 300px;
 	max-height: 210px;
 	/*padding: 0 0 .8rem 0;*/
 }

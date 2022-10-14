@@ -17,6 +17,14 @@ class Auth extends CI_Controller {
 		$this->load->view('auth/home');
 		$this->load->view('auth/foot');
 	}
+	
+	public function special_regist() {
+		if ($this->session->has_userdata('uid')) redirect((isAdminGuru()) ? 'dashboard' : '');
+		//if ($this->input->post('login') !== null) $this->cek_login();
+		$this->load->view('auth/head');
+		$this->load->view('auth/reg_guru');
+		$this->load->view('auth/foot');
+	}
 
 	public function register() {
 		//die(json_encode($this->input->post()));

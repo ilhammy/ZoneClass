@@ -60,5 +60,7 @@ $route['con/ad'] = 'contoh/admin';
 $route['dashboard'] = 'admin/home';
 $route['dashboard/siswa'] = 'admin/home/siswa';
 $route['dashboard/kelas'] = 'admin/home/kelas';
+$route['dashboard/kelas/tambah'] = 'admin/home/tambah_kelas';
+$route['dashboard/kelas/(:num)'] = 'admin/home/detail_kelas/$1';
 
 $route['materi/(:any)'] = 'materi/index/$1';

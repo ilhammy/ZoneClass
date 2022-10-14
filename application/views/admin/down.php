@@ -21,9 +21,7 @@
 	<!-- End Wrapper -->
 	<!-- ============================================================== -->
 	<!-- ============================================================== -->
-	<!-- All Jquery -->
-	<!-- ============================================================== -->
-	<script src="/assets/js/jquery.js"></script>
+
 	<!-- Bootstrap popper Core JavaScript -->
 	<script src="/assets/js/admin/bootstrap.bundle.min.js"></script>
 	<!-- slimscrollbar scrollbar JavaScript -->

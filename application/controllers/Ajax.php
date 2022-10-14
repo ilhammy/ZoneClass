@@ -10,12 +10,12 @@ class Ajax extends CI_Controller {
 
 	public function homeUser() {
 		$this->User_model->updateKelas();
-		$data['data_kelas'] = $this->Kelas_model->getAllByUser($this->session->userdata('uid'));
+		$data['data_kelas'] = $this->Kelas_model->getAllData();
 		$this->load->view('user/dash', $data);
 	}
 	
 	public function kelasUser() {
-		$data['data_kelas'] = $this->Kelas_model->getAllData();
+		$data['data_kelas'] = $this->Kelas_model->getAllByUser($this->session->userdata('uid'));
 		$this->load->view('user/kelas', $data);
 	}
 	

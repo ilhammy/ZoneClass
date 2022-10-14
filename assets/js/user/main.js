@@ -21,7 +21,14 @@ function loadPage(page) {
 }
 
 $(function() {
-	loadPage('home');
+	const ref = window.localStorage.getItem('ref');
+	if (ref == null) {
+		loadPage('home');
+	} else {
+		window.localStorage.removeItem('ref');
+		currMenu(Object.keys(index_pages).indexOf(ref));
+		loadPage(ref);
+	}
 });
 
 function ikutKelas(e, kid) {
@@ -74,4 +81,12 @@ const showMsg = (tipe, msg) => {
 		icon: tipe,
 		title: msg
 	})
+}
+
+function currMenu(pos) {
+	const men = document.querySelectorAll('.tabnav ul li');
+	men.forEach(function(item) {
+		item.classList.remove('active');
+	});
+	men[pos].classList.add('active');
 }

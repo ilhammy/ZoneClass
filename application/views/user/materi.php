@@ -1,17 +1,17 @@
 <div class="top-nav">
-	<ion-icon class="icon" name="arrow-back-outline" onclick="window.history.back()"></ion-icon>
+	<ion-icon class="icon" name="arrow-back-outline" onclick="window.localStorage.setItem('ref', 'kelas');window.history.back()"></ion-icon>
 	<div class="title" style="font-size: 1.1rem;font-weight: 600; padding: 0 .5rem">
 		<?= $data_kelas->nama_kelas ?>
 	</div>
 </div>
 
 <div class="projects-section">
-		<div class="project-boxes jsGridView">
+		<div class="project-boxes jsListView" style="flex-direction: column">
 			<?php
 			if ($data_materi == null) echo '<div class="no-data">Waduh materinya belum ada 😅</div>';
 			foreach ($data_materi as $val) : ?>
 			<div class="project-box-wrapper">
-				<div class="project-box list-materi" id="<?= $val->waktu ?>">
+				<div class="project-box list-materi" id="<?= $val->waktu ?>" style="flex-direction: column">
 					<?php
 					if (!is_null($val->foto)) {
 						echo "<img title=\"{$val->judul}\" src=\"{$val->foto}\" class=\"thumb\" />";

@@ -7,14 +7,14 @@
 	<div class="project-boxes jsListView pelangi">
 		<?php
 		if ($data_kelas == null) echo '<div class="no-data">Oops! kelasnya belum ada nih :)</div>';
-		
+
 		$dk = array();
 		foreach ($data_kelas as $v) {
 			if (!$this->Kelas_model->cekUserInClass(myUid(), $v->id_kelas)) {
 				array_push($dk, $v);
 			}
 		}
-		
+
 		if (empty($dk) && !is_null($data_kelas)) echo '<div class="no-data">Oops! kamu sudah ikut di semua kelas yang tersedia :)</div>';
 
 		foreach ($dk as $val) : ?>

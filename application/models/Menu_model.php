@@ -9,6 +9,7 @@ class Menu_model extends CI_Model
 		$q = $this->db
 		->from($this->tm)
 		->where('role_id', $this->myRole())
+		->order_by('position')
 		->get();
 		return $q->result();
 	}

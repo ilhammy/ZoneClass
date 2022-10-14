@@ -16,6 +16,7 @@ if (!isAdminGuru()) redirect(); ?>
 		<?= ($web_devmode) ? 'eruda.init();' : '' ?>
 		const baseUrl = '<?= base_url() ?>';
 	</script>
+	<script src="/assets/js/jquery.js"></script>
 
 	<!-- Favicon icon -->
 	<link rel="icon" type="image/png" sizes="16x16"
