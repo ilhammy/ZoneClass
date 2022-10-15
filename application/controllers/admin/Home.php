@@ -32,7 +32,8 @@ class Home extends CI_Controller {
 
 	public function kelas() {
 		$data['sb_menu'] = $this->Menu->getMenu();
-		$data['data_kelas'] = $this->Kelas_model->getMyClass();
+		$data['data_kelas'] = (isAdmin()) ? $this->Kelas_model->getAllData() : $this->Kelas_model->getMyClass();
+		$data['data_kelas_pending'] = $this->Kelas_model->getPendingClass((isAdmin()) ? '' : myUid());
 
 		$this->load->view('admin/top', $data);
 		$this->load->view('admin/kelas', $data);

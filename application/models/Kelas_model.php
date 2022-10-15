@@ -5,7 +5,7 @@ class Kelas_model extends CI_Model {
 
 	private $tk = 'kelas';
 	private $tku = 'kelas_user';
-	
+
 	public $create_rules = array(
 		array(
 			'field' => 'nama_kelas',
@@ -13,7 +13,7 @@ class Kelas_model extends CI_Model {
 			'rules' => 'required|trim|min_length[5]|max_length[30]',
 			'errors' => array(
 				'required' => '%s kosong',
-				'min_length' => '%s minimal %s karakter', 
+				'min_length' => '%s minimal %s karakter',
 				'max_length' => '%s maksimal %s karakter'
 			)
 		),
@@ -23,20 +23,20 @@ class Kelas_model extends CI_Model {
 			'rules' => 'required|trim|min_length[5]|max_length[100]',
 			'errors' => array(
 				'required' => '%s kososng',
-				'min_length' => '%s minimal %s karakter', 
+				'min_length' => '%s minimal %s karakter',
 				'max_length' => '%s maksimal %s karakter'
 			),
 		)
 	);
-	
+
 	function addClass($data) {
-		$this->db->insert($this->tk,$data);
-    return ($this->db->affected_rows() != 1);
+		$this->db->insert($this->tk, $data);
+		return ($this->db->affected_rows() != 1);
 	}
-	
+
 	function updateClassInfo($kid, $data) {
 		$this->db->update($this->tk, $data, ['id_kelas' => $kid]);
-    return ($this->db->affected_rows() == 1);
+		return ($this->db->affected_rows() == 1);
 	}
 
 	function getAllData() {
@@ -56,11 +56,25 @@ class Kelas_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->result();
 	}
-	
+
 	function getMyClass() {
-		return $this->db->get_where($this->tk, [$this->tk . '.creator_id' => myUid(), 'status' => 1])->result();
+		return $this->db->get_where($this->tk, ['creator_id' => myUid(), 'status' => 1])->result();
 	}
-	
+
+	function getPendingClass($uid = null) {
+		if (is_null($uid)) {
+			return $this->db
+			->order_by('dibuat', 'DESC')
+			->get_where($this->tk, ['status !=' => 1])
+			->result();
+		} else {
+			return $this->db
+			->order_by('dibuat', 'DESC')
+			->get_where($this->tk, ['creator_id' => $uid, 'status !=' => 1])
+			->result();
+		}
+	}
+
 	function getAllSiswa($kid = null) {
 		$this->db->select('a.username, a.user_id, a.role_id, b.id_kelas, c.*');
 		$this->db->from('users a, kelas_user b');
@@ -73,7 +87,7 @@ class Kelas_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->result();
 	}
-	
+
 	function getAllSiswaByKelas($kelas) {
 		$this->db->select('*');
 		$this->db->from($this->tku);
@@ -86,15 +100,15 @@ class Kelas_model extends CI_Model {
 	function getSingle($id) {
 		return $this->db->get_where($this->tk, ['id_kelas' => $id])->row();
 	}
-	
+
 	function isActiveClass($id) {
 		return $this->db->get_where($this->tk, ['id_kelas' => $id, 'status' => 0])->row();
 	}
-	
+
 	function getJoinDatr($id, $uid) {
 		return $this->db->get_where($this->tku, ['id_kelas' => $id, 'id_user' => $uid])->row();
 	}
-	
+
 	function cekUserInClass($uid, $clid) {
 		$res = $this->db->get_where($this->tku, ['id_user' => $uid, 'id_kelas' => $clid])->row();
 		return ($res) ? true : false;

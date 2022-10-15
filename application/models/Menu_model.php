@@ -6,23 +6,10 @@ class Menu_model extends CI_Model
 	public $tm = "menu_sidebar";
 
 	public function getMenu() {
-		$q = $this->db
-		->from($this->tm)
-		->where('role_id', $this->myRole())
-		->order_by('position')
-		->get();
-		return $q->result();
-	}
-
-	function myRole() {
-		switch ($this->session->userdata('role_id')) {
-			case 0:
-				return 'admin';
-			case 1:
-				return 'all';
-			default:
-				return null;
-		}
+		$this->db->from($this->tm);
+		if ($this->session->userdata('role_id') != 0) $this->db->where('role_id', 'all');
+		$this->db->order_by('position');
+		return $this->db->get()->result();
 	}
 
 }

@@ -26,22 +26,30 @@
 			<h5 class="card-title">Menunggu Persetujuan</h5>
 			<div class="message-center" style="height: auto!important">
 				<?php
-				if ($data_kelas == null) echo '<div class="no-data">Tidak ada kelas</div>';
+				if ($data_kelas_pending == null) echo '<div class="no-data">Tidak ada data</div>';
 
-				foreach ($data_kelas as $val) : ?>
+				foreach ($data_kelas_pending as $val) :
+				$ikon = ($val->status == 0) ? 'fa-clock-o text-primary' : 'fa-times-circle text-danger';
+				?>
 				<!-- Message -->
-				<a href="/dashboard/kelas/<?= $val->id_kelas ?>">
-					<div class="btn btn-success btn-circle">
+				<a id_kelas="<?= $val->id_kelas ?>" onclick="<?= (!isAdmin()) ? 'window.location.assign(\'/dashboard/kelas/'.$val->id_kelas.'\')' : 'aksi1(this)' ?>">
+					<div class="btn <?= ($val->status == 0) ? 'btn-primary' : 'btn-danger' ?> btn-circle">
 						<i class="fa fa-graduation-cap"></i>
 					</div>
 					<div class="mail-contnet">
 						<h6 class="text-dark font-medium mb-0"><?= $val->nama_kelas ?></h6>
-						<span class="mail-desc">
-							<?= timeago($val->dibuat) ?>
+						<span class="mail-desc <?= ($val->status == 2) ? 'text-danger' : '' ?>">
+							<?php
+							if (isAdmin()) {
+								echo timeago($val->dibuat);
+							} else {
+								echo ($val->status == 0) ? 'Menunggu persetujuan..' : 'Ditolak!';
+							}
+							?>
 						</span>
 					</div>
 					<div class="btn p-1" style="position: absolute">
-						<i class="fa fa-caret-square-o-down"></i>
+						<i class="fa <?= $ikon ?>"></i>
 					</div>
 				</a>
 				<?php endforeach ?>
@@ -81,3 +89,35 @@
 	<!-- End Kanan -->
 </div>
 <!-- End Row -->
+
+<form action="" method="post" class="d-none" id="form1">
+	<input type="hidden" name="kelid" id="form-kelid" />
+	<input type="hidden" name="status" id="form-status" />
+</form>
+
+<script>
+	const aksi1 = (e) => {
+		console.log(e.getAttribute('id_kelas'))
+		Swal.fire({
+			title: 'Pilih Tindakan',
+			showDenyButton: true,
+			showCancelButton: true,
+			confirmButtonText: 'Setujui',
+			denyButtonText: `Tolak`,
+			cancelButtonText: `Batal`,
+		}).then((result) => {
+			/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				fillForm(e.getAttribute('id_kelas'), 1);
+			} else if (result.isDenied) {
+				fillForm(e.getAttribute('id_kelas'), 2);
+			}
+		})
+	}
+	
+	const fillForm = (a, b) => {
+		document.querySelector('#form-kelid').value = a;
+		document.querySelector('#form-kelid').value = b;
+		document.querySelector('#form1').submit();
+	}
+</script>

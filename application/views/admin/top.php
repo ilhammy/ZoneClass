@@ -17,6 +17,7 @@ if (!isAdminGuru()) redirect(); ?>
 		const baseUrl = '<?= base_url() ?>';
 	</script>
 	<script src="/assets/js/jquery.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<!-- Favicon icon -->
 	<link rel="icon" type="image/png" sizes="16x16"
@@ -25,6 +26,9 @@ if (!isAdminGuru()) redirect(); ?>
 	<!-- Bootstrap Core CSS -->
 	<link href="/assets/css/admin/bootstrap.min.css" rel="stylesheet" />
 	<link href="/assets/css/admin/perfect-scrollbar.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/assets/css/admin/dataTables.bootstrap4.css" />
+	<link rel="stylesheet" href="/assets/css/admin/responsive.dataTables.min.css" />
+
 
 	<!-- chartist CSS -->
 	<link href="/assets/css/admin/morris.css" rel="stylesheet" />
@@ -38,9 +42,9 @@ if (!isAdminGuru()) redirect(); ?>
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
-		      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		    <![endif]-->
+				      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+				      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+				    <![endif]-->
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -113,7 +117,7 @@ if (!isAdminGuru()) redirect(); ?>
 						<!-- ============================================================== -->
 						<!-- Search -->
 						<!-- ============================================================== -->
-						<li class="nav-item hidden-xs-down search-box">
+						<li class="nav-item hidden-xs-down search-box d-none">
 							<a
 								class="nav-link hidden-sm-down waves-effect waves-dark"
 								href="javascript:void(0)"
@@ -137,15 +141,39 @@ if (!isAdminGuru()) redirect(); ?>
 						<!-- Profile -->
 						<!-- ============================================================== -->
 						<li class="nav-item dropdown u-pro">
-							<a class="
-								nav-link dropdown-toggle waves-effect waves-dark profile-pic"
+							<a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
 								href="#" id="navbarDropdown" data-bs-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">
 								<img src="<?= profileValue('foto') ?>"
 								alt="" />
 								<span class="hidden-md-down"><?= profileValue('fullname') ?> &nbsp;</span>
 							</a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
+							<div class="dropdown-menu dropdown-menu-end animated flipInY">
+								<ul class="dropdown-user">
+									<li>
+										<div class="dw-user-box">
+											<div class="u-img">
+												<img src="<?= profileValue('foto') ?>" alt="user" />
+											</div>
+											<div class="u-text">
+												<h4><?= profileValue('fullname') ?></h4>
+												<p class="text-muted">
+													<?= dataUserValue('email') ?>
+												</p>
+												<a href="/dashboard/profile" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+											</div>
+										</div>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li>
+										<a href="/dashboard/settings"><i class="fa fa-cog"></i> Pengaturan</a>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li>
+										<a href="/logout"><i class="fa fa-power-off"></i> Logout</a>
+									</li>
+								</ul>
+							</div>
 						</li>
 					</ul>
 				</div>
