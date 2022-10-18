@@ -64,5 +64,8 @@ $route['dashboard/kelas/tambah'] = 'admin/home/tambah_kelas';
 $route['dashboard/kelas/(:num)'] = 'admin/home/detail_kelas/$1';
 $route['dashboard/materi'] = 'admin/materi';
 $route['dashboard/materi/tambah'] = 'admin/materi/tambah_materi';
+$route['dashboard/profile'] = 'admin/profile/index';
+$route['dashboard/profile/(:num)'] = 'admin/profile/index/$1';
 
 $route['materi/(:any)'] = 'materi/index/$1';
+

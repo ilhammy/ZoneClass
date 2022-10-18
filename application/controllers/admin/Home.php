@@ -8,6 +8,7 @@ class Home extends CI_Controller {
 		cekLogin();
 		if (!isAdminGuru()) redirect();
 		$this->load->model('Kelas_model');
+		$this->load->model('Materi_model');
 		$this->load->model('Menu_model', 'Menu');
 	}
 	public function index() {
@@ -23,7 +24,8 @@ class Home extends CI_Controller {
 		}
 		$data = array(
 			'sb_menu' => $this->Menu->getMenu(),
-			'siswaku' => my_array_unique($siswa)
+			'siswaku' => my_array_unique($siswa),
+			'materiku' => $this->Materi_model->getByCreator(myUid())
 		);
 		$this->load->view('admin/top', $data);
 		$this->load->view('admin/dash', $data);
@@ -32,14 +34,25 @@ class Home extends CI_Controller {
 
 	public function kelas() {
 		$data['sb_menu'] = $this->Menu->getMenu();
-		$data['data_kelas'] = (isAdmin()) ? $this->Kelas_model->getAllData() : $this->Kelas_model->getMyClass();
+		$data['data_kelas'] = $this->Kelas_model->getMyClass();
 		$data['data_kelas_pending'] = $this->Kelas_model->getPendingClass((isAdmin()) ? '' : myUid());
 
 		$this->load->view('admin/top', $data);
 		$this->load->view('admin/kelas', $data);
 		$this->load->view('admin/down', $data);
 	}
-	
+
+	public function kelola_kelas() {
+		if (!isAdmin()) redirect('dashboard/kelas');
+		$data['sb_menu'] = $this->Menu->getMenu();
+		$data['data_kelas'] = $this->Kelas_model->getAllData();
+		//$data['data_kelas_pending'] = $this->Kelas_model->getPendingClass((isAdmin()) ? '' : myUid());
+
+		$this->load->view('admin/top', $data);
+		$this->load->view('admin/kelas_manage', $data);
+		$this->load->view('admin/down', $data);
+	}
+
 	public function detail_kelas($idkes) {
 		$data['sb_menu'] = $this->Menu->getMenu();
 		$data['data_kelas'] = $this->Kelas_model->getSingle($idkes);
@@ -62,7 +75,15 @@ class Home extends CI_Controller {
 		}
 
 		$this->load->view('admin/top', $data);
-		$this->load->view('admin/detail_kelas', $data);
+		if (is_null($data['data_kelas'])) {
+			$data['msg'] = 'Kelas yang anda maksud tidak ditemukan';
+			$this->load->view('admin/msg', $data);
+		} else if ($data['data_kelas']->creator_id !== myUid() && !isAdmin()) {
+			$data['msg'] = 'Akses tidak diizinkan';
+			$this->load->view('admin/msg', $data);
+		} else {
+			$this->load->view('admin/detail_kelas', $data);
+		}
 		$this->load->view('admin/down', $data);
 	}
 
@@ -90,6 +111,34 @@ class Home extends CI_Controller {
 		$this->load->view('admin/top', $data);
 		$this->load->view('admin/add_kelas', $data);
 		$this->load->view('admin/down', $data);
+	}
+	public function hapus_kelas() {
+		$sts = false;
+		$msg = 'Form tidak lengkap!';
+		if ($this->input->server('REQUEST_METHOD') == 'POST') {
+			$this->form_validation->set_rules('kid', 'Id Kelas', 'trim|required');
+			if ($this->form_validation->run() !== false) {
+				$kid = $this->input->post('kid', true);
+				if ($this->Kelas_model->getSingle($kid) == null) {
+					$msg = 'Kelas tidak ditemukan';
+					echo json_encode(['status' => $sts, 'msg' => $msg]);
+					return;
+				}
+				if ($this->Kelas_model->deleteById($kid)) {
+					$sts = true;
+					$msg = '<b>Berhasil!</b> kelas telah dihapus!';
+				} else {
+					$sts = false;
+					$msg = '<b>Gagal!</b> Terjadi kesalahan, silahkan coba lagi';
+				}
+				echo json_encode(['status' => $sts, 'msg' => $msg]);
+			} else {
+				echo json_encode(['status' => $sts, 'msg' => $msg]);
+			}
+		} else {
+			$msg = 'Invalid access';
+			echo json_encode(['status' => $sts, 'msg' => $msg]);
+		}
 	}
 
 	public function siswa() {

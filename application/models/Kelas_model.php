@@ -38,6 +38,11 @@ class Kelas_model extends CI_Model {
 		$this->db->update($this->tk, $data, ['id_kelas' => $kid]);
 		return ($this->db->affected_rows() == 1);
 	}
+	
+	function deleteById($kid) {
+		$this->db->delete($this->tk, ['id_kelas' => $kid]);
+		return ($this->db->affected_rows() == 1);
+	}
 
 	function getAllData() {
 		$q = $this->db->from($this->tk)
@@ -57,7 +62,8 @@ class Kelas_model extends CI_Model {
 		return $query->result();
 	}
 
-	function getMyClass() {
+	function getMyClass($uid = null) {
+		$uid = (is_null($uid)) ? myUid() : $uid;
 		return $this->db->get_where($this->tk, ['creator_id' => myUid(), 'status' => 1])->result();
 	}
 

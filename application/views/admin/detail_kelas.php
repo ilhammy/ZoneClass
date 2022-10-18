@@ -15,6 +15,7 @@
 		</ol>
 	</div>
 	<div class="col-md-7 align-self-center">
+		<button onclick="askDelete()" class="waves-effect waves-light pull-right btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button>
 	</div>
 </div>
 <!-- End Bread crumb and right sidebar toggle -->
@@ -50,7 +51,7 @@
 					<label>Keterangan Singkat</label>
 					<textarea class="form-control" name="des" rows="5" id="input-des" required><?= $data_kelas->tentang ?></textarea>
 				</div>
-				<input type="submit" class="btn btn-info text-white" value="Simpan Perubahan" id="sb-form1" disabled="true" />
+				<button type="submit" class="waves-effect waves-light btn btn-info text-white" id="sb-form1" disabled="true"><i class="fa fa-check"></i> Simpan</button>
 			</form>
 
 		</div>
@@ -64,7 +65,7 @@
 				if (sizeof($data_siswa) == 0) echo '<div class="no-data">Tidak ada siswa</div>';
 
 				foreach ($data_siswa as $d) :
-					$val = $this->User_model->getByUid($d->id_user);
+				$val = $this->User_model->getByUid($d->id_user);
 				?>
 				<!-- Message -->
 				<a href="#">
@@ -86,6 +87,7 @@
 <!-- End Row -->
 
 <script>
+	const idKelas = '<?= $data_kelas->id_kelas ?>';
 	const dataOld = {
 		'nama': '<?= $data_kelas->nama_kelas ?>',
 		'des': '<?= $data_kelas->tentang ?>'
@@ -105,5 +107,51 @@
 		} else {
 			btnSub.disabled = false;
 		}
+	}
+
+	const askDelete = () => {
+		Swal.fire({
+			title: 'konfirmasi',
+			text: "Anda ingin menghapus kelas ini?",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Ya',
+			cancelButtonText: 'Tidak'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$(".preloader").fadeIn();
+				ajaxHapusKelas();
+			}
+		})
+	}
+
+	const ajaxHapusKelas = () => {
+		$.ajax({
+			url: atob('<?= base64_encode('/admin/home/hapus_kelas') ?>'),
+			method: 'post',
+			data: {
+				kid: idKelas
+			},
+			dataType: 'json',
+			success: (response) => {
+				console.log(response)
+				if (response.status != true) {
+					showMsg('error', response.msg)
+				} else {
+					showMsg('success', 'Kelas telah dihapus!')
+					setTimeout(() => {
+						location.href = '/dashboard/kelas'
+					}, 3000);
+				}
+			},
+			complete: () => {
+				$(".preloader").fadeOut();
+			},
+			error: () => {
+				showMsg('error', 'Terjadi kesalahan sistem!')
+			}
+		});
 	}
 </script>

@@ -66,7 +66,7 @@
 					</div>
 					<div class="align-slef-center">
 						<h2 class="m-b-0">
-							9999
+							<?= sizeof($materiku) ?>
 							<small><i class="ti-angle-down text-danger"></i></small>
 						</h2>
 						<h6 class="text-muted m-b-0">Total Materi</h6>

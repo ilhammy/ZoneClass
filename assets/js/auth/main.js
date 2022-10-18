@@ -5,6 +5,7 @@ loginIn = document.getElementById('login-in'),
 loginUp = document.getElementById('login-up')
 
 
+
 try {
 	signUp.addEventListener('click', ()=> {
 		// Remove classes first if they exist

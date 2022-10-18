@@ -69,7 +69,7 @@
 						<td><?= $key + 1 ?></td>
 						<td><?= $val->judul ?></td>
 						<td>
-							<button class="btn btn-sm btn-info">
+							<button onclick="setModal1('<?= base64_encode(json_encode($val)) ?>')" class="btn btn-sm btn-info text-white" data-toggle="modal" data-target="#modal1">
 								Lihat
 							</button>
 						</td>
@@ -89,11 +89,59 @@
 	</div>
 </div>
 
+<!-- sample modal content -->
+<div id="modal1" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">
+					Preview
+				</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<button class="btn btn-info waves-effect" data-dismiss="modal">
+					Tutup
+				</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <!-- This is data table -->
 <script src="/assets/js/admin/jquery.dataTables.min.js"></script>
 <script src="/assets/js/admin/dataTables.responsive.min.js"></script>
 
 <script>
+	function setModal1(data) {
+		const cont = $('#modal1 .modal-body');
+		data = JSON.parse(atob(data))
+		let teks = (data.teks !== null)? `<p>${data.teks}</p>`: '';
+		let link = (data.link !== null)? toAcordion(JSON.parse(data.link)): '';
+		let foto = (data.foto !== null)? `<img src="${data.foto}" width="100%" />`: '';
+		let youtube = (data.youtube !== null)? `<iframe src="https://www.youtube.com/embed/${data.youtube}" class="d-block mx-auto" frameborder="0" allowFullScreen></iframe>`: '';
+
+		let html = teks + link + foto + youtube;
+		cont.html(html)
+	}
+
+	function toAcordion(links) {
+		let out = ''
+		links.forEach(function (v, i) {
+			out += '<div class="card"><div class="card-header"><h2 class="mb-0">' +
+			`<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#coll${i}" aria-expanded="true" aria-controls="collapseOne">` +
+			v.name + '</button></h2></div>' +
+			`<div id="coll${i}" class="collapse show" aria-labelledby="headingOne" data-parent="#accorlink"><div class="card-body">${v.url}</div></div>`;
+		});
+		return `<div class="accordion" id="accorlink">${out}</div>`;
+	}
+
 	$(function () {
 		$("#myTable").DataTable();
 	});

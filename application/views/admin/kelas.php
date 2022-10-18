@@ -64,7 +64,7 @@
 				<?php
 				if ($data_kelas == null) echo '<div class="no-data">Tidak ada kelas</div>';
 
-				foreach ($data_kelas as $val) :
+				foreach ($data_kelas as $key => $val) :
 				$siswanya = $this->Kelas_model->getAllSiswa($val->id_kelas);
 				?>
 				<!-- Message -->
@@ -77,9 +77,6 @@
 						<span class="mail-desc">
 							<?= sizeof($siswanya) ?> Siswa
 						</span>
-					</div>
-					<div class="btn p-1" style="position: absolute">
-						<i class="fa fa-caret-square-o-down"></i>
 					</div>
 				</a>
 				<?php endforeach ?>
@@ -114,7 +111,7 @@
 			}
 		})
 	}
-	
+
 	const fillForm = (a, b) => {
 		document.querySelector('#form-kelid').value = a;
 		document.querySelector('#form-kelid').value = b;

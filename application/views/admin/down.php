@@ -23,7 +23,8 @@
 	<!-- ============================================================== -->
 
 	<!-- Bootstrap popper Core JavaScript -->
-	<script src="/assets/js/admin/bootstrap.bundle.min.js"></script>
+	<script src="/assets/js/admin/popper.min.js"></script>
+	<script src="/assets/js/admin/bootstrap.min.js"></script>
 	<!-- slimscrollbar scrollbar JavaScript -->
 	<script src="/assets/js/admin/perfect-scrollbar.jquery.min.js"></script>
 	<!--Wave Effects -->

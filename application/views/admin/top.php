@@ -110,7 +110,7 @@ if (!isAdminGuru()) redirect(); ?>
 					<!-- ============================================================== -->
 					<!-- toggle and nav items -->
 					<!-- ============================================================== -->
-					<ul class="navbar-nav me-auto">
+					<ul class="navbar-nav mr-auto">
 						<li class="nav-item">
 							<a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><i class="fa fa-bars"></i></a>
 						</li>
@@ -140,9 +140,9 @@ if (!isAdminGuru()) redirect(); ?>
 						<!-- ============================================================== -->
 						<!-- Profile -->
 						<!-- ============================================================== -->
-						<li class="nav-item dropdown u-pro">
+						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
-								href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+								href="#" id="navbarDropdown" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">
 								<img src="<?= profileValue('foto') ?>"
 								alt="" />

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Materi extends CI_Controller {
+class Profile extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
@@ -12,32 +12,31 @@ class Materi extends CI_Controller {
 		$this->load->model('Menu_model', 'Menu');
 	}
 
-	public function index() {
+	public function index($uid = null) {
 		$data['sb_menu'] = $this->Menu->getMenu();
-		$data['data_kelas'] = $this->Kelas->getMyClass();
-		$data['kelas_terpilih'] = $this->input->get('kelas');
-
+		$data['uid'] = ($uid == null) ? myUid() : $uid;
+		$data['data_user'] = $this->User_model->getByUid($data['uid']);
+		
 		$this->load->view('admin/top', $data);
-		$this->load->view('admin/materi', $data);
+		$this->load->view('admin/profile', $data);
 		$this->load->view('admin/down', $data);
 	}
 	
 	public function tambah_materi() {
 		$data['sb_menu'] = $this->Menu->getMenu();
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
-			$this->form_validation->set_rules('idkel', 'Id Kelas', 'trim|required');
-			$this->form_validation->set_rules('title', 'Judul', 'trim|required');
+			$this->form_validation->set_rules($this->Kelas_model->create_rules);
 			if ($this->form_validation->run() !== false) {
 				$inti = array(
-					'id_kelas' => $this->input->post('idKel'),
-					'judul' => $this->input->post('title'),
-					'teks' => $this->input->post('text'),
-					'foto' => $this->input->post('image'),
-					'link' => $this->input->post('link'),
-					'youtube' => $this->input->post('youtube'),
+					'id_kelas' => myUid(),
+					'judul' => myUid(),
+					'teks' => $this->input->post('nama_kelas'),
+					'foto' => $this->input->post('nama_kelas'),
+					'link' => $this->input->post('des'),
+					'youtube' => $this->input->post('des'),
 					'waktu' => time()
 				);
-				if (true) {
+				if ($this->Kelas_model->addClass($inti)) {
 					$this->session->set_flashdata('newclass', '<b>Berhasil!</b> sekarang kelas sedang dalama peninjauan.');
 				} else {
 					$this->session->set_flashdata('newclass', '<b>Gagal!</b> Terjadi kesalahan, silahkan coba lagi');
@@ -46,6 +45,10 @@ class Materi extends CI_Controller {
 				return;
 			}
 		}
+
+		$this->load->view('admin/top', $data);
+		$this->load->view('admin/add_materi', $data);
+		$this->load->view('admin/down', $data);
 	}
 
 }
