@@ -84,8 +84,8 @@
 	<!-- kolom1 -->
 	<div class="col-md-6">
 		<div class="card card-body mailbox">
-			<h5 class="card-title">Notifikasi</h5>
-			<div class="message-center" style="height: 420px !important">
+			<h5 class="card-title">Soon</h5>
+			<div class="message-center d-none" style="height: 420px !important">
 				<!-- Message -->
 				<a href="#">
 					<div class="btn btn-danger btn-circle">
@@ -168,8 +168,8 @@
 	<div class="col-md-6">
 		<div class="card">
 			<div class="card-body">
-				<h5 class="card-title">Feeds</h5>
-				<ul class="feeds">
+				<h5 class="card-title">Soon</h5>
+				<ul class="feeds d-none">
 					<li>
 						<div class="bg-light-info">
 							<i class="fa fa-bell-o"></i>

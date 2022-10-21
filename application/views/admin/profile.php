@@ -56,7 +56,7 @@ if ($data_user->role_id == 2) {
 		<div class="card">
 			<div class="card-body">
 				<center class="m-t-30">
-					<img src="<?= $data_user->foto ?>" class="img-circle" width="150" />
+					<img src="<?= $data_user->foto ?>" class="img-circle" width="150" height="150" />
 					<h4 class="card-title m-t-10"><?= $data_user->fullname ?></h4>
 					<h6 class="card-subtitle">
 						@<?= $data_user->username ?><br/>
@@ -89,6 +89,8 @@ if ($data_user->role_id == 2) {
 				<h6><?= $data_user->email ?></h6>
 				<small class="text-muted p-t-30 db">WhatsApp</small>
 				<h6><?= $data_user->whatsapp ?></h6>
+				<small class="text-muted p-t-30 db">Jenis Kelamin</small>
+				<h6><?= $data_user->kelamin ?></h6>
 				<small class="text-muted p-t-30 db">Tanggal Lahir</small>
 				<h6><?= date('d/M/Y', $data_user->tgl_lahir) ?></h6>
 
@@ -97,12 +99,9 @@ if ($data_user->role_id == 2) {
 				<a href="https://wa.me/<?= $data_user->whatsapp ?>" class="btn btn-circle btn-secondary">
 					<i class="fa fa-whatsapp"></i>
 				</a>
-				<button class="btn btn-circle btn-secondary">
-					<i class="fa fa-twitter"></i>
-				</button>
-				<button class="btn btn-circle btn-secondary">
-					<i class="fa fa-youtube"></i>
-				</button>
+				<a href="mailto:<?= $data_user->email ?>" class="btn btn-circle btn-secondary">
+					<i class="fa fa-envelope-o"></i>
+				</a>
 			</div>
 		</div>
 	</div>

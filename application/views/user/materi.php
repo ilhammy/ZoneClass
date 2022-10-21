@@ -28,7 +28,7 @@
 					} ?>
 
 					<div class="list-materi-caption" style="<?= (is_null($val->foto) && is_null($val->youtube)) ? 'margin-top: .5rem' : null ?>">
-						<?= $val->teks ?>
+						<?= nl2br($val->teks, true) ?>
 					</div>
 					<div class="list-materi-footer">
 						<p class="list-materi-judul">

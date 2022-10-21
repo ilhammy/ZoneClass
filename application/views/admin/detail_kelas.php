@@ -51,7 +51,7 @@
 					<label>Keterangan Singkat</label>
 					<textarea class="form-control" name="des" rows="5" id="input-des" required><?= $data_kelas->tentang ?></textarea>
 				</div>
-				<button type="submit" class="waves-effect waves-light btn btn-info text-white" id="sb-form1" disabled="true"><i class="fa fa-check"></i> Simpan</button>
+				<button type="submit" class="waves-effect waves-light btn btn-info text-white" id="sb-form1" disabled="true"><i class="fa fa-check"></i> Update</button>
 			</form>
 
 		</div>

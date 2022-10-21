@@ -3,6 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="<?= $web_description ?>" />
+	<link rel="icon" type="image/png" sizes="16x16" href="<?= $web_favicon ?>" />
 
 	<!-- ===== CSS ===== -->
 	<link rel="stylesheet" href="/assets/css/auth/styles.css<?= ($web_devmode) ? '?time=' . time() : '' ?>">
@@ -32,5 +34,13 @@
 	</style>
 
 	<title><?= $web_name ?></title>
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="<?= base_url() ?>">
+	<meta property="og:title" content="<?= $web_name ?>">
+	<meta property="og:description" content="<?= $web_description ?>">
+	<meta property="og:image" content="/assets/img/img-login.svg">
+
 </head>
 <body>

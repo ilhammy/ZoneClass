@@ -21,8 +21,7 @@ if (!isAdminGuru()) redirect(); ?>
 
 	<!-- Favicon icon -->
 	<link rel="icon" type="image/png" sizes="16x16"
-	href="/assets/img/favicon.png"
-	/>
+	href="<?= $web_favicon ?>" />
 	<!-- Bootstrap Core CSS -->
 	<link href="/assets/css/admin/bootstrap.min.css" rel="stylesheet" />
 	<link href="/assets/css/admin/perfect-scrollbar.css" rel="stylesheet" />

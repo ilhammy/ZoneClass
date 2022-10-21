@@ -65,7 +65,7 @@
 				if ($data_kelas == null) echo '<div class="no-data">Tidak ada kelas</div>';
 
 				foreach ($data_kelas as $key => $val) :
-				$siswanya = $this->Kelas_model->getAllSiswa($val->id_kelas);
+				$siswanya = $this->Kelas_model->getAllSiswaByKelas($val->id_kelas);
 				?>
 				<!-- Message -->
 				<a href="/dashboard/kelas/<?= $val->id_kelas ?>">

@@ -56,13 +56,25 @@
 				<!-- Tab panes -->
 				<div class="tab-content tabcontent-border">
 					<div class="form-group mt-3">
-						<label>Judul</label>
-						<input
-						type="text" class="form-control" name="judul" autocomplete="off" required />
+						<label>Kelas</label>
+						<select class="form-control" id="inputKelas">
+							<?php foreach ($data_kelas as $val) {
+								echo "<option value=\"$val->id_kelas\">$val->nama_kelas</option>";
+							} ?>
+						</select>
 						<small class="form-text text-muted">
 							*Wajib
 						</small>
 					</div>
+					<div class="form-group mt-3">
+						<label>Judul</label>
+						<input
+						type="text" class="form-control" id="inputJudul" autocomplete="off" required />
+						<small class="form-text text-muted">
+							*Wajib
+						</small>
+					</div>
+
 					<div class="tab-pane active" id="teks" role="tabpanel">
 						<div class="form-group">
 							<label>Teks</label>
@@ -72,19 +84,21 @@
 							</small>
 						</div>
 						<button class="btn waves-effect waves-light btn-info pull-right text-white"
-							onclick="postText(document.querySelector('[name=teks]'))">
+							onclick="postText(1, document.querySelector('[name=teks]'))">
 							<i class="fa fa-paper-plane-o"></i> Posting
 						</button>
 					</div>
 					<div class="tab-pane" id="tautan" role="tabpanel">
 						<button class="btn waves-effect waves-light btn-info d-block mx-auto text-white"
-							onclick="">
+							onclick="postText(2, null)">
 							<i class="fa fa-paper-plane-o"></i> Posting
 						</button>
 						<div class="form-group mt-3">
 							<label>Link 1</label>
 							<input
-							type="url" class="form-control" name="urls[]" autocomplete="off" required />
+							type="text" class="form-control form-control-sm" name="urlNames[]" autocomplete="off" placeholder="Teks Link (opsional)" />
+							<input
+							type="url" class="form-control form-control-sm" name="urls[]" autocomplete="off" placeholder="Url" />
 							<small class="form-text text-muted">
 								*Wajib
 							</small>
@@ -99,17 +113,21 @@
 							<small class="form-text text-muted" id="msg-ytb"></small>
 						</div>
 						<button class="btn waves-effect waves-light btn-info pull-right text-white"
-							onclick="">
+							onclick="postText(3, document.querySelector('[name=url_youtube]'))">
 							<i class="fa fa-paper-plane-o"></i> Posting
 						</button>
 					</div>
 					<div class="tab-pane pt-2" style="font-size: .9rem" id="foto" role="tabpanel">
-						<label for="input-file-now">Gambar</label>
-						<input type="file" id="input-gambar" class="dropify" data-max-file-size="3M" data-allowed-file-extensions="jpg jpeg png gif" />
-						<button class="btn waves-effect waves-light btn-info pull-right mt-2 text-white"
-							onclick="">
-							<i class="fa fa-paper-plane-o"></i> Posting
-						</button>
+						<form id="uploadForm" method="post" enctype="multipart/form-data">
+							<input type="hidden" id="uploadForm-kelas" name="idkel" />
+							<input type="hidden" id="uploadForm-title" name="title" />
+							<input type="hidden" value="4" name="type" />
+							<label for="input-file-now">Gambar</label>
+							<input type="file" id="input-gambar" name="image" class="dropify" data-max-file-size="3M" data-allowed-file-extensions="jpg jpeg png gif" />
+							<button onclick="isiHiddenFormUpload()" type="submit" class="btn waves-effect waves-light btn-info pull-right mt-2 text-white">
+								<i class="fa fa-paper-plane-o"></i> Posting
+							</button>
+						</form>
 					</div>
 				</div>
 
@@ -123,7 +141,7 @@
 <!-- jQuery file upload -->
 <script src="/assets/js/admin/dropify.min.js"></script>
 <script>
-	const inputJudul = document.querySelector('[name=judul]');
+	const inputJudul = document.querySelector('#inputJudul');
 	const inputIdKel = document.querySelector('#inputKelas');
 	const maxInputLink = 10;
 	var inputLinkCount = 1;
@@ -131,17 +149,17 @@
 	function tambahInputLink() {
 		if (inputLinkCount < maxInputLink) {
 			inputLinkCount++;
-			let form = ` < div class = "form-group mt-3" id = "inputLink${inputLinkCount}" > ` +
-			` < label > Link $ {
-				inputLinkCount
-			} < /label>` +
-			'<input type="url" class="form-control" name="urls[]" autocomplete="off" required />' +
+			let index = inputLinkCount;
+			let form = '<div class="form-group mt-3" id="inputLink' +index+ '">' +
+			'<label>Link' +index+ '</label>' +
+			'<input type="text" class="form-control form-control-sm" name="urlNames[]" autocomplete="off" placeholder="Teks Link (opsional)" />' +
+			'<input type="url" class="form-control form-control-sm" name="urls[]" autocomplete="off" placeholder="Url"/>' +
 			'<div class="">' +
-			` < button class = "pull-right mt-1 btn btn-sm btn-danger" onclick = "deleteInput(inputLink${inputLinkCount})"><i class = "fa fa-times"></i></button > ` +
+			'<button class="pull-right mt-1 btn btn-sm btn-danger" onclick="deleteInput(inputLink' +index+ ')"><i class="fa fa-times"></i></button>' +
 			'</div></div>';
-			$('#tautan').append(form); //add input box
+			$('#tautan').append(form);
 		} else {
-			alert('Maksimal 10 link')
+			showMsg('info', 'Maksimal 10 link');
 		}
 	}
 	function deleteInput(e) {
@@ -152,9 +170,9 @@
 	function isYoutube(url, err) {
 		let regex = /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
 		if (url.match(regex)) {
-			err.innerText = ''
+			err.innerText = '';
 		} else {
-			err.innerText = 'Url tidak valid'
+			err.innerText = 'Url tidak valid';
 		}
 	}
 
@@ -167,17 +185,41 @@
 				'error': 'Ooops, something wrong happended.'
 			}
 		});
+
+		$('#uploadForm').submit((e) => {
+			e.preventDefault();
+			console.log('up')
+			let data = new FormData(document.querySelector('#uploadForm'));
+			uploadAjax(data);
+		});
+
 	});
 
-	const postText = (e) => {
+	const isiHiddenFormUpload = () => {
+		$('#uploadForm-kelas').val(inputKelas.value.trim());
+		$('#uploadForm-title').val(inputJudul.value.trim());
+	}
+
+	const postText = (a, b) => {
 		let forms = {
-			title: inputJudul.value,
-			text: e.value
+			idkel: inputKelas.value.trim(),
+			title: inputJudul.value.trim(),
+			type: a
 		};
+		if (a == 1) forms.text = b.value.trim();
+		if (a == 2) forms.link = getLinks();
+		if (a == 3) forms.ytb = b.value.trim();
+		if (a == 4) {
+			b.preventDefault();
+			console.log('up')
+			uploadAjax(new FormData(b));
+			return;
+		}
 		postAjax(forms);
 	}
 
 	const postAjax = (data) => {
+		$(".preloader").fadeIn();
 		$.ajax({
 			url: '/admin/materi/tambah_materi',
 			method: 'post',
@@ -185,11 +227,64 @@
 			dataType: 'json',
 			success: (response) => {
 				console.log(response)
-				if (response.status != true) alert(response.msg);
-				showMsg('success', 'Materi telah diposting!');
+				if (response.status != true) {
+					showMsg('info', response.msg);
+				} else {
+					showMsg('success', 'Materi telah diposting!');
+					setTimeout(() => {
+						location.reload(true)
+					}, 3000);
+				}
 			},
-			complete: () => {},
-			error: () => {}
+			complete: () => $(".preloader").fadeOut(),
+			error: () => showMsg('info', 'Server error!')
 		});
 	}
+
+	const uploadAjax = (data) => {
+		$(".preloader").fadeIn();
+		$.ajax({
+			url: '/admin/materi/tambah_materi',
+			type: 'post',
+			data: data,
+			processData: false,
+			contentType: false,
+			cache: false,
+			success: (response) => {
+				console.log(response)
+				try {
+					response = JSON.parse(response);
+					if (response.status != true) {
+						showMsg('info', response.msg);
+					} else {
+						showMsg('success', 'Materi telah diposting!');
+						setTimeout(() => {
+							location.reload(true)
+						}, 3000);
+					}
+				} catch (e) {
+					showMsg('info', 'Keslahan sistem!');
+				}
+			},
+			complete: () => $(".preloader").fadeOut(),
+			error: () => showMsg('info', 'Server error!')
+		});
+	}
+
+	const getLinks = () => {
+		let names = $('input[name^="urlNames"]');
+		let links = $('input[name^="urls"]');
+		let out = new Array();
+
+		Array.from(links).forEach((val, i) => {
+			const obj = {
+				name: (names[i].value.trim().length == 0) ? val.value.trim(): names[i].value.trim(),
+				url: val.value.trim()
+			};
+			if (validURL(val.value)) out.push(obj);
+		});
+		return JSON.stringify(out);
+	}
+
+
 </script>

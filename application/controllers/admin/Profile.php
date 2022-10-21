@@ -14,7 +14,7 @@ class Profile extends CI_Controller {
 
 	public function index($uid = null) {
 		$data['sb_menu'] = $this->Menu->getMenu();
-		$data['uid'] = ($uid == null) ? myUid() : $uid;
+		$data['uid'] = ($uid == null) ? myUid() : base64url_decode($uid);
 		$data['data_user'] = $this->User_model->getByUid($data['uid']);
 		
 		$this->load->view('admin/top', $data);

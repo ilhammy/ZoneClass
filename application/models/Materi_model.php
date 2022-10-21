@@ -6,6 +6,11 @@ class Materi_model extends CI_Model
 	public $tmk = "materi_kelas";
 	public $tk = "kelas";
 
+	public function addMateri($data) {
+		$this->db->insert($this->tmk, $data);
+		return ($this->db->affected_rows() == 1);
+	}
+
 	public function getByCreator($cid) {
 		$q = $this->db
 		->from($this->tmk.' a')
@@ -15,7 +20,7 @@ class Materi_model extends CI_Model
 		->get();
 		return $q->result();
 	}
-	
+
 	public function getByClass($kls) {
 		$q = $this->db
 		->from($this->tmk)
@@ -25,6 +30,20 @@ class Materi_model extends CI_Model
 		return $q->result();
 	}
 	
+	public function getById($id) {
+		return $this->db->get_where($this->tmk, ['id' => $id])->row(); 
+	}
+	
+	function updateData($id, $data) {
+		$this->db->update($this->tmk, $data, ['id' => $id]);
+		return ($this->db->affected_rows() == 1);
+	}
+	
+	function deleteById($id) {
+		$this->db->delete($this->tmk, ['id' => $id]);
+		return ($this->db->affected_rows() == 1);
+	}
+
 	public function getAll() {
 		$q = $this->db
 		->from($this->tmk)

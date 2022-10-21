@@ -74,10 +74,10 @@
 							</button>
 						</td>
 						<td class="text-center">
-							<button class="btn btn-sm btn-danger">
+							<button class="btn btn-sm btn-danger" type="button" onclick="hapusMateri(<?= $val->id ?>)">
 								<i class="fa fa-trash"></i>
 							</button>
-							<button class="btn btn-sm btn-primary">
+							<button class="btn btn-sm btn-primary" onclick="window.location.assign('/dashboard/materi/edit/<?= base64url_encode($val->id) ?>')">
 								<i class="fa fa-pencil"></i>
 							</button>
 						</td>
@@ -119,10 +119,11 @@
 <script src="/assets/js/admin/dataTables.responsive.min.js"></script>
 
 <script>
-	function setModal1(data) {
+	let confirmed = false;
+	const setModal1 = (data) => {
 		const cont = $('#modal1 .modal-body');
 		data = JSON.parse(atob(data))
-		let teks = (data.teks !== null)? `<p>${data.teks}</p>`: '';
+		let teks = (data.teks !== null)? `<p>${nl2br(data.teks)}</p>`: '';
 		let link = (data.link !== null)? toAcordion(JSON.parse(data.link)): '';
 		let foto = (data.foto !== null)? `<img src="${data.foto}" width="100%" />`: '';
 		let youtube = (data.youtube !== null)? `<iframe src="https://www.youtube.com/embed/${data.youtube}" class="d-block mx-auto" frameborder="0" allowFullScreen></iframe>`: '';
@@ -131,18 +132,64 @@
 		cont.html(html)
 	}
 
-	function toAcordion(links) {
+	const toAcordion = (links) => {
 		let out = ''
 		links.forEach(function (v, i) {
-			out += '<div class="card"><div class="card-header"><h2 class="mb-0">' +
-			`<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#coll${i}" aria-expanded="true" aria-controls="collapseOne">` +
-			v.name + '</button></h2></div>' +
-			`<div id="coll${i}" class="collapse show" aria-labelledby="headingOne" data-parent="#accorlink"><div class="card-body">${v.url}</div></div>`;
+			out += '<tr><td>' + v.name + '</td>' +
+			'<td>' + v.url + '</td></tr>'
 		});
-		return `<div class="accordion" id="accorlink">${out}</div>`;
+		return '<table class="table table-responsive table-striped"><tr><th>Judul Link</th><th>Url</th></tr>' + out + '</table>';
 	}
 
 	$(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({
+			"lengthChange": false
+		});
 	});
+
+	const hapusMateri = (id) => {
+		Swal.fire({
+			title: 'Konfirmasi',
+			text: 'Anda ingi menghapus materi ini?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Oke',
+			cancelButtonText: 'Batal'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				ajaxHapus(id)
+			}
+		})
+	}
+
+	const ajaxHapus = (id) => {
+		$(".preloader").fadeIn();
+		$.ajax({
+			url: '/admin/materi/hapus',
+			method: 'post',
+			data: {
+				id: id
+			},
+			dataType: 'json',
+			success: (response) => {
+				console.log(response)
+				if (response.status != true) {
+					showMsg('info', response.msg);
+				} else {
+					showMsg('success', 'Materi telah dihapus!');
+					setTimeout(() => {
+						location.reload(true)
+					}, 2000);
+				}
+			},
+			complete: () => $(".preloader").fadeOut(),
+			error: () => showMsg('info', 'Server error!')
+		});
+	}
+	
+	const nl2br = (str) => {
+		return str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+	}
 </script>

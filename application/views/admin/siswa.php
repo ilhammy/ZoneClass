@@ -46,7 +46,15 @@
 						<td><?= $val->email ?></td>
 						<td><?= $val->whatsapp ?></td>
 						<?= (isAdmin()) ? '<td>'.sizeof($kelasnya). '</td>' : '' ?>
-						<td class="text-center">2011/04/25</td>
+						<td class="text-center">
+							<button class="btn btn-sm btn-danger">
+								<i class="fa fa-sign-out"></i>
+							</button>
+							<button class="m-1 btn btn-sm btn-primary" 
+							onclick="location.href='/dashboard/profile/<?= base64url_encode($val->user_id) ?>'">  
+								<i class="fa fa-user"></i>
+							</button>
+						</td>
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
@@ -71,6 +79,8 @@
 
 <script>
 	$(function () {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({
+			"lengthChange": false
+		});
 	});
 </script>

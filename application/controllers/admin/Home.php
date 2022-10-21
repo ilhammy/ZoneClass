@@ -22,6 +22,7 @@ class Home extends CI_Controller {
 				}
 			}
 		}
+		
 		$data = array(
 			'sb_menu' => $this->Menu->getMenu(),
 			'siswaku' => my_array_unique($siswa),
@@ -99,7 +100,7 @@ class Home extends CI_Controller {
 					'dibuat' => time()
 				);
 				if ($this->Kelas_model->addClass($inti)) {
-					$this->session->set_flashdata('newclass', '<b>Berhasil!</b> sekarang kelas sedang dalama peninjauan.');
+					$this->session->set_flashdata('newclass', '<b>Berhasil!</b> sekarang kelas sedang dalam peninjauan.');
 				} else {
 					$this->session->set_flashdata('newclass', '<b>Gagal!</b> Terjadi kesalahan, silahkan coba lagi');
 				}

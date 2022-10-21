@@ -31,7 +31,7 @@ class Kelas_model extends CI_Model {
 
 	function addClass($data) {
 		$this->db->insert($this->tk, $data);
-		return ($this->db->affected_rows() != 1);
+		return ($this->db->affected_rows() == 1);
 	}
 
 	function updateClassInfo($kid, $data) {
@@ -98,7 +98,7 @@ class Kelas_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from($this->tku);
 		$this->db->group_by('id_user');
-		$this->db->where('id_kelas', '2');
+		$this->db->where('id_kelas', $kelas);
 		$this->db->order_by('bergabung');
 		return $this->db->get()->result();
 	}
@@ -108,7 +108,11 @@ class Kelas_model extends CI_Model {
 	}
 
 	function isActiveClass($id) {
-		return $this->db->get_where($this->tk, ['id_kelas' => $id, 'status' => 0])->row();
+		return $this->db->get_where($this->tk, ['id_kelas' => $id, 'status' => 1])->row();
+	}
+	
+	function isMyClass($id) {
+		return $this->db->get_where($this->tk, ['id_kelas' => $id, 'creator_id' => myUid()])->row();
 	}
 
 	function getJoinDatr($id, $uid) {

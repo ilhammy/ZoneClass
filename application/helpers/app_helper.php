@@ -91,3 +91,23 @@ function my_array_unique($array, $keep_key_assoc = false) {
 
 	return $keep_key_assoc ? $array : array_values($array);
 }
+
+// Validasi Url YouTube
+function isValidYoutube($url) {
+	return (preg_match("/((http\:\/\/){0,}(www\.){0,}(youtube\.com){1} || (youtu\.be){1}(\/watch\?v\=[^\s]){1})/", $url) == 1);
+}
+
+// Get YouTube Video Video
+function getYoutubeId($url) {
+	if (!isValidYoutube($url)) return null;
+	preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user|shorts)\/))([^\?&\"'>]+)/", $url, $matches);
+	return (sizeof($matches) > 0) ? $matches[1] : null;
+}
+
+// Respon json
+function simpleResponse($s, $m) {
+	return json_encode(array(
+		'status' => $s,
+		'msg' => $m
+	));
+}
