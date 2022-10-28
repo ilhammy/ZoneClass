@@ -1,21 +1,14 @@
 <div class="row page-titles">
 	<div class="col-md-5 align-self-center">
-		<h3 class="text-themecolor">Materi</h3>
+		<h3 class="text-themecolor">Users</h3>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item">
 				<a href="javascript:void(0)">Home</a>
 			</li>
-			<li class="breadcrumb-item active">Materi</li>
+			<li class="breadcrumb-item active">Users</li>
 		</ol>
 	</div>
 	<div class="col-md-7 align-self-center">
-		<button class="btn
-			waves-effect waves-light
-			btn btn-info
-			pull-right text-white"
-			onclick="window.location.assign('/dashboard/materi/tambah')" <?= ($data_kelas == null) ? 'disabled' : '' ?>>
-			<i class="fa fa-plus"></i> Posting
-		</button>
 	</div>
 </div>
 <!-- End Bread crumb and right sidebar toggle -->
@@ -24,67 +17,64 @@
 	<div class="message-center" style="height: auto !important">
 		<ul class="nav nav-pills">
 			<li class="nav-item">
-				<a href="/dashboard/materi" class="nav-link <?= (is_null($kelas_terpilih)) ? 'active' : '' ?>">Semua</a>
+				<a href="/dashboard/users" class="nav-link <?= (is_null($pilter)) ? 'active' : '' ?>">Semua</a>
 			</li>
-			<?php
-			if ($data_kelas == null) echo '<div class="no-data">Tidak ada kelas</div>';
-			foreach ($data_kelas as $key => $val) :
-			$cls = ($val->id_kelas == $kelas_terpilih) ? 'active' : '';
-			?>
 			<li class="nav-item">
-				<a href="/dashboard/materi?kelas=<?= $val->id_kelas ?>" class="nav-link <?= $cls ?>"><?= $val->nama_kelas ?></a>
+				<a href="/dashboard/users/guru" class="nav-link <?= ($pilter === 1) ? 'active' : '' ?>">Guru</a>
 			</li>
-			<?php endforeach ?>
+			<li class="nav-item">
+				<a href="/dashboard/users/siswa" class="nav-link <?= ($pilter === 2) ? 'active' : '' ?>">Siswa</a>
+			</li>
+			<li class="nav-item">
+				<a href="/dashboard/users/admin" class="nav-link <?= ($pilter === 0) ? 'active' : '' ?>">Admin</a>
+			</li>
+			<li class="nav-item">
+				<a href="/dashboard/users/pending" class="nav-link <?= ($pilter === 3) ? 'active' : '' ?>">Pending</a>
+			</li>
 		</ul>
 	</div>
 </div>
 
 <div class="card">
 	<div class="card-body">
-		<h4 class="card-title">Daftar Materi</h4>
+		<h4 class="card-title">Daftar Pengguna</h4>
 		<div class="table-responsive mt-2">
-			<table id="myTable" class="table table-bordered table-striped nowrap table-hover">
+			<table id="myTable" class="table table-bordered table-striped nowrap">
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Judul</th>
-						<th>Konten</th>
-						<?= (is_null($kelas_terpilih)) ? '<th>Kelas</th>' : '' ?>
+						<th>Nama</th>
+						<th>Email</th>
+						<th>WhatsApp</th>
+						<th>Status Akun</th>
 						<th>Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
-					if (is_null($kelas_terpilih)) {
-						$data_materi = $this->Materi->getByCreator(myUid());
-					} else if (isAdmin()) {
-						$data_materi = $this->Materi->getAll();
-					} else {
-						$data_materi = $this->Materi->getByClass($kelas_terpilih);
-					}
-					if (sizeof($data_materi) == 0) echo '<div class="no-data">Tidak ada siswa</div>';
+					if (sizeof($users) == 0) echo '<div class="no-data">Tidak ada users</div>';
 
-					foreach ($data_materi as $key => $val) :
+					foreach ($users as $val) :
 					?>
 					<tr>
-						<td><?= $key + 1 ?></td>
-						<td><?= $val->judul ?></td>
 						<td>
-							<button onclick="setModal1('<?= base64_encode(json_encode($val)) ?>')" class="btn btn-sm btn-info text-white" data-toggle="modal" data-target="#modal1">
-								Lihat
-							</button>
+							<img src="<?= $val->foto ?>" class="rounded-circle" width="35" height="35" />
 						</td>
-						<?php
-						if (is_null($kelas_terpilih)) {
-							$kls = $this->Kelas->getSingle($val->id_kelas);
-							echo "<td>$kls->nama_kelas</td>";
-						} ?>
+						<td><?= $val->fullname ?></td>
+						<td><?= $val->email ?></td>
+						<td><?= $val->whatsapp ?></td>
 						<td class="text-center">
-							<button class="btn btn-sm btn-danger" type="button" onclick="hapusMateri(<?= $val->id ?>)">
+							<span class="badge badge-<?= ($val->isActive) ? 'success' : 'danger' ?>">
+								<?= ($val->isActive) ? 'Aktif' : 'Pending' ?>
+							</span>
+						</td>
+						<td class="text-center">
+							<button class="btn btn-sm btn-danger" onclick="showConfirm()">
 								<i class="fa fa-trash"></i>
 							</button>
-							<button class="btn btn-sm btn-primary" onclick="window.location.assign('/dashboard/materi/edit/<?= base64url_encode($val->id) ?>')">
-								<i class="fa fa-pencil"></i>
+							<button class="m-1 btn btn-sm btn-primary"
+								onclick="location.href='/dashboard/profile/<?= base64url_encode($val->user_id) ?>'">
+								<i class="fa fa-user"></i>
 							</button>
 						</td>
 					</tr>
@@ -124,6 +114,14 @@
 <script src="/assets/js/admin/jquery.dataTables.min.js"></script>
 <script src="/assets/js/admin/dataTables.responsive.min.js"></script>
 
+<!-- start - This is for export functionality only -->
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+<!-- end - This is for export functionality only -->
+
 <script>
 	let confirmed = false;
 	const setModal1 = (data) => {
@@ -148,20 +146,38 @@
 	}
 
 	$(function () {
+		const exportName = "Data Users<?= ' '.$this->uri->segment(3) ?>"
+
 		$("#myTable").DataTable({
-			"lengthChange": false
+			"lengthChange": false,
+			dom: "Bfrtip",
+			buttons: [{
+				extend: 'csvHtml5',
+				title: exportName.trim(),
+				exportOptions: {
+					columns: [1, 2, 3]
+				}
+			},
+				{
+					extend: 'excelHtml5',
+					title: exportName.trim(),
+					exportOptions: {
+						columns: [1, 2, 3],
+					}
+				}]
 		});
+		$(".buttons-csv, .buttons-excel").addClass("btn btn-primary mr-1");
 	});
 
 	const hapusMateri = (id) => {
 		Swal.fire({
 			title: 'Konfirmasi',
-			text: 'Anda ingi menghapus materi ini?',
+			text: 'Anda ingi menghapus user ini?',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'Oke',
+			confirmButtonText: 'Hapus',
 			cancelButtonText: 'Batal'
 		}).then((result) => {
 			if (result.isConfirmed) {
@@ -194,8 +210,9 @@
 			error: () => showMsg('info', 'Server error!')
 		});
 	}
-	
+
 	const nl2br = (str) => {
-		return str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+		return str.replace(/(?:\r\n|\r|\n)/g,
+			'<br />');
 	}
 </script>

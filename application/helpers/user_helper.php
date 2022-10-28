@@ -27,7 +27,16 @@ function roleName($role) {
 	if ($role == 0) return 'Admin';
 	if ($role == 1) return 'Guru';
 	if ($role == 2) return 'Siswa';
-	// if ($role == 3) return 'Marketing';
+	return null;
+}
+
+// Nama Level
+function roleNameToId($role = null) {
+	$role = strtolower($role);
+	if ($role == 'admin') return 0;
+	if ($role == 'guru') return 1;
+	if ($role == 'siswa') return 2;
+	if ($role == 'pending') return 3;
 	return null;
 }
 

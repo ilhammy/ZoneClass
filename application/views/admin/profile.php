@@ -92,7 +92,7 @@ if ($data_user->role_id == 2) {
 				<small class="text-muted p-t-30 db">Jenis Kelamin</small>
 				<h6><?= $data_user->kelamin ?></h6>
 				<small class="text-muted p-t-30 db">Tanggal Lahir</small>
-				<h6><?= date('d/M/Y', $data_user->tgl_lahir) ?></h6>
+				<h6><?= dateIndo($data_user->tgl_lahir) ?></h6>
 
 				<small class="text-muted p-t-30 db">Social Profile</small>
 				<br />

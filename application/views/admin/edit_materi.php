@@ -84,7 +84,7 @@
 					<div class=\"form-group mt-3\" id=\"tautan\"><label>Link 1</label> <input
 					type=\"text\" value=\"$link1->name\" class=\"form-control form-control-sm\" name=\"urlNames[]\" autocomplete=\"off\" placeholder=\"Teks Link (opsional)\" /> <input
 					type=\"url\" value=\"$link1->url\" class=\"form-control form-control-sm\" name=\"urls[]\" autocomplete=\"off\" placeholder=\"Url\" /> <small class=\"form-text text-muted\">
-					*Wajib </small> <button onclick=\"tambahInputLink()\" class=\"btn btn-sm btn-warning\"> Tambah Link </button> $htmlLink</div>";
+					*Wajib </small> <button type=\"button\" onclick=\"tambahInputLink()\" class=\"btn btn-sm btn-warning\"> Tambah Link </button> $htmlLink</div>";
 
 					$yt = "<div class=\"form-group mt-3\">
 						<label>Url Video</label>

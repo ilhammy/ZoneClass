@@ -63,7 +63,7 @@
 				
 				<div class="login__box">
 					<i class='bx bx-key login__icon'></i>
-					<input type="number" name="reg_code" placeholder="Token (Opsional)" class="login__input">
+					<input type="text" autocomplete="off" name="reg_code" placeholder="Kode Undangan (Opsional)" class="login__input">
 				</div>
 
 				<button type="submit" class="login__button" id="btn_reg">Buat Akun</button>

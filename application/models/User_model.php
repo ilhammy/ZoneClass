@@ -43,6 +43,22 @@ class User_model extends CI_Model {
 		)
 	);
 
+	public function getAll($by = null) {
+		if (is_null($by)) {
+			return $this->db
+			->join($this->tp, 'profile.uid = users.user_id', 'left')
+			->get($this->tu)->result();
+		} else if ($by === 3) {
+			return $this->db
+			->join($this->tp, 'profile.uid = users.user_id', 'left')
+			->get_where($this->tu, ['isActive' => 0])->result();
+		} else {
+			return $this->db
+			->join($this->tp, 'profile.uid = users.user_id', 'left')
+			->get_where($this->tu, ['role_id' => $by])->result();
+		}
+	}
+
 	public function getUserData($uid, $key) {
 		$res = $this->db->get_where($this->tu, ['user_id' => $uid])->row_array();
 		if ($res) return $res[$key];

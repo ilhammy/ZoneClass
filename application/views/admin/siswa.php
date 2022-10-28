@@ -20,7 +20,7 @@
 		<div class="table-responsive mt-2">
 			<table
 				id="myTable"
-				class="table table-bordered table-striped">
+				class="table table-bordered table-striped nowrap table-hover">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -47,12 +47,12 @@
 						<td><?= $val->whatsapp ?></td>
 						<?= (isAdmin()) ? '<td>'.sizeof($kelasnya). '</td>' : '' ?>
 						<td class="text-center">
-							<button class="btn btn-sm btn-danger">
-								<i class="fa fa-sign-out"></i>
-							</button>
-							<button class="m-1 btn btn-sm btn-primary" 
-							onclick="location.href='/dashboard/profile/<?= base64url_encode($val->user_id) ?>'">  
+							<button class="m-1 btn btn-sm btn-primary"
+								onclick="location.href='/dashboard/profile/<?= base64url_encode($val->user_id) ?>'">
 								<i class="fa fa-user"></i>
+							</button>
+							<button class="btn btn-sm btn-danger" onclick="showConfirm(<?= $val->user_id ?>)">
+								<i class="fa fa-trash"></i>
 							</button>
 						</td>
 					</tr>
@@ -62,6 +62,7 @@
 		</div>
 	</div>
 </div>
+
 
 <!-- This is data table -->
 <script src="/assets/js/admin/jquery.dataTables.min.js"></script>
@@ -83,4 +84,44 @@
 			"lengthChange": false
 		});
 	});
+
+	const showConfirm = (a) => {
+		Swal.fire({
+			title: 'Hapus Siswa',
+			text: 'Tindakan ini akan menghapus siswa ini dari seluruh kelas anda',
+			showCancelButton: true,
+			confirmButtonText: 'Hapus',
+			cancelButtonText: 'Batal',
+		}).then((result) => {
+			/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				kickAjax({
+					uid: a
+				})
+			}
+		})
+	}
+
+	const kickAjax = (data) => {
+		$(".preloader").fadeIn();
+		$.ajax({
+			url: '/admin/home/kickSiswa',
+			method: 'post',
+			data: data,
+			dataType: 'json',
+			success: (response) => {
+				console.log(response)
+				if (response.status != true) {
+					showMsg('info', response.msg);
+				} else {
+					showMsg('success', 'Siswa telah dihapus!');
+					setTimeout(() => {
+						location.reload(true)
+					}, 2500);
+				}
+			},
+			complete: () => $(".preloader").fadeOut(),
+			error: () => showMsg('info', 'Server error!')
+		});
+	}
 </script>

@@ -24,8 +24,9 @@
 
 					<div class="more-wrapper">
 						<?php if (!$this->Kelas_model->cekUserInClass($this->session->userdata('uid'), $val->id_kelas)) : ?>
-						<div class="days-left" style="margin: 15px 3px; font-size: 12px" onclick="ikutKelas(this, <?= $val->id_kelas ?>)">
-							Gabung
+						<!-- div class="days-left" style="margin: 15px 3px; font-size: 12px" onclick="ikutKelas(this, <?= $val->id_kelas ?>)" -->
+						<div class="days-left" style="margin: 15px 3px; font-size: 12px" onclick="infoKelas(<?= $val->id_kelas ?>, '<?= $val->nama_kelas ?>', '<?= base64_encode(nl2br($val->tentang)) ?>')">
+							Info Lengkap
 						</div>
 						<?php endif; ?>
 					</div>
@@ -63,5 +64,90 @@
 				break;
 			}
 		}
+	}
+
+	const infoKelas = (id, name, about) => {
+		Swal.fire({
+			title: name,
+			icon: 'info',
+			html: atob(about),
+			showCancelButton: true,
+			focusConfirm: false,
+			confirmButtonText: 'Ikut Kelas',
+			cancelButtonText: 'Tutup',
+		}).then(result => {
+			if (result.isConfirmed) enterCode(id, name);
+		})
+	}
+
+	const enterCode = (kid, name) => {
+		Swal.fire({
+			title: name,
+			input: 'text',
+			inputLabel: 'Masukan Kode Undangan',
+			showCancelButton: true,
+			confirmButtonText: 'Ikut',
+			cancelButtonText: 'Batal',
+			focusConfirm: false,
+			preConfirm: (val) => {
+				if (!val) {
+					Swal.showValidationMessage('Masukan kode undangan!')
+				}
+				return {
+					kode: val
+				}
+			}
+		}).then((result) => {
+			//alert(result.value.kode);
+			gabungKelas({
+				id: kid,
+				kode: result.value.kode
+			});
+		})
+	}
+
+	const enterCodes = (kid) => {
+		Swal.fire({
+			title: 'Ikut Kelas',
+			type: 'text',
+			html: '<input type="text" id="kk" class="swal2-input" placeholder="Kode Kelas">',
+			confirmButtonText: 'Ikut',
+			focusConfirm: false,
+			preConfirm: () => {
+				const kode = Swal.getPopup().querySelector('#kk').value
+				if (!kode) {
+					Swal.showValidationMessage('Masukan kode kelas')
+				}
+				return {
+					kode: kode
+				}
+			}
+		}).then((result) => {
+			gabungKelas({
+				id: kid,
+				kode: result.value.kode
+			});
+		})
+	}
+
+	const gabungKelas = (data) => {
+		$.ajax({
+			url: baseUrl + 'ajax/joinClass',
+			method: 'post',
+			data: {
+				classId: data.id,
+				code: data.kode
+			},
+			dataType: 'json',
+			success: function(response) {
+				console.log(response)
+				if (response.status !== true) {
+					showMsg('error', response.msg);
+				} else {
+					Swal.fire('Berhasil!', '', 'success')
+					loadPage('kelas');
+				}
+			}
+		});
 	}
 </script>

@@ -1,3 +1,9 @@
+<div class="top-nav">
+	<ion-icon class="icon" name="arrow-back-outline" onclick="window.localStorage.setItem('ref', 'profile');window.history.back()"></ion-icon>
+	<div class="title" style="font-size: 1.1rem;font-weight: 600; padding: 0 .5rem">
+	</div>
+</div>
+
 <div class="projects-section">
 	<div class="projects-section-header">
 		<p>
@@ -14,7 +20,7 @@
 				<div class="project-box-header">
 
 					<div class="more-wrapper">
-						<div class="days-left" style="margin: 15px 3px; font-size: 12px" onclick="ikutKelas(this, <?= $val->id_kelas ?>)">
+						<div class="days-left" style="margin: 15px 3px; font-size: 12px" onclick="keluarKelas(<?= $val->id_kelas ?>)">
 							Keluar
 						</div>
 					</div>
@@ -54,23 +60,22 @@
 		}
 	}
 
-	function ikutKelas(e, kid) {
-		let txtType = (e.innerText == 'Keluar') ? 'keluar dari': 'Ikut';
+	function keluarKelas(kid) {
 		Swal.fire({
 			icon: 'question',
 			title: 'Konfirmasi',
-			text: 'Apakah kamu akan ' + txtType + ' kelas ini?',
+			text: 'Apakah kamu akan keluar dari kelas ini?',
 			showDenyButton: true,
-			confirmButtonText: 'Iya',
-			denyButtonText: `Batal`,
+			confirmButtonText: 'Keluar',
+			denyButtonText: 'Batal',
 		}).then((result) => {
-			if (result.isConfirmed) ajaxIkutKelas(kid);
+			if (result.isConfirmed) ajaxKeluarKelas(kid);
 		});
 	}
 
-	function ajaxIkutKelas(kid) {
+	function ajaxKeluarKelas(kid) {
 		$.ajax({
-			url: baseUrl + 'ajax/joinClass',
+			url: baseUrl + 'ajax/leaveClass',
 			method: 'post',
 			data: {
 				classId: kid
@@ -78,11 +83,12 @@
 			dataType: 'json',
 			success: function(response) {
 				console.log(response)
-				if (response.status != true) alert(response.msg);
-				try {
+				if (response.status != true) {
+					showMsg('error', response.msg);
+				} else {
 					Swal.fire('Berhasil!', '', 'success')
 					window.location.reload(true);
-				} catch (e) {}
+				}
 			}
 		});
 	}

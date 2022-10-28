@@ -4,6 +4,13 @@ $ttl = date('Y-m-d', $ttl);
 if ($ttl == 0) $ttl = null;
 ?>
 
+<div class="top-nav">
+	<ion-icon class="icon" name="arrow-back-outline" onclick="window.localStorage.setItem('ref', 'profile');window.history.back()"></ion-icon>
+	<div class="title" style="font-size: 1.1rem;font-weight: 600; padding: 0 .5rem">
+		
+	</div>
+</div>
+
 <div class="projects-section">
 	<div class="projects-section-header">
 		<p>

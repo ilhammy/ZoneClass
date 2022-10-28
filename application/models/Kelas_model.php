@@ -38,7 +38,7 @@ class Kelas_model extends CI_Model {
 		$this->db->update($this->tk, $data, ['id_kelas' => $kid]);
 		return ($this->db->affected_rows() == 1);
 	}
-	
+
 	function deleteById($kid) {
 		$this->db->delete($this->tk, ['id_kelas' => $kid]);
 		return ($this->db->affected_rows() == 1);
@@ -110,7 +110,7 @@ class Kelas_model extends CI_Model {
 	function isActiveClass($id) {
 		return $this->db->get_where($this->tk, ['id_kelas' => $id, 'status' => 1])->row();
 	}
-	
+
 	function isMyClass($id) {
 		return $this->db->get_where($this->tk, ['id_kelas' => $id, 'creator_id' => myUid()])->row();
 	}
@@ -124,6 +124,13 @@ class Kelas_model extends CI_Model {
 		return ($res) ? true : false;
 	}
 
+	function kickSiswaFromMyAllClass($sid) {
+		foreach ($this->getMyClass() as $val) {
+			$this->db->delete($this->tku, ['id_user' => $sid, 'id_kelas' => $val->id_kelas]);
+		}
+		$this->User_model->updateKelas($sid);
+	}
+
 	function gabungKelas($uid, $kid, $gabung) {
 		$result['status'] = false;
 		$result['msg'] = 'Terjadi kesalahan sistem!';
@@ -134,7 +141,7 @@ class Kelas_model extends CI_Model {
 			'bergabung' => time()
 		];
 
-		if (!$gabung) {
+		if ($gabung === true) {
 			$this->db->insert($this->tku, $data);
 			if ($this->db->affected_rows()) $result['status'] = true;
 		} else {

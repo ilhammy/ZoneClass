@@ -68,7 +68,7 @@
 				$val = $this->User_model->getByUid($d->id_user);
 				?>
 				<!-- Message -->
-				<a href="#">
+				<a href="/dashboard/profile/<?= base64url_encode($val->user_id) ?>">
 					<img src="<?= $val->foto ?>" class="rounded-circle" width="35" height="35" />
 					<div class="mail-contnet">
 						<h6 class="text-dark font-medium mb-0"><?= $val->fullname ?></h6>

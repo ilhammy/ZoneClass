@@ -59,6 +59,7 @@
 .tabnav ul li.active a .icon
 {
 	transform: translateY(-32px);
+	color: #000;
 }
 .tabnav ul li a .text
 {

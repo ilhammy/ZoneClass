@@ -479,6 +479,7 @@ button, a {
 	overflow-y: auto;
 }
 .project-boxes .no-data {
+	color: var(--light-font);
 	font-size: 15px;
 	text-align: center;
 	opacity: .7;

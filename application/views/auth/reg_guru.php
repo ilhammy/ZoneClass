@@ -4,7 +4,7 @@
 			<img src="/assets/img/img-login.svg" alt="">
 		</div>
 		<div class="login__forms" id="login-up">
-			<form action="/auth/login" class="login__registre" id="login-in" method="post">
+			<form action="/auth/login" class="login__registre" id="regForm" method="post">
 				<h1 class="login__title">Buat Akun Guru</h1>
 
 				<div class="login__box">
@@ -34,7 +34,7 @@
 				
 				<div class="login__box">
 					<i class='bx bx-key login__icon'></i>
-					<input type="number" name="reg_code" placeholder="Token (Opsional)" class="login__input">
+					<input type="text" autocomplete="off" name="reg_code" placeholder="Kode Undangan (Opsional)" class="login__input">
 				</div>
 
 				<input type="hidden" name="is_guru" id="is_guru" value="oke" />
@@ -55,7 +55,7 @@
 <script>
 	$(document).ready(function() {
 
-		$("#login-up").on("submit", function(event) {
+		$("#regForm").on("submit", function(event) {
 			event.preventDefault();
 
 			$.ajax({
@@ -86,7 +86,7 @@
 							'error'
 						);
 					}
-					console.log(resp);
+					console.info(resp);
 				},
 
 				error: function(response) {
@@ -95,7 +95,7 @@
 						'server error!',
 						'error'
 					);
-					console.log(response);
+					console.error(response);
 				}
 			});
 

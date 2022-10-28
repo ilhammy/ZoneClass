@@ -2,10 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
+	
+	private $idKun = null;
 
 	function __construct() {
 		parent::__construct();
 		$this->load->model('Auth_model');
+		$this->load->model('Kun_model', 'Kun');
 		$this->load->config('globals');
 		$this->load->config('email');
 	}
@@ -17,7 +20,7 @@ class Auth extends CI_Controller {
 		$this->load->view('auth/home');
 		$this->load->view('auth/foot');
 	}
-	
+
 	public function special_regist() {
 		if ($this->session->has_userdata('uid')) redirect((isAdminGuru()) ? 'dashboard' : '');
 		//if ($this->input->post('login') !== null) $this->cek_login();
@@ -90,10 +93,18 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules($this->Auth_model->reg_rules);
 		if ($this->form_validation->run() !== false) {
 			$guru = (!is_null($this->input->post('is_guru')));
+			$regCode = $this->input->post('reg_code');
+
+			if (!is_null($regCode)) {
+				$rc = $this->validateInviteCode($regCode);
+				if (!$rc['status']) return $rc;
+			}
+
 			$inti = [
 				'username' => htmlspecialchars($this->input->post('username', true)),
 				'email' => $this->input->post('email', true),
-				'password' => password_hash($this->input->post('password', true), PASSWORD_DEFAULT),
+				'password' => password_hash($this->input->post('password', true),
+					PASSWORD_DEFAULT),
 				'role_id' => ($guru) ? 1 : 2,
 				'isActive' => true,
 				'status' => 0,
@@ -108,9 +119,11 @@ class Auth extends CI_Controller {
 				'tgl_lahir' => 0,
 				'regTime' => time()
 			];
-			$status = $this->Auth_model->createUser($inti, $prof);
+			$status = $this->Auth_model->createUser($inti,
+				$prof);
 
 			if ($status !== true) {
+				$this->Kun->updateUsed($this->idKun);
 				return array (
 					'status' => false,
 					'text' => 'Terjadi kesalahan silahkan coba lagi!'
@@ -167,6 +180,35 @@ class Auth extends CI_Controller {
 				redirect('auth/lost_password');
 			}
 		}
+	}
+
+	function validateInviteCode($code) {
+		$resCode = $this->Kun->cekKode($code);
+		if ($resCode === 0) {
+			return [
+				'status' => false,
+				'text' => 'Kode undangan salah!'
+			];
+		} else if ($resCode === 1) {
+			return [
+				'status' => false,
+				'text' => 'Kode undangan kadaluwarsa!'
+			];
+		}
+
+		$kuota = $this->Kun->getKuota($code);
+		if ($kuota['used'] >= $kuota['max']) {
+			return [
+				'status' => false,
+				'text' => 'Kode undangan sudah penuh!'
+			];
+		}
+
+		$this->idKun = $kuota['id'];
+		return [
+			'status' => true,
+			'text' => $kuota['id']
+		];
 	}
 
 }

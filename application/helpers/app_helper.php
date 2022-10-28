@@ -111,3 +111,33 @@ function simpleResponse($s, $m) {
 		'msg' => $m
 	));
 }
+
+function isKadaluwarsa($time) {
+	return (time() > $time);
+}
+
+function bulanIndo($b) {
+	$data = [
+		'Januari',
+		'Februari',
+		'Maret',
+		'April',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agustus',
+		'September',
+		'Oktober',
+		'November',
+		'Desember'
+	];
+	return $data[$b+1];
+}
+
+function dateIndo($time) {
+	$day = date('d', $time);
+	$month = date('n', $time);
+	$year = date('Y', $time);
+	
+	return $day. ' ' .bulanIndo($month). ' ' .$year;
+}

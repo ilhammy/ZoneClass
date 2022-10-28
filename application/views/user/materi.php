@@ -12,6 +12,11 @@
 			foreach ($data_materi as $val) : ?>
 			<div class="project-box-wrapper">
 				<div class="project-box list-materi" id="<?= $val->waktu ?>" style="flex-direction: column">
+					<div class="list-materi-footer">
+						<p class="list-materi-judul">
+							<?= $val->judul ?>
+						</p>
+					</div>
 					<?php
 					if (!is_null($val->foto)) {
 						echo "<img title=\"{$val->judul}\" src=\"{$val->foto}\" class=\"thumb\" />";
@@ -29,11 +34,6 @@
 
 					<div class="list-materi-caption" style="<?= (is_null($val->foto) && is_null($val->youtube)) ? 'margin-top: .5rem' : null ?>">
 						<?= nl2br($val->teks, true) ?>
-					</div>
-					<div class="list-materi-footer">
-						<p class="list-materi-judul">
-							<?= $val->judul ?>
-						</p>
 					</div>
 				</div>
 			</div>

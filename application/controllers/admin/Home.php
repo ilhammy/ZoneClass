@@ -11,6 +11,7 @@ class Home extends CI_Controller {
 		$this->load->model('Materi_model');
 		$this->load->model('Menu_model', 'Menu');
 	}
+
 	public function index() {
 		$siswa = array();
 		foreach ($this->Kelas_model->getMyClass() as $i) {
@@ -22,7 +23,7 @@ class Home extends CI_Controller {
 				}
 			}
 		}
-		
+
 		$data = array(
 			'sb_menu' => $this->Menu->getMenu(),
 			'siswaku' => my_array_unique($siswa),
@@ -36,11 +37,32 @@ class Home extends CI_Controller {
 	public function kelas() {
 		$data['sb_menu'] = $this->Menu->getMenu();
 		$data['data_kelas'] = $this->Kelas_model->getMyClass();
-		$data['data_kelas_pending'] = $this->Kelas_model->getPendingClass((isAdmin()) ? '' : myUid());
+		$data['data_kelas_pending'] = $this->Kelas_model->getPendingClass((isAdmin()) ? null : myUid());
+
+		if ($this->input->server('REQUEST_METHOD') == 'POST') {
+			$this->terimaKelas($this->input->post('kelid'), $this->input->post('status'));
+			return;
+		}
 
 		$this->load->view('admin/top', $data);
 		$this->load->view('admin/kelas', $data);
 		$this->load->view('admin/down', $data);
+	}
+
+	private function terimaKelas($id, $stat) {
+		if (is_null($id) || is_null($stat)) {
+			$this->session->set_flashdata('alert', 'Invalid opration');
+			redirect('dashboard/kelas');
+			return;
+		}
+		if ($this->Kelas_model->updateClassInfo($id, [
+			'status' => $stat
+		])) {
+			$this->session->set_flashdata('alert', 'Berhasil! status kelas telah diubah');
+		} else {
+			$this->session->set_flashdata('alert', 'Terjadi kesalahan silahkan coba lagi');
+		}
+		redirect('dashboard/kelas');
 	}
 
 	public function kelola_kelas() {
@@ -144,6 +166,7 @@ class Home extends CI_Controller {
 
 	public function siswa() {
 		$data['sb_menu'] = $this->Menu->getMenu();
+		$data['data_kelas'] = $this->Kelas_model->getMyClass();
 
 		$siswa = array();
 		foreach ($this->Kelas_model->getMyClass() as $i) {
@@ -160,6 +183,19 @@ class Home extends CI_Controller {
 		$this->load->view('admin/top', $data);
 		$this->load->view('admin/siswa', $data);
 		$this->load->view('admin/down', $data);
+	}
+
+	public function kickSiswa() {
+		if ($this->input->server('REQUEST_METHOD') !== 'POST') {
+			die('Invalid access');
+		}
+		if (is_null($this->input->post('uid', true))) {
+			die('invalid parameter');
+		}
+		$this->Kelas_model->kickSiswaFromMyAllClass($this->input->post('uid', true));
+		echo json_encode([
+			'status' => true
+		]);
 	}
 
 }

@@ -31,7 +31,7 @@ $(function() {
 	}
 });
 
-function ikutKelas(e, kid) {
+/*function ikutKelas(e, kid) {
 	let txtType = (e.innerText == 'Keluar') ? 'keluar dari': 'Ikut';
 	Swal.fire({
 		icon: 'question',
@@ -47,7 +47,7 @@ function ikutKelas(e, kid) {
 
 function ajaxIkutKelas(kid) {
 	$.ajax({
-		url: baseUrl + 'ajax/joinClass',
+		url: baseUrl + 'ajax/leaveClass',
 		method: 'post',
 		data: {
 			classId: kid
@@ -62,7 +62,7 @@ function ajaxIkutKelas(kid) {
 			} catch (e) {}
 		}
 	});
-}
+}*/
 
 const showMsg = (tipe, msg) => {
 	const Toast = Swal.mixin({

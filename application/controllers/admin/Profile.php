@@ -22,7 +22,7 @@ class Profile extends CI_Controller {
 		$this->load->view('admin/down', $data);
 	}
 	
-	public function tambah_materi() {
+	/*public function tambah_materi() {
 		$data['sb_menu'] = $this->Menu->getMenu();
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 			$this->form_validation->set_rules($this->Kelas_model->create_rules);
@@ -49,6 +49,6 @@ class Profile extends CI_Controller {
 		$this->load->view('admin/top', $data);
 		$this->load->view('admin/add_materi', $data);
 		$this->load->view('admin/down', $data);
-	}
+	}*/
 
 }
