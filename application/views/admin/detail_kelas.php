@@ -25,7 +25,7 @@
 		<div class="card card-body mailbox">
 			<h5 class="card-title">Detail Kelas</h5>
 
-			<div class="alert alert-info <?= ($data_kelas->creator_id !== myUid() || isAdmin()) ? '' : 'd-none' ?>">
+			<div class="alert alert-info <?= ($data_kelas->creator_id !== myUid() || !isAdmin()) ? '' : 'd-none' ?>">
 				Kelas ini bukan milik anda.
 			</div>
 

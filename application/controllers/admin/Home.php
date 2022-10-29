@@ -65,17 +65,6 @@ class Home extends CI_Controller {
 		redirect('dashboard/kelas');
 	}
 
-	public function kelola_kelas() {
-		if (!isAdmin()) redirect('dashboard/kelas');
-		$data['sb_menu'] = $this->Menu->getMenu();
-		$data['data_kelas'] = $this->Kelas_model->getAllData();
-		//$data['data_kelas_pending'] = $this->Kelas_model->getPendingClass((isAdmin()) ? '' : myUid());
-
-		$this->load->view('admin/top', $data);
-		$this->load->view('admin/kelas_manage', $data);
-		$this->load->view('admin/down', $data);
-	}
-
 	public function detail_kelas($idkes) {
 		$data['sb_menu'] = $this->Menu->getMenu();
 		$data['data_kelas'] = $this->Kelas_model->getSingle($idkes);

@@ -20,7 +20,7 @@ class Kelas_model extends CI_Model {
 		array(
 			'field' => 'des',
 			'label' => 'Keterangan Singkat',
-			'rules' => 'required|trim|min_length[5]|max_length[100]',
+			'rules' => 'required|trim|min_length[5]|max_length[1000]',
 			'errors' => array(
 				'required' => '%s kososng',
 				'min_length' => '%s minimal %s karakter',

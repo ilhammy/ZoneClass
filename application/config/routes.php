@@ -77,5 +77,9 @@ $route['dashboard/invite/edit/(:any)'] = 'admin/invite/edit/$1';
 $route['dashboard/users'] = 'admin/users/index';
 $route['dashboard/users/(:any)'] = 'admin/users/index/$1';
 
+$route['dashboard/kelola_kelas'] = 'admin/kelola_kelas/index';
+
+$route['dashboard/settings'] = 'admin/settings/index';
+
 $route['materi/(:any)'] = 'materi/index/$1';
 

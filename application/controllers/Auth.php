@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
-	
+
 	private $idKun = null;
 
 	function __construct() {
@@ -67,6 +67,12 @@ class Auth extends CI_Controller {
 			$hasil = $this->Auth_model->cek_user($data);
 			if ($hasil) {
 				if (password_verify($data['password'], $hasil['password'])) {
+
+					if (!$hasil['isActive']) {
+						$this->session->set_flashdata('auth_msg', '<div class="mt-1 mb-2 alert alert-warning"><strong>Oops!</strong> Akun anda belum aktif, silahkan tunggu sampai akun anda diaktifkan atau hubungi admin</div>');
+						redirect('auth');
+						return;
+					}
 
 					$sess_data['uid'] = $hasil['user_id'];
 					$sess_data['token'] = $hasil['token'];

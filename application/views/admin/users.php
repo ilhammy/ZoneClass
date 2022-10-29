@@ -62,14 +62,19 @@
 						</td>
 						<td><?= $val->fullname ?></td>
 						<td><?= $val->email ?></td>
-						<td><?= $val->whatsapp ?></td>
+						<td>&#x200C;<?= $val->whatsapp ?></td>
 						<td class="text-center">
-							<span class="badge badge-<?= ($val->isActive) ? 'success' : 'danger' ?>">
+							<span class="badge badge-<?= ($val->isActive) ? 'success' : 'danger' ?>" data-toggle="dropdown">
 								<?= ($val->isActive) ? 'Aktif' : 'Pending' ?>
 							</span>
+
+							<div class="dropdown-menu">
+								<a class="dropdown-item <?= ($val->isActive) ? 'active' : null ?>" href="javascript:changeStatus(<?= $val->user_id ?>, 1)"><i class="fa fa-check"></i> Terima</a>
+								<a class="dropdown-item <?= (!$val->isActive) ? 'active' : null ?>" href="javascript:changeStatus(<?= $val->user_id ?>, 0)"><i class="fa fa-power-off"></i> Nonaktifkan</a>
+							</div>
 						</td>
 						<td class="text-center">
-							<button class="btn btn-sm btn-danger" onclick="showConfirm()">
+							<button class="btn btn-sm btn-danger" onclick="showConfirm(<?= $val->user_id ?>)">
 								<i class="fa fa-trash"></i>
 							</button>
 							<button class="m-1 btn btn-sm btn-primary"
@@ -85,30 +90,6 @@
 	</div>
 </div>
 
-<!-- sample modal content -->
-<div id="modal1" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="myModalLabel">
-					Preview
-				</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					×
-				</button>
-			</div>
-			<div class="modal-body"></div>
-			<div class="modal-footer">
-				<button class="btn btn-info waves-effect" data-dismiss="modal">
-					Tutup
-				</button>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 
 <!-- This is data table -->
 <script src="/assets/js/admin/jquery.dataTables.min.js"></script>
@@ -123,28 +104,6 @@
 <!-- end - This is for export functionality only -->
 
 <script>
-	let confirmed = false;
-	const setModal1 = (data) => {
-		const cont = $('#modal1 .modal-body');
-		data = JSON.parse(atob(data))
-		let teks = (data.teks !== null)? `<p>${nl2br(data.teks)}</p>`: '';
-		let link = (data.link !== null)? toAcordion(JSON.parse(data.link)): '';
-		let foto = (data.foto !== null)? `<img src="${data.foto}" width="100%" />`: '';
-		let youtube = (data.youtube !== null)? `<iframe src="https://www.youtube.com/embed/${data.youtube}" class="d-block mx-auto" frameborder="0" allowFullScreen></iframe>`: '';
-
-		let html = teks + link + foto + youtube;
-		cont.html(html)
-	}
-
-	const toAcordion = (links) => {
-		let out = ''
-		links.forEach(function (v, i) {
-			out += '<tr><td>' + v.name + '</td>' +
-			'<td>' + v.url + '</td></tr>'
-		});
-		return '<table class="table table-responsive table-striped"><tr><th>Judul Link</th><th>Url</th></tr>' + out + '</table>';
-	}
-
 	$(function () {
 		const exportName = "Data Users<?= ' '.$this->uri->segment(3) ?>"
 
@@ -169,7 +128,7 @@
 		$(".buttons-csv, .buttons-excel").addClass("btn btn-primary mr-1");
 	});
 
-	const hapusMateri = (id) => {
+	const showConfirm = (id) => {
 		Swal.fire({
 			title: 'Konfirmasi',
 			text: 'Anda ingi menghapus user ini?',
@@ -189,18 +148,18 @@
 	const ajaxHapus = (id) => {
 		$(".preloader").fadeIn();
 		$.ajax({
-			url: '/admin/materi/hapus',
+			url: '/admin/users/<?= (isAdmin()) ? 'removeUser' : null ?>',
 			method: 'post',
 			data: {
-				id: id
+				diu: id
 			},
 			dataType: 'json',
 			success: (response) => {
 				console.log(response)
-				if (response.status != true) {
+				if (response.status !== true) {
 					showMsg('info', response.msg);
 				} else {
-					showMsg('success', 'Materi telah dihapus!');
+					showMsg('success', 'User telah dihapus!');
 					setTimeout(() => {
 						location.reload(true)
 					}, 2000);
@@ -210,9 +169,32 @@
 			error: () => showMsg('info', 'Server error!')
 		});
 	}
-
-	const nl2br = (str) => {
-		return str.replace(/(?:\r\n|\r|\n)/g,
-			'<br />');
+	
+	const changeStatus = (id, stat) => {
+		$(".preloader").fadeIn();
+		$.ajax({
+			url: '/admin/users/<?= (isAdmin()) ? 'toggleUser' : null ?>',
+			method: 'post',
+			data: {
+				diu: id, 
+				tats: stat
+			},
+			dataType: 'json',
+			success: (response) => {
+				console.log(response)
+				if (!response.status) {
+					showMsg('info', response.msg);
+				} else {
+					let xyz = (stat === 0) ? 'dinonaktifkan!' : 'diaktifkan!'
+					showMsg('success', 'User telah ' + xyz);
+					setTimeout(() => {
+						location.reload(true)
+					}, 2500);
+				}
+			},
+			complete: () => $(".preloader").fadeOut(),
+			error: () => showMsg('info', 'Server error!')
+		});
 	}
+
 </script>

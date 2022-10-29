@@ -128,7 +128,7 @@
 									<td class="font-weight-bold"><?= $val->kode ?></td>
 									<td class="text-center"><?= (is_null($kelasnya)) ? '<span class="badge badge-info">Register</span>' : $kelasnya->nama_kelas ?></td>
 									<td class="text-center font-weight-bold"><?= $val->dipakai. '/' .$val->kuota ?></td>
-									<td class="text-center <?= (isKadaluwarsa($val->exp)) ? 'text-danger' : '' ?>"><?= date('d/m/Y h:i', $val->exp) ?></td>
+									<td class="text-center <?= (isKadaluwarsa($val->exp)) ? 'text-danger' : '' ?>"><?= date('d/m/Y H:i', $val->exp) ?></td>
 
 									<td class="text-center">
 										<button class="btn btn-sm btn-primary m-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

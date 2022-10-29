@@ -3046,7 +3046,7 @@ Form Material page
   overflow: hidden;
 }
 
-.form-control-line .form-control {
+.form-control-line .form-control{
   border: 0px;
   border-radius: 0px;
   padding-left: 0px;

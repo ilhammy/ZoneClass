@@ -77,6 +77,11 @@ class User_model extends CI_Model {
 		$this->db->where('user_id', $uid);
 		return $this->db->get()->row();
 	}
+	
+	function deleteById($uid) {
+		$this->db->delete($this->tu, ['user_id' => $uid]);
+		return ($this->db->affected_rows() == 1);
+	}
 
 	public function hasUsername($u) {
 		$res = $this->db->get_where($this->tu, ['username' => $u])->row();

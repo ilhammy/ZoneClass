@@ -32,7 +32,7 @@
 	<!--Menu sidebar -->
 	<script src="/assets/js/admin/sidebarmenu.js"></script>
 	<!--Custom JavaScript -->
-	<script src="/assets/js/admin/custom.min.js"></script>
+	<script src="/assets/js/admin/custom.min.js<?= ($web_devmode) ? '?time=' . time() : '' ?>"></script>
 	<!-- ============================================================== -->
 	<!-- This page plugins -->
 	<!-- ============================================================== -->
