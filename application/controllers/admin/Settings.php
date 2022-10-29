@@ -70,26 +70,16 @@ class Settings extends CI_Controller {
 			redirect('dashboard/settings');
 		}
 	}
-	
-	private function saveEmail() {
-		$this->session->set_flashdata('alert', 'Fitur ini belum dibuat');
-		return;
-		
-		$this->form_validation->set_rules('pass1', 'Kata Sandi Lama', 'required');
-		$this->form_validation->set_rules('pass1', 'Kata Sandi Baru', 'required|min_length[5]');
 
+	private function saveEmail() {
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		if ($this->form_validation->run() !== false) {
-			if (!password_verify($this->input->post('pass1'), userDataValue('password'))) {
-				$this->session->set_flashdata('alert', 'Kata sandi anda salah!');
-				redirect('dashboard/settings');
-				return;
-			}
 			$val = [
-				'password' => password_hash($this->input->post('new_pass'), PASSWORD_DEFAULT),
+				'email' => $this->input->post('email', true),
 			];
 			$hsl = $this->User_model->updateUserData($val);
 			if ($hsl) {
-				$this->session->set_flashdata('alert', 'Kata Sandi berhasil diperbarui!');
+				$this->session->set_flashdata('alert', 'Email Akun berhasil diperbarui!');
 			} else {
 				$this->session->set_flashdata('alert', 'Terjadi kesalahan sistem!');
 			}
@@ -130,21 +120,21 @@ class Settings extends CI_Controller {
 			}
 		}
 	}
-	
+
 	private function saveWeb() {
 		$this->form_validation->set_rules('web_set', 'Konfig Website', 'required|min_length[20]');
-		
+
 		if ($this->form_validation->run() === false) {
-				$this->session->set_flashdata('alert', 'Terjadi kesalahan sistem, coba lagi nanti');
-				redirect('dashboard/settings');
-				return;
+			$this->session->set_flashdata('alert', 'Terjadi kesalahan sistem, coba lagi nanti');
+			redirect('dashboard/settings');
+			return;
 		}
 		if (!write_file('./application/config/globals.php', $this->input->post('web_set'))) {
-				$this->session->set_flashdata('alert', 'Gagal menyimpan perubahan website!');
-				redirect('dashboard/settings');
+			$this->session->set_flashdata('alert', 'Gagal menyimpan perubahan website!');
+			redirect('dashboard/settings');
 		} else {
-				$this->session->set_flashdata('alert', 'Perubahan website tersimpan!');
-				redirect('dashboard/settings');
+			$this->session->set_flashdata('alert', 'Perubahan website tersimpan!');
+			redirect('dashboard/settings');
 		}
 	}
 

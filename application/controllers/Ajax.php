@@ -90,8 +90,9 @@ class Ajax extends CI_Controller {
 	}
 
 	/* CEK EMAIL */
-	public function cekEmail($em) {
-		echo ($this->User_model->hasUsername($em)) ? 'true' : 'false';
+	public function cekEmail() {
+		$em = base64_decode($this->input->get('mail'));
+		echo ($this->User_model->hasEmail($em)) ? 'false' : 'true';
 	}
 
 }

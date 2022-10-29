@@ -25,9 +25,11 @@ if ($ttl == 0) $ttl = null;
 		<li class="nav-item">
 			<a class="nav-link active" data-toggle="tab" href="#profile" role="tab">Profile</a>
 		</li>
+		<?php if (isAdmin()) : ?>
 		<li class="nav-item">
 			<a class="nav-link" data-toggle="tab" href="#website" role="tab">Website</a>
 		</li>
+		<?php endif ?>
 	</ul>
 
 	<?= ($this->session->flashdata('alert')) ? '<div class="alert alert-success m-2">' .$this->session->flashdata('alert'). '</div>' : null ?>
@@ -80,15 +82,16 @@ if ($ttl == 0) $ttl = null;
 
 				<div class="col-md-6">
 					<h4 class="card-title">Email Akun</h4>
-					<form action="" method="post" class="form-horizontal form-material">
+					<form action="" method="post" class="form-horizontal form-material" id="form-email">
 						<div class="form-group">
 							<label>Email</label>
 							<input
-							type="email" value="<?= dataUserValue('email') ?>" name="email" class="form-control form-control-line" autocomplete="off" required />
+							type="email" value="<?= dataUserValue('email') ?>" oninput="hasEmail(this)" name="email" class="form-control form-control-line" autocomplete="off" required />
+							<small class="form-text text-muted"></small>
 						</div>
 
 						<div class="form-group text-center">
-							<button type="submit" class="btn btn-sm waves-effect waves-light btn-success">
+							<button type="submit" class="btn btn-sm waves-effect waves-light btn-success" id="btn-sub-mail" disabled>
 								<i class="fa fa-check"></i> Update Email
 							</button>
 						</div>
@@ -125,7 +128,7 @@ if ($ttl == 0) $ttl = null;
 		</div>
 	</div>
 
-
+	<?php if (isAdmin()) : ?>
 	<div class="tab-pane" id="website" role="tabpanel">
 		<div class="card-body">
 			<form action="" method="post" class="form-horizontal form-material">
@@ -147,6 +150,7 @@ if ($ttl == 0) $ttl = null;
 			</form>
 		</div>
 	</div>
+	<?php endif ?>
 
 </div>
 
@@ -219,6 +223,35 @@ if ($ttl == 0) $ttl = null;
 				document.querySelector('#form-upload-foto').submit();
 			}
 		})
+	}
+
+	const hasEmail = async (e) => {
+		const btn = document.querySelector('#btn-sub-mail');
+		const disp = document.querySelector('#form-email small');
+		if (!ValidateEmail(e.value)) {
+			btn.disabled = true
+			disp.innerHTML = '<font class="text-danger">Format email salah!</font>'
+			return;
+		}
+		let response = await fetch(atob('<?= base64_encode('/ajax/cekEmail?mail=') ?>') + btoa(e.value));
+
+		if (response.ok) {
+			let rs = await response.text();
+			if (rs === 'true') {
+				btn.disabled = false
+				disp.innerHTML = '<font class="text-success">Email tersedia!</font>'
+			} else {
+				btn.disabled = true
+				disp.innerHTML = '<font class="text-danger">Email tidak tersedia!</font>'
+			}
+		} else {
+			showMsg('error', "HTTP-Error: " + response.status);
+		}
+	}
+
+	const ValidateEmail = (input) => {
+		let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+		return (input.match(validRegex)) ? true: false
 	}
 
 </script>

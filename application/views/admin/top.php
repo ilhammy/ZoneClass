@@ -1,6 +1,3 @@
-<?php
-cekLogin();
-if (!isAdminGuru()) redirect(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,13 +73,13 @@ if (!isAdminGuru()) redirect(); ?>
 							<!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
 							<!-- Dark Logo icon -->
 							<img
-							src="/assets/img/logo-icon.png"
+							src="<?= $web_logo ?>"
 							alt="homepage"
 							class="dark-logo"
 							/>
 							<!-- Light Logo icon -->
 							<img
-							src="/assets/img/logo-light-icon.png"
+							src="<?= $web_logo ?>"
 							alt="homepage"
 							class="light-logo"
 							/>
@@ -139,7 +136,7 @@ if (!isAdminGuru()) redirect(); ?>
 						<!-- ============================================================== -->
 						<!-- Profile -->
 						<!-- ============================================================== -->
-						<li class="nav-item dropdown">
+						<li class="nav-item dropdown u-pro">
 							<a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic"
 								href="#" id="navbarDropdown" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">
@@ -147,7 +144,7 @@ if (!isAdminGuru()) redirect(); ?>
 								alt="" />
 								<span class="hidden-md-down"><?= profileValue('fullname') ?> &nbsp;</span>
 							</a>
-							<div class="dropdown-menu dropdown-menu-end animated flipInY">
+							<div class="dropdown-menu dropdown-menu-right animated flipInY">
 								<ul class="dropdown-user">
 									<li>
 										<div class="dw-user-box">

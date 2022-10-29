@@ -13,6 +13,7 @@ $config['web_name'] = 'Talkin Class';
 $config['web_description'] = 'kosong';
 $config['web_keyword'] = 'kosong';
 $config['web_author'] = 'Ujang Uye';
+$config['web_logo'] = '/assets/img/logo-icon.png';
 $config['web_icon'] = '/assets/img/web_icon.png';
 $config['web_favicon'] = '/assets/img/favicon.png';
 $config['web_shortcut_icon'] = '/assets/img/favicon.png';
