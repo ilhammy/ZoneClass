@@ -1,3 +1,7 @@
+<?php
+onlineUser();
+offlineUser();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +22,8 @@
 	</script>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
-	<link rel="stylesheet" href="/assets/css/tabbar.css<?= ($web_devmode) ? '?time=' . time() : '' ?>" />
 	<link rel="stylesheet" href="/assets/css/user-style.css<?= ($web_devmode) ? '?time=' . time() : '' ?>" />
+	<link rel="stylesheet" href="/assets/css/tabbar.css<?= ($web_devmode) ? '?time=' . time() : '' ?>" />
 	<link rel="stylesheet" href="/assets/css/loader.css" />
 
 	<link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
@@ -27,6 +31,7 @@
 
 
 	<script src="/assets/js/jquery.js"></script>
+	<script src="/assets/js/fslightbox.js"></script>
 </head>
 
 <body>

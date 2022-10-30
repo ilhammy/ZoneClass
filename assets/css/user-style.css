@@ -737,19 +737,24 @@ button, a {
 
 /* List Materi */
 .list-materi {
-	padding: 0;
+	flex-direction: column;
+	padding: 0 !important;
 	background: var(--projects-section);
 	border: 1px solid var(--more-list-shadow);
 	color: var(--link-color);
 	width: 100%;
 }
+.list-materi center {
+	display: block !important;
+}
 .list-materi .thumb {
 	width: 100%;
 	display: block;
 	border-radius: 10px;
-	max-height: 200px;
-	max-width: 300px;
-	padding: 0 0 .8rem 0;
+	padding: 0 !important;
+	/*max-height: 200px;
+	max-width: 300px;*/
+	/*padding: 0 0 .8rem 0;*/
 }
 .list-materi iframe {
 	width: 100%;
@@ -784,10 +789,11 @@ button, a {
 	opacity: .8;
 	font-size: .9em;
 }
-.list-materi-footer {
+.list-materi-header {
 	display: block;
 	padding: .5rem .8rem .5rem .8rem;
-	border-top: 1px solid var(--list-line);
+	margin: 0 0 .7rem 0;
+	border-bottom: 1px solid var(--list-line);
 }
 .list-materi-judul {
 	margin: 0;
@@ -1014,6 +1020,10 @@ button, a {
 
 	.project-boxes.jsListView .project-box > * {
 		margin-right: 10px;
+	}
+	
+	.list-materi > * {
+		margin-right: 0 !important;
 	}
 
 	.project-boxes.jsListView .more-wrapper {

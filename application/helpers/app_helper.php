@@ -141,3 +141,7 @@ function dateIndo($time) {
 	
 	return $day. ' ' .bulanIndo($month). ' ' .$year;
 }
+
+function maxStringLength($str, $max = 50, $end = null) {
+	return strlen($str) > $max ? substr($str, 0, $max) . $end : $str;
+}

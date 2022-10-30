@@ -76,6 +76,49 @@
 		</div>
 	</div>
 	<!-- Column -->
+	<!-- Column -->
+	<div class="col-md-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="d-flex p-10 no-block">
+					<div class="align-self-center display-6 m-r-20">
+						<i class="text-success fa fa-line-chart"></i>
+					</div>
+					<div class="align-slef-center">
+						<h2 class="m-b-0">
+							<?= sizeof(getOnlineSiswa(myUid())) ?>
+							<small><i class="ti-angle-down text-danger"></i></small>
+						</h2>
+						<h6 class="text-muted m-b-0">Siswa Online</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Column -->
+	
+	<?php if (isAdmin()) : ?>
+	<!-- Column -->
+	<div class="col-md-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="d-flex p-10 no-block">
+					<div class="align-self-center display-6 m-r-20">
+						<i class="text-success fa fa-line-chart"></i>
+					</div>
+					<div class="align-slef-center">
+						<h2 class="m-b-0">
+							<?= sizeof(getOnlineUser(1)) ?>
+							<small><i class="ti-angle-down text-danger"></i></small>
+						</h2>
+						<h6 class="text-muted m-b-0">Guru Online</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Column -->
+	<?php endif ?>
 </div>
 <!-- End Info Box -->
 

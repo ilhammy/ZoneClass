@@ -50,7 +50,7 @@
 							<?= $val->nama_kelas ?>
 						</p>
 						<p class="box-content-subheader">
-							<?= $val->tentang ?>
+							<?= maxStringLength($val->tentang, 45, '...') ?>
 						</p>
 					</div>
 					<div class="project-box-footer" style="display: flex; justify-content: center;margin-left:auto; padding-right:0">
