@@ -15,14 +15,14 @@
 <!-- End Bread crumb and right sidebar toggle -->
 
 <!-- Info Box -->
-<div class="row">
+<div class="row card-stats">
 	<!-- Column -->
 	<div class="col-md-4">
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex p-10 no-block">
 					<div class="align-self-center display-6 m-r-20">
-						<i class="text-success fa fa-users"></i>
+						<i class="text-info fa fa-users"></i>
 					</div>
 					<div class="align-slef-center">
 						<h2 class="m-b-0">
@@ -42,7 +42,7 @@
 			<div class="card-body">
 				<div class="d-flex p-10 no-block">
 					<div class="align-self-center display-6 m-r-20">
-						<i class="text-success fa fa-graduation-cap"></i>
+						<i class="text-info fa fa-graduation-cap"></i>
 					</div>
 					<div class="align-slef-center">
 						<h2 class="m-b-0">
@@ -62,7 +62,7 @@
 			<div class="card-body">
 				<div class="d-flex p-10 no-block">
 					<div class="align-self-center display-6 m-r-20">
-						<i class="text-success fa fa-book"></i>
+						<i class="text-info fa fa-book"></i>
 					</div>
 					<div class="align-slef-center">
 						<h2 class="m-b-0">
@@ -82,7 +82,7 @@
 			<div class="card-body">
 				<div class="d-flex p-10 no-block">
 					<div class="align-self-center display-6 m-r-20">
-						<i class="text-success fa fa-line-chart"></i>
+						<i class="text-primary fa fa-line-chart"></i>
 					</div>
 					<div class="align-slef-center">
 						<h2 class="m-b-0">
@@ -104,7 +104,7 @@
 			<div class="card-body">
 				<div class="d-flex p-10 no-block">
 					<div class="align-self-center display-6 m-r-20">
-						<i class="text-success fa fa-line-chart"></i>
+						<i class="text-primary fa fa-line-chart"></i>
 					</div>
 					<div class="align-slef-center">
 						<h2 class="m-b-0">
@@ -112,6 +112,26 @@
 							<small><i class="ti-angle-down text-danger"></i></small>
 						</h2>
 						<h6 class="text-muted m-b-0">Guru Online</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Column -->
+	<!-- Column -->
+	<div class="col-md-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="d-flex p-10 no-block">
+					<div class="align-self-center display-6 m-r-20">
+						<i class="text-primary fa fa-line-chart"></i>
+					</div>
+					<div class="align-slef-center">
+						<h2 class="m-b-0">
+							<?= sizeof(getOnlineUser(2)) ?>
+							<small><i class="ti-angle-down text-danger"></i></small>
+						</h2>
+						<h6 class="text-muted m-b-0">All Siswa Online</h6>
 					</div>
 				</div>
 			</div>

@@ -18,6 +18,17 @@ function getOnlineUser($role = null) {
 	}
 }
 
+function isOnlineUser($uid) {
+	$ci = &get_instance();
+	$uid = is_null($uid) ? myUid() : $uid;
+
+	$total = $ci->db
+	->from('user_online')
+	->where('uid', $uid)
+	->count_all_results();
+	return ($total > 0);
+}
+
 function getOnlineSiswa($guru) {
 	$ci = &get_instance();
 	$siswaku = $online = [];

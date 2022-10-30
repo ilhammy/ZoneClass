@@ -55,12 +55,14 @@ if ($data_user->role_id == 2) {
 	<div class="col-md-10">
 		<div class="card">
 			<div class="card-body">
-				<center class="m-t-30">
+				<center class="m-t-30 d-block">
 					<img src="<?= $data_user->foto ?>" class="img-circle" width="150" height="150" />
 					<h4 class="card-title m-t-10"><?= $data_user->fullname ?></h4>
 					<h6 class="card-subtitle">
-						@<?= $data_user->username ?><br/>
+						@<?= $data_user->username ?>
+						<br />
 						<span class="mt-2 badge badge-pill badge-primary px-2 py-1"><?= roleName($data_user->role_id) ?></span>
+						<span class="badge badge-pill badge-warning"><?= isOnlineUser($data_user->user_id) ? 'online' : null ?></span>
 					</h6>
 					<div class="row text-center justify-content-md-center">
 						<div class="col-4">

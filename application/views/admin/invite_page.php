@@ -94,6 +94,7 @@
 
 		</div>
 		<!-- End Col -->
+
 		<div class="col-md-8">
 
 			<div class="card">
@@ -156,82 +157,106 @@
 	</div>
 	<!-- End Row -->
 
+</div>
+<!-- This is data table -->
+<script src="/assets/js/admin/jquery.dataTables.min.js"></script>
+<script src="/assets/js/admin/dataTables.responsive.min.js"></script>
 
-	<!-- This is data table -->
-	<script src="/assets/js/admin/jquery.dataTables.min.js"></script>
-	<script src="/assets/js/admin/dataTables.responsive.min.js"></script>
-
-	<script>
-		$(function () {
-			$("#myTable").DataTable({
-				"lengthChange": false
-			});
+<script>
+	$(function () {
+		$("#myTable").DataTable({
+			"lengthChange": false
 		});
+	});
 
-		const showConfirm = (id) => {
-			Swal.fire({
-				title: 'Konfirmasi',
-				text: 'Anda yakin akan menghapus item ini?',
-				showCancelButton: true,
-				confirmButtonText: 'Hapus',
-				cancelButtonText: 'Batal',
-			}).then((result) => {
-				/* Read more about isConfirmed, isDenied below */
-				if (result.isConfirmed) {
-					Swal.fire('Saved!', '', 'success')
-				} else if (result.isDenied) {
-					Swal.fire('Changes are not saved', '', 'info')
+	const showConfirm = (a) => {
+		Swal.fire({
+			title: 'Konfirmasi',
+			text: 'Anda yakin akan menghapus item ini?',
+			showCancelButton: true,
+			confirmButtonText: 'Hapus',
+			cancelButtonText: 'Batal',
+		}).then((result) => {
+			/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				delAjax(a)
+			}
+		})
+	}
+
+	const listenCb1 = (e) => {
+		const s = document.querySelector('#sel1')
+		s.disabled = e.checked
+		s.value = ''
+	}
+
+	const listenKuota = (e) => {
+		if (e.value == '0') e.value = 1
+	}
+
+	const resetKode = (a) => {
+		Swal.fire({
+			title: 'Reset Kode Undangan',
+			text: 'Jumlah dipakai akan dikembalikan menjadi 0',
+			showCancelButton: true,
+			confirmButtonText: 'Reset',
+			cancelButtonText: 'Batal',
+		}).then((result) => {
+			/* Read more about isConfirmed, isDenied below */
+			if (result.isConfirmed) {
+				resetAjax(a)
+			}
+		})
+	}
+
+	const resetAjax = (a) => {
+		$(".preloader").fadeIn();
+		$.ajax({
+			url: '/admin/invite/aturUlang',
+			method: 'post',
+			data: {
+				kjkl: a
+			},
+			dataType: 'json',
+			success: (response) => {
+				console.info(response)
+				if (response.status != true) {
+					showMsg('info', response.msg);
+				} else {
+					showMsg('success', 'Kode undangan berhasil direset!');
+					setTimeout(() => {
+						location.reload(true)
+					}, 2500);
 				}
-			})
-		}
-
-		const listenCb1 = (e) => {
-			const s = document.querySelector('#sel1')
-			s.disabled = e.checked
-			s.value = ''
-		}
-
-		const listenKuota = (e) => {
-			if (e.value == '0') e.value = 1
-		}
-
-		const resetKode = (a) => {
-			Swal.fire({
-				title: 'Reset Kode Undangan',
-				text: 'Jumlah dipakai akan dikembalikan menjadi 0',
-				showCancelButton: true,
-				confirmButtonText: 'Reset',
-				cancelButtonText: 'Batal',
-			}).then((result) => {
-				/* Read more about isConfirmed, isDenied below */
-				if (result.isConfirmed) {
-					resetAjax(a)
+			},
+			complete: () => $(".preloader").fadeOut(),
+			error: () => showMsg('info', 'Server error!')
+		});
+	}
+	
+	const delAjax = (a) => {
+		$(".preloader").fadeIn();
+		$.ajax({
+			url: '/admin/invite/delCode',
+			method: 'POST',
+			data: {
+				kjkll: a, 
+				udi: <?= myUid() ?>
+			},
+			dataType: 'json',
+			success: (response) => {
+				console.info(response)
+				if (response.status != true) {
+					showMsg('info', response.msg);
+				} else {
+					showMsg('success', 'Kode undangan berhasil dihapus!');
+					setTimeout(() => {
+						location.reload(true)
+					}, 2500);
 				}
-			})
-		}
-
-		const resetAjax = (a) => {
-			$(".preloader").fadeIn();
-			$.ajax({
-				url: '/admin/invite/aturUlang',
-				method: 'post',
-				data: {
-					kjkl: a
-				},
-				dataType: 'json',
-				success: (response) => {
-					console.info(response)
-					if (response.status != true) {
-						showMsg('info', response.msg);
-					} else {
-						showMsg('success', 'Kode undangan berhasil direset!');
-						setTimeout(() => {
-							location.reload(true)
-						}, 2500);
-					}
-				},
-				complete: () => $(".preloader").fadeOut(),
-				error: () => showMsg('info', 'Server error!')
-			});
-		}
-	</script>
+			},
+			complete: () => $(".preloader").fadeOut(),
+			error: () => showMsg('info', 'Server error!')
+		});
+	}
+</script>

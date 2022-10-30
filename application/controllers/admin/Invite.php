@@ -47,6 +47,33 @@ class Invite extends CI_Controller {
 			'msg' => 'Terjadi kesalahan silahkan coba lagi'
 		]);
 	}
+	
+	public function delCode() {
+		if ($this->input->server('REQUEST_METHOD') !== 'POST') {
+			echo 'Invalid access';
+			return;
+		}
+		if ($this->input->post('kjkll') == null) {
+			echo 'Invalid parameter';
+			return;
+		}
+		if ($this->input->post('udi') == null) {
+			echo 'Invalid parameter';
+			return;
+		}
+
+		if ($this->Kun->deleteCode($this->input->post('kjkll'))) {
+			echo json_encode([
+				'status' => true,
+				'msg' => 'Ok'
+			]);
+			return;
+		}
+		echo json_encode([
+			'status' => false,
+			'msg' => 'Terjadi kesalahan silahkan coba lagi'
+		]);
+	}
 
 	public function tambahKode() {
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {

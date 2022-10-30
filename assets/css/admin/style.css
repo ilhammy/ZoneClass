@@ -6073,3 +6073,9 @@ File: scss
     overflow: hidden;
   }
 }
+
+/* Custom Css */
+.card-stats .card {
+	border-radius: 10px;
+	box-shadow: 0 1px 7px rgba(0,0,0,.1);
+}
