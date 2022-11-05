@@ -29,16 +29,16 @@ class Materi_model extends CI_Model
 		->get();
 		return $q->result();
 	}
-	
+
 	public function getById($id) {
-		return $this->db->get_where($this->tmk, ['id' => $id])->row(); 
+		return $this->db->get_where($this->tmk, ['id' => $id])->row();
 	}
-	
+
 	function updateData($id, $data) {
 		$this->db->update($this->tmk, $data, ['id' => $id]);
 		return ($this->db->affected_rows() == 1);
 	}
-	
+
 	function deleteById($id) {
 		$this->db->delete($this->tmk, ['id' => $id]);
 		return ($this->db->affected_rows() == 1);
@@ -50,6 +50,12 @@ class Materi_model extends CI_Model
 		->order_by('waktu', 'desc')
 		->get();
 		return $q->result();
+	}
+
+	function hitMateri($id) {
+		$this->db->where('id', $id);
+		$this->db->set('views', 'views+1', FALSE);
+		$this->db->update($this->tmk);
 	}
 
 }

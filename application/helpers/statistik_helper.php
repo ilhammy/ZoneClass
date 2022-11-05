@@ -90,6 +90,12 @@ function offlineUser() {
 	]);
 }
 
+function unreadNotif($type) {
+	$ci = &get_instance();
+	$ci->load->model('Notif_model');
+	return $ci->Notif_model->getUnread($type);
+}
+
 /*function hits() {
 	global $sql;
 	$user_nama=user_nama();

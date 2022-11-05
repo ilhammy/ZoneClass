@@ -138,6 +138,16 @@ offlineUser();
 					<!-- User profile and search -->
 					<!-- ============================================================== -->
 					<ul class="navbar-nav my-lg-0">
+						
+						<li class="nav-item">
+							<a class="nav-link waves-effect waves-dark" href="/dashboard#info">
+								<i class="fa fa-bell-o"></i>
+								<div class="notify <?= sizeof(unreadNotif(isAdmin() ? 'admin' : 'guru')) == 0 ? 'd-none' : null ?>">
+									<span class="heartbit"></span> <span class="point"></span>
+								</div>
+							</a>
+						</li>
+						
 						<!-- ============================================================== -->
 						<!-- Profile -->
 						<!-- ============================================================== -->

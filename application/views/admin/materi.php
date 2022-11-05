@@ -50,6 +50,7 @@
 						<th>Judul</th>
 						<th>Konten</th>
 						<?= (is_null($kelas_terpilih)) ? '<th>Kelas</th>' : '' ?>
+						<th>Views</th>
 						<th>Aksi</th>
 					</tr>
 				</thead>
@@ -57,8 +58,6 @@
 					<?php
 					if (is_null($kelas_terpilih)) {
 						$data_materi = $this->Materi->getByCreator(myUid());
-					} else if (isAdmin()) {
-						$data_materi = $this->Materi->getAll();
 					} else {
 						$data_materi = $this->Materi->getByClass($kelas_terpilih);
 					}
@@ -79,6 +78,9 @@
 							$kls = $this->Kelas->getSingle($val->id_kelas);
 							echo "<td>$kls->nama_kelas</td>";
 						} ?>
+						<td class="text-center">
+							<?= $val->views ?>
+						</td>
 						<td class="text-center">
 							<button class="btn btn-sm btn-danger" type="button" onclick="hapusMateri(<?= $val->id ?>)">
 								<i class="fa fa-trash"></i>

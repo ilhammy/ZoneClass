@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Kelola_Kelas extends CI_Controller {
+class Kelasm extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();

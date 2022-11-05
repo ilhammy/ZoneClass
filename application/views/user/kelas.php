@@ -54,7 +54,7 @@
 						</p>
 					</div>
 					<div class="project-box-footer" style="display: flex; justify-content: center;margin-left:auto; padding-right:0">
-						<a href="/materi/<?= urlencode(base64_encode($val->id_kelas)) ?>">
+						<a href="/materi/<?= base64url_encode($val->id_kelas) ?>">
 							<div class="days-left" style="font-size: 12px; padding-left: .7rem; padding-right: .7rem">
 								Akses Materi
 							</div>

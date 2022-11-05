@@ -96,7 +96,7 @@
 		</div>
 	</div>
 	<!-- Column -->
-	
+
 	<?php if (isAdmin()) : ?>
 	<!-- Column -->
 	<div class="col-md-4">
@@ -146,141 +146,50 @@
 <div class="row">
 	<!-- kolom1 -->
 	<div class="col-md-6">
-		<div class="card card-body mailbox">
-			<h5 class="card-title">Soon</h5>
-			<div class="message-center d-none" style="height: 420px !important">
+		<div class="card card-body mailbox" id="info">
+			<h5 class="card-title">Notifikasi</h5>
+			<div class="message-center" style="height: auto;max-height: 420px !important">
 				<!-- Message -->
-				<a href="#">
-					<div class="btn btn-danger btn-circle">
-						<i class="fa fa-link"></i>
-					</div>
-					<div class="mail-contnet">
-						<h6 class="text-dark font-medium mb-0">Luanch Admin</h6>
-						<span class="mail-desc">Just see the my new admin!</span>
-						<span class="time">9:30 AM</span>
-					</div>
-				</a>
-				<!-- Message -->
-				<a href="#">
-					<div class="btn btn-success btn-circle">
-						<i class="fa fa-calendar-check-o"></i>
-					</div>
-					<div class="mail-contnet">
-						<h6 class="text-dark font-medium mb-0">Event today</h6>
-						<span class="mail-desc"
-							>Just a reminder that you have event</span
-						>
-						<span class="time">9:10 AM</span>
-					</div>
-				</a>
-				<!-- Message -->
-				<a href="#">
-					<div class="btn btn-info btn-circle">
-						<i class="fa fa-cog text-white"></i>
-					</div>
-					<div class="mail-contnet">
-						<h6 class="text-dark font-medium mb-0">Settings</h6>
-						<span class="mail-desc"
-							>You can customize this template as you want</span
-						>
-						<span class="time">9:08 AM</span>
-					</div>
-				</a>
-				<!-- Message -->
-				<a href="#">
-					<div class="btn btn-primary btn-circle">
-						<i class="fa fa-user"></i>
-					</div>
-					<div class="mail-contnet">
-						<h6 class="text-dark font-medium mb-0">Pavan kumar</h6>
-						<span class="mail-desc">Just see the my admin!</span>
-						<span class="time">9:02 AM</span>
-					</div>
-				</a>
-				<!-- Message -->
-				<a href="#">
-					<div class="btn btn-info btn-circle">
-						<i class="fa fa-cog text-white"></i>
-					</div>
-					<div class="mail-contnet">
-						<h6 class="text-dark font-medium mb-0">
-							Customize Themes
-						</h6>
-						<span class="mail-desc"
-							>You can customize this template as you want</span
-						>
-						<span class="time">9:08 AM</span>
-					</div>
-				</a>
-				<!-- Message -->
-				<a href="#">
-					<div class="btn btn-primary btn-circle">
-						<i class="fa fa-user"></i>
-					</div>
-					<div class="mail-contnet">
-						<h6 class="text-dark font-medium mb-0">Pavan kumar</h6>
-						<span class="mail-desc">Just see the my admin!</span>
-						<span class="time">9:02 AM</span>
-					</div>
-				</a>
+				<?php
+				$notifs = isAdmin() ? $this->Notif_model->getForAdmin() : $this->Notif_model->getForGuru();
+				if (sizeof($notifs) == 0) echo '<div class="alert alert-info">Tidak ada notifikasi</div>';
+				foreach ($notifs as $val) :
+				if (!($val->user !== myUid() || $val->user !== -1)) continue;
+				switch ($val->type) {
+					case 'error':
+						$bg = 'btn-danger';
+						break;
+					case 'warning':
+						$bg = 'btn-warning';
+						break;
+					case 'success':
+						$bg = 'btn-success';
+						break;
+					default:
+						$bg = 'btn-info';
+					}
+					?>
+					<a href="javascript:readNot(<?= $val->id ?>);viewNotif('<?= $val->title ?>', '<?= $val->content ?>')" id="notif<?= $val->id ?>">
+						<div class="btn <?= $bg ?> btn-circle">
+							<i class="<?= $val->icon ?>"></i>
+						</div>
+						<div class="mail-contnet">
+							<h6 class="<?= !$val->isRead ? 'text-dark' : 'text-muted' ?> font-medium mb-0"><?= $val->title ?></h6>
+							<span class="mail-desc"><?= $val->content ?></span>
+							<span class="time"><?= timeago($val->time) ?></span>
+						</div>
+					</a>
+					<?php endforeach ?>
+				</div>
 			</div>
 		</div>
-	</div>
-	<!-- kolom1 end -->
-	<!-- kolom2 -->
-	<div class="col-md-6">
-		<div class="card">
-			<div class="card-body">
-				<h5 class="card-title">Soon</h5>
-				<ul class="feeds d-none">
-					<li>
-						<div class="bg-light-info">
-							<i class="fa fa-bell-o"></i>
-						</div>
-						You have 4 pending tasks.
-						<span class="text-muted">Just Now</span>
-					</li>
-					<li>
-						<div class="bg-light-success">
-							<i class="fa fa-server"></i>
-						</div>
-						Server #1 overloaded.<span class="text-muted"
-							>2 Hours ago</span
-						>
-					</li>
-					<li>
-						<div class="bg-light-warning">
-							<i class="fa fa-shopping-cart"></i>
-						</div>
-						New order received.<span class="text-muted">31 May</span>
-					</li>
-					<li>
-						<div class="bg-light-danger">
-							<i class="fa fa-user"></i>
-						</div>
-						New user registered.<span class="text-muted">30 May</span>
-					</li>
-					<li>
-						<div class="bg-light-inverse">
-							<i class="fa fa-bell-o"></i>
-						</div>
-						New Version just arrived.
-						<span class="text-muted">27 May</span>
-					</li>
-					<li>
-						<div class="bg-light-info">
-							<i class="fa fa-bell-o"></i>
-						</div>
-						You have 4 pending tasks.
-						<span class="text-muted">Just Now</span>
-					</li>
-					<li>
-						<div class="bg-light-danger">
-							<i class="fa fa-user"></i>
-						</div>
-						New user registered.<span class="text-muted">30 May</span>
-					</li>
-				</ul>
+		<!-- kolom1 end -->
+		<!-- kolom2 -->
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Soon</h5>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -288,3 +197,16 @@
 
 </div>
 <!-- row end -->
+
+
+<script>
+	const viewNotif = (a, b) => Swal.fire(a, b, 'info')
+	const readNot = (a) => {
+		let cont = document.querySelector('#notif' + a)
+		console.info(a.innerHTML)
+		cont.querySelector('h6').classList.remove('text-dark')
+		cont.querySelector('h6').classList.add('text-muted')
+		fetch('/ajax/readNotif/' + a)
+		.then((response) => response.text());
+	}
+</script>

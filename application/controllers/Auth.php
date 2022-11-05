@@ -129,12 +129,20 @@ class Auth extends CI_Controller {
 				$prof);
 
 			if ($status !== true) {
-				$this->Kun->updateUsed($this->idKun);
 				return array (
 					'status' => false,
 					'text' => 'Terjadi kesalahan silahkan coba lagi!'
 				);
 			} else {
+				$this->Kun->updateUsed($this->idKun);
+				$this->Notif_model->push([
+					'to' => 'admin',
+					'uid' => -1,
+					'title' => 'User Baru ['. ($guru) ? 'Guru' : 'Siswa' . ']',
+					'text' => '@' .$inti['username']. ' telah ikut bergabung',
+					'icon' => 'fa fa-user-plus',
+					'type' => 'error'
+				]);
 				return array (
 					'status' => true,
 					'text' => 'OK'

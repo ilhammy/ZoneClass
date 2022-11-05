@@ -72,7 +72,15 @@ class Ajax extends CI_Controller {
 		}
 		$this->Kun->updateUsed($kuota['id']);
 
-		//$isJoin = $this->Kelas_model->cekUserInClass($uid, $cid);
+		$kelasData = $this->Kelas_model->getSingle($cid);
+		$this->Notif_model->push([
+			'to' => 'all',
+			'uid' => $kelasData->creator_id,
+			'title' => 'Siswa Baru ['. $kelasData->nama_kelas . ']',
+			'text' => '@' .$_SESSION['username']. ' telah bergabung ke kelas anda',
+			'icon' => 'fa fa-user-plus',
+			'type' => 'warning'
+		]);
 		$result = $this->Kelas_model->gabungKelas($uid, $cid, true);
 		echo json_encode($result);
 	}
@@ -82,6 +90,11 @@ class Ajax extends CI_Controller {
 		$uid = myUid();
 		$result = $this->Kelas_model->gabungKelas($uid, $cid, false);
 		echo json_encode($result);
+	}
+	
+	public function readNotif($id = null) {
+		if (is_null($id)) die(false);
+		die($this->Notif_model->readNotif($id));
 	}
 
 	/* CEK USERNAME */
