@@ -17,16 +17,6 @@ class Kelas_model extends CI_Model {
 				'max_length' => '%s maksimal %s karakter'
 			)
 		),
-		array(
-			'field' => 'des',
-			'label' => 'Keterangan Singkat',
-			'rules' => 'required|trim|min_length[5]|max_length[1000]',
-			'errors' => array(
-				'required' => '%s kososng',
-				'min_length' => '%s minimal %s karakter',
-				'max_length' => '%s maksimal %s karakter'
-			),
-		)
 	);
 
 	function addClass($data) {
@@ -45,17 +35,34 @@ class Kelas_model extends CI_Model {
 	}
 
 	function getAllData() {
-		$q = $this->db->from($this->tk)
-		->order_by('dibuat', 'desc')
-		->where('status', 1)->get();
+		$q = $this->db
+		->select('a.*, b.uid, b.fullname AS pengurus, b.whatsapp AS kontak')
+		->from($this->tk . ' a')
+		->join('profile b', 'b.uid=a.creator_id')
+		->order_by('a.dibuat', 'desc')
+		->where('a.status', 1)->get();
+		return $q->result();
+		//return $this->db->get($this->tk)->result();
+	}
+	
+	function getEmptyLink($isEmpty = true) {
+		$op = $isEmpty ? '' : ' !=';
+		$q = $this->db
+		->select('a.*, b.uid, b.fullname AS pengurus, b.whatsapp AS kontak')
+		->from($this->tk . ' a')
+		->join('profile b', 'b.uid=a.creator_id')
+		->order_by('a.dibuat', 'desc')
+		->where('a.tentang' . $op, null)
+		->where('a.status', 1)->get();
 		return $q->result();
 		//return $this->db->get($this->tk)->result();
 	}
 
 	function getAllByUser($uid) {
-		$this->db->select('*');
+		$this->db->select('a.*, b.*, c.uid, c.fullname AS pengurus');
 		$this->db->from('kelas a');
 		$this->db->join('kelas_user b', 'b.id_kelas=a.id_kelas', 'left');
+		$this->db->join('profile c', 'c.uid=a.creator_id');
 		$this->db->where(['b.id_user' => $uid, 'status' => 1]);
 		$this->db->order_by('b.bergabung', 'desc');
 		$query = $this->db->get();
@@ -104,7 +111,12 @@ class Kelas_model extends CI_Model {
 	}
 
 	function getSingle($id) {
-		return $this->db->get_where($this->tk, ['id_kelas' => $id])->row();
+		return $this->db
+		->select('a.*, b.uid, b.fullname AS pengurus, b.whatsapp AS kontak')
+		->from($this->tk . ' a')
+		->join('profile b', 'b.uid=a.creator_id')
+		->where('id_kelas', $id)
+		->get()->row();
 	}
 
 	function isActiveClass($id) {

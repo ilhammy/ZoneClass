@@ -12,7 +12,7 @@
 		</ol>
 	</div>
 	<div class="col-md-7 align-self-center">
-		<button class="btn
+		<button class="d-none btn
 			waves-effect waves-light
 			btn btn-info
 			pull-right text-white"
@@ -39,25 +39,33 @@
 				<form action="" method="POST" class="mt-4" id="form1">
 					<div class="form-group">
 						<label>Nama Kelas</label>
-						<input
-						value="<?= set_value('nama_kelas') ?>"
-						type="text" class="form-control" name="nama_kelas" autocomplete="off" required />
-						<small class="form-text text-muted">
-							*Wajib
-						</small>
-					</div>
+						<input value="<?= set_value('nama_kelas') ?>" type="text" class="form-control" name="nama_kelas" autocomplete="off" required />
+					<small class="form-text text-muted">*Wajib</small>
+				</div>
 
-					<div class="form-group">
-						<label>Keterangan Singkat</label>
-						<textarea class="form-control" name="des" rows="5" required><?= set_value('des') ?></textarea>
-						<small class="form-text text-muted">
-							*Wajib
-						</small>
-					</div>
-					<input type="submit" class="d-none" id="sb-form1" />
-				</form>
+				<div class="form-group">
+					<label>Nama Pengurus</label>
+					<input value="<?= profileValue('fullname') ?>" type="text" class="form-control" disabled />
 			</div>
+
+			<div class="form-group">
+				<label>Apakah memiliki akses khusus?</label>
+				<div class="custom-control custom-radio">
+					<input type="radio" id="customRadio1" name="hasAkses" class="custom-control-input" />
+				<label class="custom-control-label" for="customRadio1">Ya</label>
+			</div>
+			<div class="custom-control custom-radio">
+				<input type="radio" id="customRadio2" name="hasAkses" class="custom-control-input" checked />
+			<label class="custom-control-label" for="customRadio2">Tidak</label>
 		</div>
 	</div>
+
+	<button type="submit" class="btn btn-info waves-effect waves-light pull-right" id="sb-form1">Simpan</button>
+</form>
+</div>
+</div>
+
+
+</div>
 </div>
 <!-- row -->

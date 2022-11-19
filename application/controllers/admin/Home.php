@@ -74,7 +74,7 @@ class Home extends CI_Controller {
 			if ($this->form_validation->run() !== false) {
 				$inti = array(
 					'nama_kelas' => $this->input->post('nama_kelas'),
-					'tentang' => $this->input->post('des')
+					'hasAkses' => $this->input->post('hasAkses') ? true : false
 				);
 				if ($this->Kelas_model->updateClassInfo($idkes, $inti)) {
 					$this->session->set_flashdata('alert', '<b>Berhasil!</b> Perubahan tersimpan.');
@@ -107,7 +107,8 @@ class Home extends CI_Controller {
 				$inti = array(
 					'creator_id' => myUid(),
 					'nama_kelas' => $this->input->post('nama_kelas'),
-					'tentang' => $this->input->post('des'),
+					'hasAkses' => $this->input->post('hasAkses') ? true : false,
+					'tentang' => null, 
 					'dibuat' => time()
 				);
 				if ($this->Kelas_model->addClass($inti)) {

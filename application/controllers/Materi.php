@@ -16,7 +16,7 @@ class Materi extends CI_Controller {
 		$data['title'] = 'Materi';
 		$data['kelid'] = intval(base64url_decode($idkel, false));
 		$data['data_kelas'] = $this->Kelas_model->getSingle($data['kelid']);
-		$data['data_materi'] = $this->Materi_model->getByClass($data['kelid']);
+		$data['data_materi'] = $this->Materi_model->getByClass($data['kelid'], 'asc');
 		$data['nonav'] = true;
 		
 		$this->load->view('user/top', $data);

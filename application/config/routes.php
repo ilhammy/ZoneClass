@@ -78,6 +78,8 @@ $route['dashboard/users'] = 'admin/users/index';
 $route['dashboard/users/(:any)'] = 'admin/users/index/$1';
 
 $route['dashboard/kelola_kelas'] = 'admin/kelasm/index';
+$route['dashboard/manage_link'] = 'admin/kelasm/link_kelas';
+$route['dashboard/manage_link/tambah'] = 'admin/kelasm/tambah_linkkelas';
 
 $route['dashboard/settings'] = 'admin/settings/index';
 

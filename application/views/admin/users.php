@@ -62,7 +62,7 @@
 						</td>
 						<td><?= $val->fullname ?></td>
 						<td><?= $val->email ?></td>
-						<td>&#x200C;<?= $val->whatsapp ?></td>
+						<td onclick="window.location.assign('https://wa.me/<?= $val->whatsapp ?>')">&#x200C;<?= $val->whatsapp ?></td>
 						<td class="text-center">
 							<span class="badge badge-<?= ($val->isActive) ? 'success' : 'danger' ?>" data-toggle="dropdown">
 								<?= ($val->isActive) ? 'Aktif' : 'Pending' ?>

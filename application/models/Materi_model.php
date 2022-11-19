@@ -21,11 +21,11 @@ class Materi_model extends CI_Model
 		return $q->result();
 	}
 
-	public function getByClass($kls) {
+	public function getByClass($kls, $order = 'desc') {
 		$q = $this->db
 		->from($this->tmk)
 		->where('id_kelas', $kls)
-		->order_by('waktu', 'desc')
+		->order_by('waktu', $order)
 		->get();
 		return $q->result();
 	}

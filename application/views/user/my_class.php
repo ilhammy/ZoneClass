@@ -30,7 +30,7 @@
 						<?= $val->nama_kelas ?>
 					</p>
 					<p class="box-content-subheader">
-						<?= maxStringLength($val->tentang, 45, '...') ?>
+						<?= $val->pengurus ?>
 					</p>
 				</div>
 			</div>

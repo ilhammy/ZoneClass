@@ -44,7 +44,7 @@
 						</td>
 						<td><?= $val->fullname ?></td>
 						<td><?= $val->email ?></td>
-						<td><?= $val->whatsapp ?></td>
+						<td onclick="window.location.assign('https://wa.me/<?= $val->whatsapp ?>')"><?= $val->whatsapp ?></td>
 						<?= (isAdmin()) ? '<td>'.sizeof($kelasnya). '</td>' : '' ?>
 						<td class="text-center">
 							<button class="m-1 btn btn-sm btn-primary"

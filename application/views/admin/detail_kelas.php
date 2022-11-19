@@ -48,10 +48,23 @@
 				</div>
 
 				<div class="form-group">
-					<label>Keterangan Singkat</label>
-					<textarea class="form-control" name="des" rows="5" id="input-des" required><?= $data_kelas->tentang ?></textarea>
+					<label>Nama Pengurus</label>
+					<input value="<?= profileValue('fullname') ?>" type="text" class="form-control" disabled />
 				</div>
-				<button type="submit" class="waves-effect waves-light btn btn-info text-white" id="sb-form1" disabled="true"><i class="fa fa-check"></i> Update</button>
+
+				<div class="form-group">
+					<label>Apakah memiliki akses khusus?</label>
+					<div class="custom-control custom-radio">
+						<input type="radio" id="customRadio1" name="hasAkses" class="custom-control-input" <?= $data_kelas->hasAkses ? 'checked' : null ?>/>
+						<label class="custom-control-label" for="customRadio1">Ya</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" id="customRadio2" name="hasAkses" class="custom-control-input" <?= $data_kelas->hasAkses ? null : 'checked' ?>/>
+						<label class="custom-control-label" for="customRadio2">Tidak</label>
+					</div>
+				</div>
+				
+				<button type="submit" class="waves-effect waves-light btn btn-info text-white" id="sb-form1"><i class="fa fa-check"></i> Update</button>
 			</form>
 
 		</div>
@@ -94,10 +107,7 @@
 	}
 
 	document.querySelector('#input-nama').oninput = (e) => {
-		cekPerubahan(e.value);
-	}
-	document.querySelector('#input-des').oninput = (e) => {
-		cekPerubahan(e.value);
+		//cekPerubahan(e.value);
 	}
 
 	const cekPerubahan = (newData) => {

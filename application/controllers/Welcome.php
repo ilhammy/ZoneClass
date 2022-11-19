@@ -23,6 +23,9 @@ class Welcome extends CI_Controller {
 	}
 
 	private function uploadProfile() {
+		$oldFoto = profileValue('foto');
+		if (strpos($oldFoto, 'default') !== false) $oldFoto = null;
+		
 		$config['upload_path'] = 'assets/img/avatar'; // folder upload
 		$config['allowed_types'] = 'jpg|jpeg|JPG|JPEG'; // jenis file
 		$config['max_size'] = 300000;
@@ -36,7 +39,10 @@ class Welcome extends CI_Controller {
 			$file = $this->upload->data();
 			$namaFile = $file['file_name'];
 			$res = $this->User_model->updateFoto('/assets/img/avatar/'.$namaFile);
-			if ($res) return "showMsg('success', 'Berhasil ubah foto anda!');";
+			if ($res) {
+				if (!is_null($oldFoto)) @unlink('.' .$oldFoto);
+				return "showMsg('success', 'Berhasil ubah foto anda!');";
+			}
 			return "showMsg('error', 'Gagal mengganti foto!');";
 		}
 	}

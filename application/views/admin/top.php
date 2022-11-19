@@ -202,7 +202,7 @@ offlineUser();
 							<a class="waves-effect waves-dark"
 								href="<?= $val->href ?>"
 								aria-expanded="false">
-								<i class="<?= $val->icon ?>"></i>
+								<i class="fa fa-chevron-right"></i>
 								<span class="hide-menu"><?= $val->title ?></span>
 							</a>
 						</li>

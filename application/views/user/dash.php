@@ -25,8 +25,8 @@
 					<div class="more-wrapper">
 						<?php if (!$this->Kelas_model->cekUserInClass($this->session->userdata('uid'), $val->id_kelas)) : ?>
 						<!-- div class="days-left" style="margin: 15px 3px; font-size: 12px" onclick="ikutKelas(this, <?= $val->id_kelas ?>)" -->
-						<div class="days-left" style="margin: 15px 3px; font-size: 12px" onclick="infoKelas(<?= $val->id_kelas ?>, '<?= $val->nama_kelas ?>', '<?= base64_encode(nl2br($val->tentang)) ?>')">
-							Info Lengkap
+						<div class="days-left" style="margin: 10px 5px; font-size: 12px; background: transparent;" onclick="infoKelas(<?= $val->id_kelas ?>, '<?= $val->nama_kelas ?>', '<?= base64_encode(nl2br($val->tentang)) ?>')">
+							<ion-icon name="eye" style="font-size: 24px;"></ion-icon>
 						</div>
 						<?php endif; ?>
 					</div>
@@ -36,7 +36,7 @@
 						<?= $val->nama_kelas ?>
 					</p>
 					<p class="box-content-subheader">
-						<?= maxStringLength($val->tentang, 45, '...') ?>
+						<?= $val->pengurus ?>
 					</p>
 				</div>
 			</div>
@@ -66,17 +66,21 @@
 		}
 	}
 
-	const infoKelas = (id, name, about) => {
+	const infoKelas = (id, name, about, url) => {
+		if (url == undefined || url.length < 1) url = window.location.href
 		Swal.fire({
-			title: name,
-			icon: 'info',
-			html: atob(about),
-			showCancelButton: true,
+			title: 'Kelas ' +name,
+			html: 'Silahkan pilih tindakan',
+			showDenyButton: true,
 			focusConfirm: false,
-			confirmButtonText: 'Ikut Kelas',
-			cancelButtonText: 'Tutup',
+			confirmButtonText: 'Info Lengkap',
+			denyButtonText: 'Masuk',
 		}).then(result => {
-			if (result.isConfirmed) enterCode(id, name);
+			if (result.isConfirmed) {
+				window.location.href = url;
+			} else if (result.isDenied) {
+				enterCode(id, name);
+			}
 		})
 	}
 

@@ -21,7 +21,7 @@ class Ajax extends CI_Controller {
 	}
 
 	public function notifUser() {
-		$this->load->view('user/notif');
+		$this->load->view('user/request');
 	}
 
 	public function profileUser() {

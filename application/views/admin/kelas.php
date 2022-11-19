@@ -14,7 +14,7 @@
 			btn btn-info
 			pull-right text-white"
 			onclick="window.location.assign('/dashboard/kelas/tambah')">
-			<i class="fa fa-plus"></i> Buat Kelas
+			Buat Kelas
 		</button>
 	</div>
 </div>
@@ -70,7 +70,7 @@
 							<tr>
 								<th>#</th>
 								<th>Nama Kelas</th>
-								<th>Tentang</th>
+								<th>Akses Khusus</th>
 								<th>Total Siswa</th>
 								<th>Aksi</th>
 							</tr>
@@ -83,12 +83,8 @@
 							<tr>
 								<td><?= $key + 1 ?></td>
 								<td><?= $val->nama_kelas ?></td>
-								<td>
-									<button onclick="setModal1('<?= base64_encode(nl2br($val->tentang)) ?>')" class="btn btn-sm btn-info text-white" data-toggle="modal" data-target="#modal1">
-										Lihat
-									</button>
-								</td>
-								<td><?= sizeof($siswanya) ?></td>
+								<td class="text-center"><?= $val->hasAkses ? 'Ya' : 'Tidak' ?></td>
+								<td class="text-center"><?= sizeof($siswanya) ?></td>
 								<td class="text-center">
 									<button class="btn btn-sm btn-primary" onclick="window.location.href='/dashboard/kelas/<?= $val->id_kelas ?>'">
 										<i class="fa fa-pencil"></i>

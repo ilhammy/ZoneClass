@@ -18,19 +18,13 @@
 <div class="row card-stats">
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card">
+		<div class="card animated bounce">
 			<div class="card-body">
-				<div class="d-flex p-10 no-block">
-					<div class="align-self-center display-6 m-r-20">
-						<i class="text-info fa fa-users"></i>
-					</div>
-					<div class="align-slef-center">
-						<h2 class="m-b-0">
-							<?= sizeof($siswaku) ?>
-							<small><i class="ti-angle-down text-danger"></i></small>
-						</h2>
-						<h6 class="text-muted m-b-0">Total Siswa</h6>
-					</div>
+				<div class="p-10">
+					<h2 class="m-b-0">
+						<?= sizeof($siswaku) ?>
+					</h2>
+					<h6 class="m-b-0">Total Siswa</h6>
 				</div>
 			</div>
 		</div>
@@ -38,19 +32,13 @@
 	<!-- Column -->
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card">
+		<div class="card animated bounce">
 			<div class="card-body">
-				<div class="d-flex p-10 no-block">
-					<div class="align-self-center display-6 m-r-20">
-						<i class="text-info fa fa-graduation-cap"></i>
-					</div>
-					<div class="align-slef-center">
-						<h2 class="m-b-0">
-							<?= sizeof($this->Kelas_model->getMyClass()) ?>
-							<small><i class="ti-angle-down text-danger"></i></small>
-						</h2>
-						<h6 class="text-muted m-b-0">Total Kelas</h6>
-					</div>
+				<div class="p-10">
+					<h2 class="m-b-0">
+						<?= sizeof($this->Kelas_model->getMyClass()) ?>
+					</h2>
+					<h6 class="m-b-0">Total Kelas</h6>
 				</div>
 			</div>
 		</div>
@@ -58,19 +46,13 @@
 	<!-- Column -->
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card">
+		<div class="card animated bounce">
 			<div class="card-body">
-				<div class="d-flex p-10 no-block">
-					<div class="align-self-center display-6 m-r-20">
-						<i class="text-info fa fa-book"></i>
-					</div>
-					<div class="align-slef-center">
-						<h2 class="m-b-0">
-							<?= sizeof($materiku) ?>
-							<small><i class="ti-angle-down text-danger"></i></small>
-						</h2>
-						<h6 class="text-muted m-b-0">Total Materi</h6>
-					</div>
+				<div class="p-10">
+					<h2 class="m-b-0">
+						<?= sizeof($materiku) ?>
+					</h2>
+					<h6 class="m-b-0">Total Materi</h6>
 				</div>
 			</div>
 		</div>
@@ -78,19 +60,13 @@
 	<!-- Column -->
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card">
+		<div class="card animated bounce">
 			<div class="card-body">
-				<div class="d-flex p-10 no-block">
-					<div class="align-self-center display-6 m-r-20">
-						<i class="text-primary fa fa-line-chart"></i>
-					</div>
-					<div class="align-slef-center">
-						<h2 class="m-b-0">
-							<?= sizeof(getOnlineSiswa(myUid())) ?>
-							<small><i class="ti-angle-down text-danger"></i></small>
-						</h2>
-						<h6 class="text-muted m-b-0">Siswa Online</h6>
-					</div>
+				<div class="p-10">
+					<h2 class="m-b-0">
+						<?= sizeof(getOnlineSiswa(myUid())) ?>
+					</h2>
+					<h6 class="m-b-0">Siswa Online</h6>
 				</div>
 			</div>
 		</div>
@@ -100,19 +76,13 @@
 	<?php if (isAdmin()) : ?>
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card">
+		<div class="card animated bounce">
 			<div class="card-body">
-				<div class="d-flex p-10 no-block">
-					<div class="align-self-center display-6 m-r-20">
-						<i class="text-primary fa fa-line-chart"></i>
-					</div>
-					<div class="align-slef-center">
-						<h2 class="m-b-0">
-							<?= sizeof(getOnlineUser(1)) ?>
-							<small><i class="ti-angle-down text-danger"></i></small>
-						</h2>
-						<h6 class="text-muted m-b-0">Guru Online</h6>
-					</div>
+				<div class="p-10">
+					<h2 class="m-b-0">
+						<?= sizeof(getOnlineUser(1)) ?>
+					</h2>
+					<h6 class="m-b-0">Guru Online</h6>
 				</div>
 			</div>
 		</div>
@@ -120,19 +90,13 @@
 	<!-- Column -->
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card">
+		<div class="card animated bounce">
 			<div class="card-body">
-				<div class="d-flex p-10 no-block">
-					<div class="align-self-center display-6 m-r-20">
-						<i class="text-primary fa fa-line-chart"></i>
-					</div>
-					<div class="align-slef-center">
-						<h2 class="m-b-0">
-							<?= sizeof(getOnlineUser(2)) ?>
-							<small><i class="ti-angle-down text-danger"></i></small>
-						</h2>
-						<h6 class="text-muted m-b-0">All Siswa Online</h6>
-					</div>
+				<div class="p-10">
+					<h2 class="m-b-0">
+						<?= sizeof(getOnlineUser(2)) ?>
+					</h2>
+					<h6 class="m-b-0">All Siswa Online</h6>
 				</div>
 			</div>
 		</div>
@@ -148,7 +112,7 @@
 	<div class="col-md-6">
 		<div class="card card-body mailbox" id="info">
 			<h5 class="card-title">Notifikasi</h5>
-			<div class="message-center" style="height: auto;max-height: 420px !important">
+			<div class="message-center animated fadeInLeft" style="height: auto;max-height: 420px !important">
 				<!-- Message -->
 				<?php
 				$notifs = isAdmin() ? $this->Notif_model->getForAdmin() : $this->Notif_model->getForGuru();

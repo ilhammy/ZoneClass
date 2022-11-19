@@ -27,6 +27,97 @@ class Kelasm extends CI_Controller {
 		$this->load->view('admin/down', $data);
 	}
 
+	public function link_kelas() {
+		$data['sb_menu'] = $this->Menu->getMenu();
+		$data['semuakelas'] = $this->Kelas_model->getEmptyLink(false);
+
+		if ($this->input->server('REQUEST_METHOD') == 'POST') {
+			return;
+		}
+
+		$this->load->view('admin/top', $data);
+		$this->load->view('admin/manage_link', $data);
+		$this->load->view('admin/down', $data);
+	}
+
+	public function tambah_linkkelas() {
+		$data['sb_menu'] = $this->Menu->getMenu();
+		$data['semuakelas'] = $this->Kelas_model->getEmptyLink();
+
+		if ($this->input->server('REQUEST_METHOD') == 'POST') {
+			$this->session->set_flashdata('alert', $this->addLink());
+			redirect('dashboard/manage_link/tambah');
+			return;
+		}
+
+		$this->load->view('admin/top', $data);
+		$this->load->view('admin/add_link', $data);
+		$this->load->view('admin/down', $data);
+	}
+
+	private function addLink() {
+		$this->form_validation->set_rules('kelas', 'Id Kelas', 'trim|required|integer');
+		$this->form_validation->set_rules('link', 'Link', 'trim|required|valid_url');
+		$id = $this->input->post('kelas');
+		$url = $this->input->post('link');
+		if ($this->form_validation->run() == FALSE){
+			return validation_errors();
+		}
+		if ($this->Kelas_model->updateClassInfo($id, [
+			'tentang' => trim($url)
+		])) {
+			return '<b>Berhasil</b> link telah dibuat';
+		} else {
+			return 'Terjadi kesalahan sistem';
+		}
+	}
+
+	public function editLink() {
+		if ($this->input->server('REQUEST_METHOD') !== 'POST') {
+			echo simpleResponse(false, 'Invalid access');
+			return;
+		}
+		
+		$this->form_validation->set_rules('kelas', 'Id Kelas', 'trim|required|integer');
+		$this->form_validation->set_rules('link', 'Link', 'trim|required|valid_url');
+		$id = $this->input->post('kelas');
+		$url = $this->input->post('link');
+		if ($this->form_validation->run() == FALSE){
+			echo simpleResponse(false, validation_errors());
+			return;
+		}
+		if ($this->Kelas_model->updateClassInfo($id, [
+			'tentang' => $url
+		])) {
+			echo simpleResponse(true, 'Berhasil, link telah diperbarui');
+			return;
+		} else {
+			echo simpleResponse(false, 'Gagal memperbarui link');
+			return;
+		}
+	}
+	
+	public function hapus_link() {
+		if ($this->input->server('REQUEST_METHOD') !== 'POST') {
+			echo simpleResponse(false, 'Invalid access');
+			return;
+		}
+		$id = $this->input->post('kid');
+		if (is_null($id)) {
+			echo simpleResponse(false, 'Invalid params');
+			return;
+		}
+		if ($this->Kelas_model->updateClassInfo($id, [
+			'tentang' => null
+		])) {
+			echo simpleResponse(true, 'Berhasil');
+			return;
+		} else {
+			echo simpleResponse(false, 'Terjadi kesalahan sistem');
+			return;
+		}
+	}
+
 	private function terimaKelas($id, $stat) {
 		if (is_null($id) || is_null($stat)) {
 			$this->session->set_flashdata('alert', 'Invalid opration');
