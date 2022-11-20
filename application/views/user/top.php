@@ -57,7 +57,7 @@ offlineUser();
 						<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
 					</svg>
 				</button>
-				<button class="profile-btn" onclick="window.localStorage.setItem('ref', 'profile');window.location.href='<?= base_url() ?>'">
+				<button class="profile-btn" onclick="window.localStorage.setItem('ref', 'profile');window.open('<?= base_url() ?>', '_self')">
 					<img src="<?= profileValue('foto') ?>" />
 					<span><?= profileValue('fullname') ?></span>
 				</button>

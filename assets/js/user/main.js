@@ -4,13 +4,14 @@ const index_pages = {
 	'home': 'ajax/homeUser',
 	'kelas': 'ajax/kelasUser',
 	'notif': 'ajax/notifUser',
+	'kelasku': 'settings/kelasku',
 	'profile': 'ajax/profileUser',
-	'materi': 'ajax/materi',
-	'kelasku': 'settings/kelasku'
+	'materi': 'ajax/materi'
 }
 //const currPage = window.location.pathname.split("/");
 
-function loadPage(page) {
+const loadPage = page => {
+	$("#konten").html('')
 	$("#loader").show();
 	$("#konten").load(index_pages[page], function(responseTxt, statusTxt, xhr) {
 		if (statusTxt == "success")
@@ -30,39 +31,6 @@ $(function() {
 		loadPage(ref);
 	}
 });
-
-/*function ikutKelas(e, kid) {
-	let txtType = (e.innerText == 'Keluar') ? 'keluar dari': 'Ikut';
-	Swal.fire({
-		icon: 'question',
-		title: 'Konfirmasi',
-		text: 'Apakah kamu akan ' + txtType + ' kelas ini?',
-		showDenyButton: true,
-		confirmButtonText: 'Iya',
-		denyButtonText: `Batal`,
-	}).then((result) => {
-		if (result.isConfirmed) ajaxIkutKelas(kid);
-	});
-}
-
-function ajaxIkutKelas(kid) {
-	$.ajax({
-		url: baseUrl + 'ajax/leaveClass',
-		method: 'post',
-		data: {
-			classId: kid
-		},
-		dataType: 'json',
-		success: function(response) {
-			console.log(response)
-			if (response.status != true) alert(response.msg);
-			try {
-				Swal.fire('Berhasil!', '', 'success')
-				loadPage('kelas');
-			} catch (e) {}
-		}
-	});
-}*/
 
 const showMsg = (tipe, msg) => {
 	const Toast = Swal.mixin({
@@ -84,9 +52,22 @@ const showMsg = (tipe, msg) => {
 }
 
 function currMenu(pos) {
+	if (pos > 3) return 0;
 	const men = document.querySelectorAll('.tabnav ul li');
 	men.forEach(function(item) {
 		item.classList.remove('active');
 	});
 	men[pos].classList.add('active');
+}
+
+const copyText = (text) => {
+	if (!navigator.clipboard) {
+		fallbackCopyTextToClipboard(text);
+		return;
+	}
+	navigator.clipboard.writeText(text).then(function() {
+		console.log('Async: Copying to clipboard was successful!');
+	}, function(err) {
+		console.error('Async: Could not copy text: ', err);
+	});
 }

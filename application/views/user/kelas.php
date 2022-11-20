@@ -46,11 +46,11 @@
 						<span><?= date('d F', $val->dibuat) ?></span>
 					</div>
 					<div class="project-box-content-header">
-						<p class="box-content-header">
+						<p class="box-content-header" style="font-size: 14px; padding-bottom: 7px">
 							<?= $val->nama_kelas ?>
 						</p>
 						<p class="box-content-subheader">
-							<?= $val->pengurus ?>
+							<b>Pemateri:</b> <?= $val->pengurus ?>
 						</p>
 					</div>
 					<div class="project-box-footer" style="display: flex; justify-content: center;margin-left:auto; padding-right:0">

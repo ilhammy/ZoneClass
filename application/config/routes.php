@@ -85,4 +85,3 @@ $route['dashboard/settings'] = 'admin/settings/index';
 
 $route['materi/(:any)'] = 'materi/index/$1';
 $route['materi/(:any)/(:num)'] = 'materi/open_materi/$2';
-

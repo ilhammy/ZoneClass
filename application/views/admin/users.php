@@ -42,7 +42,7 @@
 			<table id="myTable" class="table table-bordered table-striped nowrap">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th><i class="fa fa-user"></i></th>
 						<th>Nama</th>
 						<th>Email</th>
 						<th>WhatsApp</th>

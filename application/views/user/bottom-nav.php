@@ -19,9 +19,9 @@
 			</a>
 		</li>
 		<li class="list">
-			<a href="javascript:loadPage('profile')">
+			<a href="javascript:loadPage('kelasku')">
 				<span class="icon"><ion-icon name="hardware-chip-outline"></ion-icon></span>
-				<span class="text">Akun</span>
+				<span class="text">Kelola</span>
 			</a>
 		</li>
 		<div class="indicator"></div>

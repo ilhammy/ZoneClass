@@ -21,11 +21,21 @@ class Settings extends CI_Controller {
 
 	public function kelasku() {
 		$this->User_model->updateKelas();
+		//$data['nonav'] = true;
+		$data['data_kelas'] = $this->Kelas_model->getAllByUser($this->session->userdata('uid'));
+
+		//$this->load->view('user/top', $data);
+		$this->load->view('user/my_class', $data);
+		//$this->load->view('user/down', $data);
+	}
+
+	public function rekening() {
+		$this->User_model->updateKelas();
 		$data['nonav'] = true;
 		$data['data_kelas'] = $this->Kelas_model->getAllByUser($this->session->userdata('uid'));
 
 		$this->load->view('user/top', $data);
-		$this->load->view('user/my_class', $data);
+		$this->load->view('user/reknote', $data);
 		$this->load->view('user/down', $data);
 	}
 
@@ -58,12 +68,20 @@ class Settings extends CI_Controller {
 		}
 	}
 
+	public function saveRekening() {
+		$this->User_model->updateProfile([
+			'rekening' => $this->input->post('text')
+		]);
+		$this->session->set_flashdata('alert', '<div class="alert alert-info">Rekening berhasil diperbarui!</div>');
+		redirect('settings/rekening');
+	}
+
 	private function savePass() {
 		$this->form_validation->set_rules('pass', 'Kata Sandi Lama', 'required');
 		$this->form_validation->set_rules('new_pass', 'Kata Sandi Baru', 'required|min_length[5]');
 
 		if ($this->form_validation->run() !== false) {
-			if (!password_verify($this->input->post('pass'), userDataValue('password'))) {
+			if (!password_verify($this->input->post('pass'), dataUserValue('password'))) {
 				$this->session->set_flashdata('setting-msg', '<div class="alert alert-info">Kata sandi anda salah!</div>');
 				redirect('settings/set_password');
 				return;

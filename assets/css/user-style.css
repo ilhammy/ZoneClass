@@ -1040,6 +1040,9 @@ button, a {
 	display: flex;
 	justify-content: center;
 }
+.radius-8r {
+	border-radius: .8rem !important;
+}
 
 .pelangi > .project-box-wrapper:nth-child(1n+0) > .project-box {
 	background: #fee4cb;
@@ -1106,7 +1109,22 @@ button, a {
 	border-radius: 7px;
 	border: none;
 	padding: .5rem .9rem;
+	display: flex;
+	align-items: center;
 }
+.btn:disabled, .disabled {
+	opacity: .7;
+	pointer-events: none;
+}
+.btn i, .btn ion-icon {
+	padding: 0px 5px 0px 0px;
+	font-size: 16px;
+}
+.btn .icon-right {
+	padding: 0px 0px 0px 5px;
+	font-size: 16px;
+}
+
 .btn-primary {
 	background: #1976d2;
 	color: #fff;

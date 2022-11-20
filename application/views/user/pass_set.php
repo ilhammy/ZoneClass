@@ -1,5 +1,5 @@
 <div class="top-nav">
-	<ion-icon class="icon" name="arrow-back-outline" onclick="window.localStorage.setItem('ref', 'profile');window.history.back()"></ion-icon>
+	<ion-icon class="icon" name="arrow-back-outline" onclick="window.localStorage.setItem('ref', 'profile');window.open('/', '_self')"></ion-icon>
 	<div class="title" style="font-size: 1.1rem;font-weight: 600; padding: 0 .5rem">
 	</div>
 </div>
@@ -11,8 +11,11 @@
 		</p>
 	</div>
 	<div class="project-boxes">
+		
+		<?= $this->session->flashdata('setting-msg') ?>
 
-		<form id="pass-form">
+		<form action="" method="post" id="pass-form">
+			<input type="hidden" name="save" value="true" />
 			<div class="input-wrapper">
 				<label class="label">Kata Sandi Lama</label>
 				<input class="myinput" name="pass" type="text" autocomplete="off" required>

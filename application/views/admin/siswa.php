@@ -23,7 +23,7 @@
 				class="table table-bordered table-striped nowrap table-hover">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th><i class="fa fa-user"></i></th>
 						<th>Nama</th>
 						<th>Email</th>
 						<th>WhatsApp</th>
@@ -45,7 +45,7 @@
 						<td><?= $val->fullname ?></td>
 						<td><?= $val->email ?></td>
 						<td onclick="window.location.assign('https://wa.me/<?= $val->whatsapp ?>')"><?= $val->whatsapp ?></td>
-						<?= (isAdmin()) ? '<td>'.sizeof($kelasnya). '</td>' : '' ?>
+						<?= (isAdmin()) ? '<td>'.sizeof($kelasnya). ' kelas</td>' : '' ?>
 						<td class="text-center">
 							<button class="m-1 btn btn-sm btn-primary"
 								onclick="location.href='/dashboard/profile/<?= base64url_encode($val->user_id) ?>'">

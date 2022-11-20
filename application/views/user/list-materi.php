@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/assets/css/user/action-panel.css?t=<?= time() ?>">
 
 <div class="top-nav">
-	<ion-icon class="icon" name="arrow-back-outline" onclick="window.localStorage.setItem('ref', 'kelas');window.history.back()"></ion-icon>
+	<ion-icon class="icon" name="arrow-back-outline" onclick="window.localStorage.setItem('ref', 'kelas');window.open('/', '_self')"></ion-icon>
 	<div class="title" style="font-size: 1.1rem;font-weight: 600; padding: 0 .5rem">
 		<?= $data_kelas->nama_kelas ?>
 	</div>
@@ -13,7 +13,7 @@
 		<?php
 		if ($data_materi == null) echo '<div class="no-data">Waduh materinya belum ada 😅</div>';
 		foreach ($data_materi as $key => $val) : ?>
-		<li onclick="openMat(<?= $val->id ?>)" style="--i: <?= $key ?>"><?= $val->judul ?></li>
+		<li onclick="openMat(<?= $key + 1 ?>)" style="--i: <?= $key ?>"><?= $val->judul ?></li>
 		<?php endforeach ?>
 	</ol>
 </div>

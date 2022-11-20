@@ -11,14 +11,14 @@
 	</div>
 
 	<div class="profile-box-menus">
+		<a href="/settings/rekening">
+			<ion-icon name="card-outline" class="icon"></ion-icon>
+			<span class="name">Rekening</span>
+			<ion-icon name="chevron-forward-outline" class="arrow"></ion-icon>
+		</a>
 		<a href="javascript:pickPhoto()">
 			<ion-icon name="camera-outline" class="icon"></ion-icon>
 			<span class="name">Ubah Foto Profile</span>
-			<ion-icon name="chevron-forward-outline" class="arrow"></ion-icon>
-		</a>
-		<a href="/settings/kelasku">
-			<ion-icon name="school-outline" class="icon"></ion-icon>
-			<span class="name">Kelola Kelas</span>
 			<ion-icon name="chevron-forward-outline" class="arrow"></ion-icon>
 		</a>
 		<a href="/settings/profile">

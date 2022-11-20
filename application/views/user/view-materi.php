@@ -1,3 +1,9 @@
+<?php
+$currPage = $this->uri->segment('3');
+$totalMat = sizeof($allmateri);
+$urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
+?>
+
 <style>
 	.materi-view {
 		background-color: var(--projects-section);
@@ -41,6 +47,16 @@
 		color: var(--light-font);
 		font-size: .95em;
 	}
+	
+	.navigator {
+		background-color: var(--projects-section);
+		border-radius: 10px;
+		margin-top: 10px;
+		padding: 10px 20px;
+		display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+	}
 
 	@keyframes slideInFromLeft {
 		0% {
@@ -55,7 +71,7 @@
 </style>
 
 <div class="top-nav">
-	<ion-icon class="icon" name="arrow-back-outline" onclick="window.history.back()"></ion-icon>
+	<ion-icon class="icon" name="arrow-back-outline" onclick="window.open('/materi/<?= $this->uri->segment('2') ?>', '_self')"></ion-icon>
 	<div class="title" style="font-size: 1.1rem;font-weight: 600; padding: 0 .5rem">
 		<?= $materi->judul ?>
 	</div>
@@ -81,7 +97,13 @@
 		echo "Tidak ada konten apapun";
 	}
 	?>
+
 </div>
+	
+	<div class="navigator">
+		<a href="javascript:openLink('<?= $urlKelas . ($currPage - 1) ?>')" class="btn btn-danger <?= $currPage <= 1 ? 'disabled' : '' ?>"><ion-icon name="arrow-back"></ion-icon> Sebelumnya</a>
+		<a href="javascript:openLink('<?= $urlKelas . ($currPage + 1) ?>')" class="btn btn-info <?= $currPage >= $totalMat ? 'disabled' : '' ?>">Selanjutnya <ion-icon class="icon-right" name="arrow-forward"></ion-icon></a>
+	</div>
 
 <script>
 	document.title = '<?= $materi->judul ?>'
@@ -90,5 +112,10 @@
 		let lightbox = new FsLightbox();
 		lightbox.props.sources = [url];
 		lightbox.open();
+	}
+	
+	const openLink = (b) => {
+		history.replaceState({page: <?= $currPage ?>}, 'a', b)
+		window.location.reload(true)
 	}
 </script>
