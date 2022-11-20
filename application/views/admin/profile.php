@@ -30,20 +30,6 @@ if ($data_user->role_id == 2) {
 		</ol>
 	</div>
 	<div class="col-md-7 align-self-center text-right d-none d-md-block">
-		<button type="button" class="btn btn-info">
-			<i class="fa fa-plus-circle"></i> Create New
-		</button>
-	</div>
-	<div class="">
-		<button class="
-			right-side-toggle
-			waves-effect waves-light
-			btn-inverse btn btn-circle btn-sm
-			pull-right
-			m-l-10
-			">
-			<i class="ti-settings text-white"></i>
-		</button>
 	</div>
 </div>
 <!-- ============================================================== -->

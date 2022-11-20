@@ -136,11 +136,18 @@ class Kelas_model extends CI_Model {
 		return ($res) ? true : false;
 	}
 
+	function kickSiswa($kid, $sid) {
+		$this->db->delete($this->tku, ['id_user' => $sid, 'id_kelas' => $kid]);
+		$this->User_model->updateKelas($sid);
+		return ($this->db->affected_rows() == 1);
+	}
+	
 	function kickSiswaFromMyAllClass($sid) {
 		foreach ($this->getMyClass() as $val) {
 			$this->db->delete($this->tku, ['id_user' => $sid, 'id_kelas' => $val->id_kelas]);
 		}
 		$this->User_model->updateKelas($sid);
+		return ($this->db->affected_rows() == 1);
 	}
 
 	function gabungKelas($uid, $kid, $gabung) {

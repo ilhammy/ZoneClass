@@ -3,6 +3,13 @@
 	<input type="hidden" name="upload_prof" value="true">
 </form>
 
+<div class="top-nav">
+	<ion-icon class="icon" name="arrow-back-outline" onclick="window.open('/', '_self')"></ion-icon>
+	<div class="title" style="font-size: 1.1rem;font-weight: 600; padding: 0 .5rem">
+		Profile
+	</div>
+</div>
+
 <div class="profile-box">
 	<div class="profile-box-header">
 		<img src="<?= profileValue('foto') ?>" class="foto" />
@@ -40,6 +47,7 @@
 </div>
 
 <script>
+	$('div.tabnav').fadeOut();
 	const pickPhoto = () => {
 		document.querySelector('#input-upload').click();
 	}

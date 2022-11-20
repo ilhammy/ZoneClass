@@ -18,7 +18,7 @@
 <div class="row card-stats">
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card animated bounce">
+		<div class="card animated bounce" style="background: #fe94af">
 			<div class="card-body">
 				<div class="p-10">
 					<h2 class="m-b-0">
@@ -32,7 +32,7 @@
 	<!-- Column -->
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card animated bounce">
+		<div class="card animated bounce" style="background: #fe9a4f">
 			<div class="card-body">
 				<div class="p-10">
 					<h2 class="m-b-0">
@@ -46,7 +46,7 @@
 	<!-- Column -->
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card animated bounce">
+		<div class="card animated bounce" style="background: #ffd552">
 			<div class="card-body">
 				<div class="p-10">
 					<h2 class="m-b-0">
@@ -60,7 +60,7 @@
 	<!-- Column -->
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card animated bounce">
+		<div class="card animated bounce" style="background: #80baf9">
 			<div class="card-body">
 				<div class="p-10">
 					<h2 class="m-b-0">
@@ -76,7 +76,7 @@
 	<?php if (isAdmin()) : ?>
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card animated bounce">
+		<div class="card animated bounce" style="background: #e76ca2">
 			<div class="card-body">
 				<div class="p-10">
 					<h2 class="m-b-0">
@@ -90,7 +90,7 @@
 	<!-- Column -->
 	<!-- Column -->
 	<div class="col-md-4">
-		<div class="card animated bounce">
+		<div class="card animated bounce" style="background: #bb91e7">
 			<div class="card-body">
 				<div class="p-10">
 					<h2 class="m-b-0">

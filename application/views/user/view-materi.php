@@ -49,13 +49,25 @@ $urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
 	}
 	
 	.navigator {
+		width: 100%;
+		bottom: 0;
+		position: fixed;
+		z-index: 3;
+		padding: 0;
+		transform: translateX(-50%);
+		left: 50%;
+		display: flex;
+		justify-content: center;
+	}
+	.navigator .navigator-content {
+		width: 80%;
 		background-color: var(--projects-section);
 		border-radius: 10px;
-		margin-top: 10px;
+		margin: 0 10px 10px 10px;
 		padding: 10px 20px;
 		display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+		flex-wrap: nowrap;
+		justify-content: space-between;
 	}
 
 	@keyframes slideInFromLeft {
@@ -66,6 +78,12 @@ $urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
 		100% {
 			opacity: 1;
 			transform: translateX(0);
+		}
+	}
+	
+	@media screen and (min-width: 768px) {
+		.navigator .navigator-content {
+			width: 300px;
 		}
 	}
 </style>
@@ -100,10 +118,12 @@ $urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
 
 </div>
 	
-	<div class="navigator">
-		<a href="javascript:openLink('<?= $urlKelas . ($currPage - 1) ?>')" class="btn btn-danger <?= $currPage <= 1 ? 'disabled' : '' ?>"><ion-icon name="arrow-back"></ion-icon> Sebelumnya</a>
-		<a href="javascript:openLink('<?= $urlKelas . ($currPage + 1) ?>')" class="btn btn-info <?= $currPage >= $totalMat ? 'disabled' : '' ?>">Selanjutnya <ion-icon class="icon-right" name="arrow-forward"></ion-icon></a>
+<div class="navigator">
+	<div class="navigator-content">
+		<a href="javascript:openLink('<?= $urlKelas . ($currPage - 1) ?>')" class="btn btn-danger <?= $currPage <= 1 ? 'disabled' : '' ?>"><ion-icon name="chevron-back" style="font-size: 20px"></ion-icon></a>
+		<a href="javascript:openLink('<?= $urlKelas . ($currPage + 1) ?>')" class="btn btn-info <?= $currPage >= $totalMat ? 'disabled' : '' ?>"><ion-icon class="icon-right" name="chevron-forward" style="font-size: 20px"></ion-icon></a>
 	</div>
+</div>
 
 <script>
 	document.title = '<?= $materi->judul ?>'

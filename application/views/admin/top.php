@@ -157,7 +157,7 @@ offlineUser();
 								aria-haspopup="true" aria-expanded="false">
 								<img src="<?= profileValue('foto') ?>"
 								alt="" />
-								<span class="hidden-md-down"><?= profileValue('fullname') ?> &nbsp;</span>
+								<span class="hidden-md-do d-none"><?= profileValue('fullname') ?> &nbsp;</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-right animated flipInY">
 								<ul class="dropdown-user">

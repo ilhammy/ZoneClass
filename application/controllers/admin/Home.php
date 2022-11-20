@@ -174,18 +174,52 @@ class Home extends CI_Controller {
 		$this->load->view('admin/siswa', $data);
 		$this->load->view('admin/down', $data);
 	}
+	
+	public function hapus_siswa($uid) {
+		$data['sb_menu'] = $this->Menu->getMenu();
+		$data['uid'] = $uid;
+		//$data['semuakelas'] = isAdmin() ? $this->Kelas_model->getAllData() : $this->Kelas_model->getMyClass();
+		$data['siswa'] = $this->User_model->getByUid($uid);
+		if (is_null($data['siswa'])) {
+			$data['msg'] = 'Siswa tidak ditemukan';
+			$this->load->view('admin/top', $data);
+			$this->load->view('admin/msg', $data);
+			$this->load->view('admin/down', $data);
+			return;
+		}
+		$allKelas = [];
+		foreach (json_decode($data['siswa']->kelas) as $val) {
+			$k = $this->Kelas_model->getSingle($val);
+			if ($k) {
+				if ($k->creator_id == myUid() || isAdmin()) array_push($allKelas, $k);
+			}
+		}
+		$data['semuakelas'] = $allKelas;
+		
+		$this->load->view('admin/top', $data);
+		$this->load->view('admin/delsiswa', $data);
+		$this->load->view('admin/down', $data);
+	}
 
 	public function kickSiswa() {
+		$res = false;
 		if ($this->input->server('REQUEST_METHOD') !== 'POST') {
 			die('Invalid access');
 		}
 		if (is_null($this->input->post('uid', true))) {
 			die('invalid parameter');
 		}
-		$this->Kelas_model->kickSiswaFromMyAllClass($this->input->post('uid', true));
-		echo json_encode([
-			'status' => true
-		]);
+		if (!is_null($this->input->post('kelas', true))) {
+			$res = $this->Kelas_model->kickSiswa($this->input->post('kelas', true), $this->input->post('uid', true));
+		} else {
+			$res = $this->Kelas_model->kickSiswaFromMyAllClass($this->input->post('uid', true));
+		}
+		if ($res) {
+			$this->session->set_flashdata('alert', '<b>Berhasil!</b> siswa telah dikeluarkan');
+		} else {
+			$this->session->set_flashdata('alert', '<b>Gagal!</b> Terjadi kesalahan, silahkan coba lagi');
+		}
+		redirect('dashboard/siswa/hapus/'. $this->input->post('uid', true));
 	}
 
 }

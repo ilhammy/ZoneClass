@@ -20,8 +20,8 @@ class Ajax extends CI_Controller {
 		$this->load->view('user/kelas', $data);
 	}
 
-	public function notifUser() {
-		$this->load->view('user/request');
+	public function kamusProduk() {
+		$this->load->view('user/kamus-produk');
 	}
 
 	public function profileUser() {

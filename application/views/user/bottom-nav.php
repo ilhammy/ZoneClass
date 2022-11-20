@@ -13,9 +13,9 @@
 			</a>
 		</li>
 		<li class="list">
-			<a href="javascript:loadPage('notif')">
+			<a href="javascript:loadPage('kamus')">
 				<span class="icon"><ion-icon name="chatbox-ellipses-outline"></ion-icon></span>
-				<span class="text">Chat</span>
+				<span class="text">Kamus</span>
 			</a>
 		</li>
 		<li class="list">

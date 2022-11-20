@@ -51,7 +51,6 @@ div.st-panel {
 }
 
 .st-button-main {
-	font-size: 24px;
 	color: #ffffff;
 	font-size: 24px;
 	text-align: center;
@@ -59,12 +58,15 @@ div.st-panel {
 	cursor: pointer;
 	height: 100%;
 	width: 100%;
-	display: table;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.st-button-main > i {
-	display: table-cell;
-	vertical-align: middle;
+.st-button-main > ion-icon {
+	/*display: table-cell;
+	vertical-align: middle;*/
+	font-size: 32px;
 }
 
 .st-btn-container {

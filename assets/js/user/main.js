@@ -3,7 +3,7 @@
 const index_pages = {
 	'home': 'ajax/homeUser',
 	'kelas': 'ajax/kelasUser',
-	'notif': 'ajax/notifUser',
+	'kamus': 'ajax/kamusProduk',
 	'kelasku': 'settings/kelasku',
 	'profile': 'ajax/profileUser',
 	'materi': 'ajax/materi'

@@ -106,7 +106,7 @@
 							class="table table-bordered table-striped nowrap table-hover">
 							<thead>
 								<tr>
-									<th>#</th>
+									<th><i class="fa fa-sort-numeric-asc"></i></th>
 									<th>Label</th>
 									<th>Kode</th>
 									<th>Kelas<?= (isAdmin()) ? '/Tipe' : '' ?></th>

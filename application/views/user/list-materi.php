@@ -35,7 +35,7 @@
 	</div>
 	<div class="st-btn-container right-bottom" style="<?= $data_kelas->hasAkses ? 'background: #0288d1' : null ?>">
 		<div class="st-button-main">
-			<i class="fa fa-paper-plane" aria-hidden="true"></i>
+			<ion-icon name="finger-print-outline"></ion-icon>
 		</div>
 	</div>
 </div>

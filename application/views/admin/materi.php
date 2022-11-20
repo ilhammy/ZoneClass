@@ -46,7 +46,7 @@
 			<table id="myTable" class="table table-bordered table-striped nowrap table-hover">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th><i class="fa fa-sort-numeric-asc"></i></th>
 						<th>Judul</th>
 						<th>Konten</th>
 						<?= (is_null($kelas_terpilih)) ? '<th>Kelas</th>' : '' ?>
@@ -66,7 +66,7 @@
 					foreach ($data_materi as $key => $val) :
 					?>
 					<tr>
-						<td><?= $key + 1 ?></td>
+						<td class="text-center"><?= $key + 1 ?></td>
 						<td><?= $val->judul ?></td>
 						<td>
 							<button onclick="setModal1('<?= base64_encode(json_encode($val)) ?>')" class="btn btn-sm btn-info text-white" data-toggle="modal" data-target="#modal1">

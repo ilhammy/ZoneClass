@@ -54,12 +54,14 @@
 	text-align: center;
 	transition: 0.5s;
 	color: var(--main-color);
+	opacity: .6;
 }
 
 .tabnav ul li.active a .icon
 {
 	transform: translateY(-32px);
 	color: #000;
+	opacity: 1;
 }
 .tabnav ul li a .text
 {

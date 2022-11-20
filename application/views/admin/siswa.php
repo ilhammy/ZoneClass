@@ -51,7 +51,7 @@
 								onclick="location.href='/dashboard/profile/<?= base64url_encode($val->user_id) ?>'">
 								<i class="fa fa-user"></i>
 							</button>
-							<button class="btn btn-sm btn-danger" onclick="showConfirm(<?= $val->user_id ?>)">
+							<button class="btn btn-sm btn-danger" onclick="window.open('/dashboard/siswa/hapus/<?= $val->user_id ?>', '_self');//showConfirm(<?= $val->user_id ?>)">
 								<i class="fa fa-trash"></i>
 							</button>
 						</td>

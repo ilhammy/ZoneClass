@@ -68,7 +68,7 @@
 					<table id="myTable" class="table table-bordered table-striped nowrap table-hover">
 						<thead>
 							<tr>
-								<th>#</th>
+								<th><i class="fa fa-sort-numeric-asc"></i></th>
 								<th>Nama Kelas</th>
 								<th>Akses Khusus</th>
 								<th>Total Siswa</th>
@@ -81,7 +81,7 @@
 							$siswanya = $this->Kelas_model->getAllSiswaByKelas($val->id_kelas);
 							?>
 							<tr>
-								<td><?= $key + 1 ?></td>
+								<td class="text-center"><?= $key + 1 ?></td>
 								<td><?= $val->nama_kelas ?></td>
 								<td class="text-center"><?= $val->hasAkses ? 'Ya' : 'Tidak' ?></td>
 								<td class="text-center"><?= sizeof($siswanya) ?></td>

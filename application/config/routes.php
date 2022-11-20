@@ -59,6 +59,7 @@ $route['con/ad'] = 'contoh/admin';
 
 $route['dashboard'] = 'admin/home';
 $route['dashboard/siswa'] = 'admin/home/siswa';
+$route['dashboard/siswa/hapus/(:num)'] = 'admin/home/hapus_siswa/$1';
 
 $route['dashboard/kelas'] = 'admin/home/kelas';
 $route['dashboard/kelas/tambah'] = 'admin/home/tambah_kelas';
@@ -66,7 +67,7 @@ $route['dashboard/kelas/(:num)'] = 'admin/home/detail_kelas/$1';
 
 $route['dashboard/materi'] = 'admin/materi';
 $route['dashboard/materi/tambah'] = 'admin/materi/tambah_materi';
-$route['dashboard/materi/edit/(:any)'] = 'admin/edit_materi/index/$1';
+$route['dashboard/materi/edit/(:any)'] = 'admin/edmat/index/$1';
 
 $route['dashboard/profile'] = 'admin/profile/index';
 $route['dashboard/profile/(:any)'] = 'admin/profile/index/$1';

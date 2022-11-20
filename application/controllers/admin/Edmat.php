@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Edit_Materi extends CI_Controller {
+class Edmat extends CI_Controller {
 
 	private $imgUrl = null;
 

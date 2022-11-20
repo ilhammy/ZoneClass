@@ -5,7 +5,7 @@
 			<!-- ============================================================== -->
 			<!-- footer -->
 			<!-- ============================================================== -->
-			<footer class="footer">
+			<footer class="footer text-center">
 				© 2022 <?= $web_name ?> by
 				<a href="https://www.wrappixel.com/" target="_blank">wrappixel.com</a>
 			</footer>

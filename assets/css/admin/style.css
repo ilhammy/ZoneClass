@@ -6128,7 +6128,14 @@ File: scss
 	box-shadow: 0 1px 7px rgba(0,0,0,.1);
 	text-align: center;
 }
+.card-stats .card h2 {
+	font-size: 1.5rem;
+	color: #000;
+	font-weight: 600;
+	margin-bottom: .3rem;
+}
 .card-stats .card h6 {
-	font-size: .93rem;
+	font-size: 1.2rem;
 	color: #555;
+	font-weight: 400;
 }

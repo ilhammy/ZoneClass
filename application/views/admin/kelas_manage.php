@@ -55,9 +55,9 @@
 					<table id="myTable" class="table table-bordered table-striped nowrap table-hover">
 						<thead>
 							<tr>
-								<th>#</th>
+								<th><i class="fa fa-sort-numeric-asc"></i></th>
 								<th>Nama Kelas</th>
-								<th>Tentang</th>
+								<th>Akses Khusus</th>
 								<th>Total Siswa</th>
 								<th>Pemilik</th>
 								<th>Aksi</th>
@@ -73,11 +73,7 @@
 							<tr>
 								<td class="text-center"><?= $key + 1 ?></td>
 								<td><?= $val->nama_kelas ?></td>
-								<td>
-									<button onclick="setModal1('<?= base64_encode(nl2br($val->tentang)) ?>')" class="btn btn-sm btn-info text-white" data-toggle="modal" data-target="#modal1">
-										Lihat
-									</button>
-								</td>
+								<td class="text-center"><?= $val->hasAkses ? 'Ya' : 'Tidak' ?></td>
 								<td class="text-center"><?= sizeof($siswanya) ?></td>
 								<td><a href="/dashboard/profile/<?= base64url_encode($val->creator_id) ?>" class="text-dark"><?= $yangpunya ?></a></td>
 								<td class="text-center">

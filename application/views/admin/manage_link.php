@@ -27,7 +27,7 @@
 			<table id="myTable" class="table table-bordered table-striped nowrap table-hover">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th><i class="fa fa-sort-numeric-asc"></i></th>
 						<th>Nama Kelas</th>
 						<th>Nama Guru</th>
 						<th>Link</th>
@@ -39,7 +39,7 @@
 					foreach ($semuakelas as $key => $val) :
 					?>
 					<tr>
-						<td><?= $key + 1 ?></td>
+						<td class="text-center"><?= $key + 1 ?></td>
 						<td><?= $val->nama_kelas ?></td>
 						<td><?= $val->pengurus ?></td>
 						<td class="text-center"><a href="<?= $val->tentang ?>" class="btn btn-sm btn-info waves-light waves-effect" target="_blank"><i class="fa fa-eye"></i></a></td>
