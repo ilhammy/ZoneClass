@@ -35,4 +35,5 @@
 
 <script>
 	document.title = 'Ubah Kata Sandi';
+	$('.search-input').prop("disabled", true)
 </script>

@@ -38,6 +38,10 @@
 				$alert = $this->session->flashdata('alert');
 				if (!is_null($alert)) {
 					echo "<div class=\" alert alert-danger\">$alert</div>";
+				}
+				$alert_s = $this->session->flashdata('alert_s');
+				if (!is_null($alert_s)) {
+					echo "<div class=\" alert alert-success\">$alert_s</div>";
 				} ?>
 
 				<form action="" method="post" id="form1" enctype="multipart/form-data">

@@ -9,6 +9,7 @@ class Home extends CI_Controller {
 		if (!isAdminGuru()) redirect();
 		$this->load->model('Kelas_model');
 		$this->load->model('Materi_model');
+		$this->load->model('Note_model', 'NM');
 		$this->load->model('Menu_model', 'Menu');
 	}
 
@@ -27,7 +28,8 @@ class Home extends CI_Controller {
 		$data = array(
 			'sb_menu' => $this->Menu->getMenu(),
 			'siswaku' => my_array_unique($siswa),
-			'materiku' => $this->Materi_model->getByCreator(myUid())
+			'materiku' => $this->Materi_model->getByCreator(myUid()),
+			'mynotes' => $this->NM->getAll()
 		);
 		$this->load->view('admin/top', $data);
 		$this->load->view('admin/dash', $data);

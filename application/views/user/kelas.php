@@ -70,6 +70,7 @@
 
 
 <script>
+	$('.search-input').prop("disabled", true)
 	var listView = document.querySelector('.list-view');
 	var gridView = document.querySelector('.grid-view');
 	var projectsList = document.querySelector('.project-boxes');

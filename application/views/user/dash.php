@@ -47,6 +47,7 @@
 
 <script>
 	var simput = document.querySelector(".search-input");
+	simput.removeAttribute("disabled")
 	function search() {
 		const pattern = simput.value.toLowerCase();
 		if (simput.length < 1) return;
@@ -55,11 +56,12 @@
 		let divs = document.querySelectorAll(".project-box");
 		for (let i = 0; i < divs.length; i++) {
 			let para = divs[i].querySelector(".box-content-header");
-			let index = para.innerText.toLowerCase().indexOf(pattern);
-			if (index !== -1) {
-				targetId = divs[i].parentNode.id;
-				divs[i].scrollIntoView();
-				break;
+			if (para.innerText.toLowerCase().includes(pattern)) {
+				//divs[i].classList.remove('hide')
+				$(divs[i]).fadeIn()
+			} else {
+				$(divs[i]).fadeOut()
+				//divs[i].classList.add('hide')
 			}
 		}
 	}
@@ -74,6 +76,7 @@
 			focusConfirm: false,
 			confirmButtonText: 'Info Lengkap',
 			denyButtonText: 'Masuk',
+			denyButtonColor: '#4caf50',
 			customClass: {
 				popup: 'radius-8r'
 			},

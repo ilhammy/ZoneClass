@@ -42,7 +42,7 @@ offlineUser();
 					<?= $web_name ?>
 				</p>
 				<div class="search-wrapper">
-					<input class="search-input" type="text" placeholder="Search">
+					<input class="search-input" style="width:100%" type="text" placeholder="Search..." disabled>
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search" viewBox="0 0 24 24">
 						<defs></defs>
 						<circle cx="11" cy="11" r="8"></circle>
@@ -63,4 +63,5 @@ offlineUser();
 				</button>
 			</div>
 		</div>
+		
 		<div class="app-content" id="konten" style="<?= (!isset($nonav)) ? 'padding-bottom: 80px' : null ?>">

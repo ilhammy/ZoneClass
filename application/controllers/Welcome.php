@@ -6,7 +6,7 @@ class Welcome extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		cekLogin(); 
-		if (!isAdminSiswa()) redirect('dashboard');
+		if (!isSiswa()) redirect('dashboard');
 	}
 
 	public function index() {

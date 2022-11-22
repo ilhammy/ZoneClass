@@ -84,5 +84,10 @@ $route['dashboard/manage_link/tambah'] = 'admin/kelasm/tambah_linkkelas';
 
 $route['dashboard/settings'] = 'admin/settings/index';
 
+$route['dashboard/new_note'] = 'admin/catatan/baru';
+$route['dashboard/edit_note/(:any)'] = 'admin/catatan/edit_note/$1';
+
 $route['materi/(:any)'] = 'materi/index/$1';
 $route['materi/(:any)/(:num)'] = 'materi/open_materi/$2';
+$route['catatan/view/(:any)'] = 'catatan/read_note/$1';
+

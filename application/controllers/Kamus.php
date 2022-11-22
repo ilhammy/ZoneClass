@@ -8,7 +8,7 @@ class Kamus extends CI_Controller {
 		//$this->load->model('Kamus_model');
 
 		cekLogin();
-		if (!isAdminSiswa()) redirect('dashboard');
+		if (!isSiswa()) redirect('dashboard');
 	}
 
 	public function list($id) {

@@ -28,7 +28,7 @@ class Edmat extends CI_Controller {
 		$data['mtri'] = $mtri;
 
 		if (is_null($mtri)) {
-			$msg = 'Kelas yang anda maksud tidak ditemukan';
+			$msg = 'Materi yang anda maksud tidak ditemukan';
 		}
 		if ($this->Kelas->isMyClass($mtri->id_kelas)) {
 			$msg = 'Anda tidak berhak mengelola materi ini';
@@ -73,7 +73,7 @@ class Edmat extends CI_Controller {
 		);
 
 		if ($this->Materi->updateData($this->input->post('idMateri'), $inti)) {
-			$this->session->set_flashdata('alert', '<b>Berhasil!</b> materi telah diupdate.');
+			$this->session->set_flashdata('alert_s', '<b>Berhasil!</b> materi telah diupdate.');
 		} else {
 			$this->session->set_flashdata('alert', '<b>Gagal!</b> Terjadi kesalahan, silahkan coba lagi');
 		}

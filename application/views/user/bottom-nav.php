@@ -13,9 +13,9 @@
 			</a>
 		</li>
 		<li class="list">
-			<a href="javascript:loadPage('kamus')">
-				<span class="icon"><ion-icon name="chatbox-ellipses-outline"></ion-icon></span>
-				<span class="text">Kamus</span>
+			<a href="javascript:loadPage('catatan')">
+				<span class="icon"><ion-icon name="newspaper-outline"></ion-icon></span>
+				<span class="text">Catatan</span>
 			</a>
 		</li>
 		<li class="list">

@@ -9,7 +9,7 @@ class Materi extends CI_Controller {
 		$this->load->model('Materi_model');
 
 		cekLogin();
-		if (!isAdminSiswa()) redirect('dashboard');
+		if (!isSiswa()) redirect('dashboard');
 	}
 
 	public function index($idkel) {

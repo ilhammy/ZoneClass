@@ -57,11 +57,11 @@ function isAdminGuru($uid = null) {
 	return ($ci->session->userdata('role_id') == 0 || $ci->session->userdata('role_id') == 1);
 }
 
-function isAdminSiswa($uid = null) {
+function isSiswa($uid = null) {
 	$ci = get_instance();
 	if (!is_null($uid)) {
-		return (getTipeAkun($uid) == 0 || getTypeAkun($uid) == 1);
+		return (getTypeAkun($uid) == 2);
 	}
-	return ($ci->session->userdata('role_id') == 0 || $ci->session->userdata('role_id') == 2);
+	return ($ci->session->userdata('role_id') == 2);
 }
 

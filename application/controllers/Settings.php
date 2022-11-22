@@ -7,7 +7,7 @@ class Settings extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Kelas_model');
 		cekLogin();
-		if (!isAdminSiswa()) redirect('dashboard');
+		if (!isSiswa()) redirect('dashboard');
 	}
 
 	public function profile() {

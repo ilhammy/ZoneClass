@@ -45,6 +45,7 @@
 <script>
 	document.title = '<?= $data_kelas->nama_kelas ?>'
 	const simput = document.querySelector(".search-input");
+	simput.removeAttribute("disabled")
 	$('st-actionContainer').launchBtn( {
 		openDuration: 500, closeDuration: 300
 	});
@@ -58,13 +59,10 @@
 		let divs = document.querySelectorAll(".listmat li");
 		for (let i = 0; i < divs.length; i++) {
 			let para = divs[i].innerText;
-			let index = para.toLowerCase().indexOf(pattern);
-			if (index !== -1) {
-				targetId = divs[i].parentNode.id;
-				console.log(index + ' => ' + targetId)
-				//document.getElementById(targetId).scrollIntoView();
-				divs[i].scrollIntoView();
-				break;
+			if (para.toLowerCase().includes(pattern)) {
+				divs[i].classList.remove('hide')
+			} else {
+				divs[i].classList.add('hide')
 			}
 		}
 	}

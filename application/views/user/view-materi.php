@@ -53,21 +53,27 @@ $urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
 		bottom: 0;
 		position: fixed;
 		z-index: 3;
-		padding: 0;
 		transform: translateX(-50%);
 		left: 50%;
-		display: flex;
-		justify-content: center;
-	}
-	.navigator .navigator-content {
-		width: 80%;
-		background-color: var(--projects-section);
-		border-radius: 10px;
-		margin: 0 10px 10px 10px;
 		padding: 10px 20px;
 		display: flex;
-		flex-wrap: nowrap;
 		justify-content: space-between;
+	}
+	
+	.navigator a {
+		background: rgba(0,0,0,.3);
+		color: #fff;
+		width: 43px;
+		height: 43px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 100%;
+		opacity: 1;
+	}
+	.navigator a:hover {
+		background: rgba(255,255,255, .3);
+		outline: none;
 	}
 
 	@keyframes slideInFromLeft {
@@ -119,10 +125,8 @@ $urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
 </div>
 	
 <div class="navigator">
-	<div class="navigator-content">
-		<a href="javascript:openLink('<?= $urlKelas . ($currPage - 1) ?>')" class="btn btn-danger <?= $currPage <= 1 ? 'disabled' : '' ?>"><ion-icon name="chevron-back" style="font-size: 20px"></ion-icon></a>
-		<a href="javascript:openLink('<?= $urlKelas . ($currPage + 1) ?>')" class="btn btn-info <?= $currPage >= $totalMat ? 'disabled' : '' ?>"><ion-icon class="icon-right" name="chevron-forward" style="font-size: 20px"></ion-icon></a>
-	</div>
+	<a href="javascript:openLink('<?= $urlKelas . ($currPage - 1) ?>')" class="<?= $currPage <= 1 ? 'disabled' : '' ?>"><ion-icon name="chevron-back" style="font-size: 20px"></ion-icon></a>
+	<a href="javascript:openLink('<?= $urlKelas . ($currPage + 1) ?>')" class="<?= $currPage >= $totalMat ? 'disabled' : '' ?>"><ion-icon class="icon-right" name="chevron-forward" style="font-size: 20px"></ion-icon></a>
 </div>
 
 <script>

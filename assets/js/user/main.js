@@ -3,14 +3,16 @@
 const index_pages = {
 	'home': 'ajax/homeUser',
 	'kelas': 'ajax/kelasUser',
-	'kamus': 'ajax/kamusProduk',
+	'catatan': 'catatan/index',
 	'kelasku': 'settings/kelasku',
 	'profile': 'ajax/profileUser',
-	'materi': 'ajax/materi'
+	'materi': 'ajax/materi',
+	'kamus': 'ajax/KamusProduk'
 }
 //const currPage = window.location.pathname.split("/");
 
 const loadPage = page => {
+	$('.search-input').val('')
 	$("#konten").html('')
 	$("#loader").show();
 	$("#konten").load(index_pages[page], function(responseTxt, statusTxt, xhr) {

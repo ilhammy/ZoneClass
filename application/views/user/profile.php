@@ -48,6 +48,7 @@
 
 <script>
 	$('div.tabnav').fadeOut();
+	$('.search-input').prop("disabled", true)
 	const pickPhoto = () => {
 		document.querySelector('#input-upload').click();
 	}
