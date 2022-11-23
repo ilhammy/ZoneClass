@@ -73,6 +73,16 @@ if ($data_user->role_id == 2) {
 				<hr />
 			</div>
 			<div class="card-body">
+				<small class="text-muted">Rekening </small>
+				<h6 id="reke">
+					<?= $data_user->rekening ? nl2br($data_user->rekening) : 'Kosong' ?>
+					<span class="ml-2">
+						<?php	if ($data_user->uid === myUid()) { ?>
+						<span class="badge badge-info" onclick="editRekening('<?= base64_encode($data_user->rekening) ?>')"><i class="fa fa-pencil"></i></span>
+						<?php } ?>
+						<span class="badge badge-success" onclick="copyText($('#reke').text());showMsg('success', 'Tersalin ke clipboard')"><i class="fa fa-clone"></i></span>
+					</span>
+				</h6>
 				<small class="text-muted">Email </small>
 				<h6><?= $data_user->email ?></h6>
 				<small class="text-muted p-t-30 db">WhatsApp</small>
@@ -96,3 +106,47 @@ if ($data_user->role_id == 2) {
 	<!-- Column -->
 </div>
 <!-- Row -->
+
+<script>
+	function editRekening(a) {
+		Swal.fire({
+			title: 'Edit Rekening',
+			input: 'textarea',
+			inputLabel: '',
+			inputValue: atob(a),
+			showDenyButton: true,
+			confirmButtonText: 'Simpan',
+			denyButtonText: 'Batal',
+			focusConfirm: false,
+			preConfirm: (val) => {
+				if (!val) {
+					Swal.showValidationMessage('Tidak boleh kosong!')
+				}
+				return {
+					data: val
+				}
+			}
+		}).then((result) => {
+			//alert(result.value.kode);
+			if (result.isConfirmed && result.value.data !== atob(a)) postRekening(result.value.data);
+		})
+	}
+	
+	const postRekening = (data) => {
+		$.ajax({
+			method: 'post',
+			data: {
+				rekening: data
+			},
+			dataType: 'json',
+			success: response => {
+				if (response.status !== true) {
+					showMsg('error', response.msg)
+				} else {
+					showMsg('success', response.msg)
+					window.location.reload(true)
+				}
+			}
+		})
+	}
+</script>

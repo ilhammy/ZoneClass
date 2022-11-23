@@ -70,10 +70,30 @@
 
 
 <script>
-	$('.search-input').prop("disabled", true)
 	var listView = document.querySelector('.list-view');
 	var gridView = document.querySelector('.grid-view');
 	var projectsList = document.querySelector('.project-boxes');
+	
+	var simput = document.querySelector(".search-input");
+	simput.removeAttribute("disabled")
+	function search() {
+		const pattern = simput.value.toLowerCase();
+		if (simput.length < 1) return;
+		let targetId = "";
+
+		let divs = document.querySelectorAll(".project-box");
+		for (let i = 0; i < divs.length; i++) {
+			let para = divs[i].querySelector(".box-content-header");
+			if (para.innerText.toLowerCase().includes(pattern)) {
+				//divs[i].classList.remove('hide')
+				$(divs[i]).fadeIn()
+			} else {
+				$(divs[i]).fadeOut()
+				//divs[i].classList.add('hide')
+			}
+		}
+	}
+	simput.addEventListener('input', search);
 
 	listView.addEventListener('click', function () {
 		gridView.classList.remove('active');

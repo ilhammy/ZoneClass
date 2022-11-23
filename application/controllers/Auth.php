@@ -78,6 +78,7 @@ class Auth extends CI_Controller {
 					$sess_data['token'] = $hasil['token'];
 					$sess_data['username'] = $hasil['username'];
 					$sess_data['role_id'] = $hasil['role_id'];
+					$this->session->sess_expiration = '86400';
 					$this->session->set_userdata($sess_data);
 					redirect(($hasil['role_id'] !== 2) ? 'dashboard' : '');
 				} else {

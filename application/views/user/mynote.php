@@ -22,7 +22,7 @@
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
-		margin: .4rem ;
+		margin: .4rem;
 		height: 190px;
 	}
 	.notes .list:hover {
@@ -34,7 +34,7 @@
 		margin: 0;
 		font-weight: 500;
 	}
-	
+
 	.notes .list span {
 		display: block;
 		color: var(--light-font);
@@ -56,40 +56,60 @@
 		border-top: 1px solid var(--message-box-border);
 		font-weight: 200;
 	}
-	
+
 	.top-notes {
 		text-align: center;
 		padding: .4rem 0;
 	}
+
+	.notes > .list-box:nth-child(1n+0) > .list {
+		background: rgba(254, 148, 175, .6);
+	}
+	.notes > .list-box:nth-child(2n+0) > .list {
+		background: rgba(254, 168, 103, .6);
+	}
+	.notes > .list-box:nth-child(3n+0) > .list {
+		background: rgba(255, 212, 82, .6);
+	}
+	.notes > .list-box:nth-child(4n+0) > .list {
+		background: rgba(128, 186, 249, .6);
+	}
+	.notes > .list-box:nth-child(5n+0) > .list {
+		background: rgba(231, 108, 162, .6);
+	}
+
 	.btn-create {
 		outline: none;
 		border: none;
-		width: 200px;
 		padding: .6rem 1rem;
 		font-size: 1rem;
-		background: rgba(0, 140, 206, .8);
+		background: rgba(0, 140, 206, 1);
 		color: #fff;
-		height: 45px;
 		border-radius: 50px;
 		font-weight: 600;
 		box-shadow: 0px 2px 10px var(--more-list-shadow);
+		width: 60px;
+		height: 60px;
+		position: fixed;
+		bottom: 0;
+		margin: 0 1.5rem 6.5rem 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		right: 0;
+	}
+	.btn-create:hover {
+		opacity: .7;
 	}
 	.sm-none {
 		display: none;
 	}
-	
+
 	@media screen and (min-width: 768px) {
 		.btn-create {
-			width: 60px;
-			height: 60px;
-			position: fixed;
-			bottom: 0;
-			margin-bottom: 9rem;
-			display: flex;
-			justify-content: center;
-			align-items: center;
 			transform: translateX(-50%);
 			left: 50%;
+			margin: 0 0 9rem 0;
 		}
 		.sm-none {
 			display: inline-block;
@@ -111,12 +131,11 @@
 	</div>
 	<div class="top-notes">
 		<button class="btn-create" onclick="window.open('/catatan/baru', '_self')">
-			<mobile>Buat Catatan</mobile>
-			<ion-icon name="add" size="large" class="sm-none"></ion-icon>
+			<ion-icon name="pencil" size=large"></ion-icon>
 		</button>
 	</div>
 	<div class="notes">
-	<?php foreach ($mynotes as $val) : ?>
+		<?php foreach ($mynotes as $val) : ?>
 		<div class="list-box">
 			<a href="/catatan/view/<?= base64url_encode($val->id) ?>" class="list">
 				<h4><?= $val->title ?></h4>
@@ -126,9 +145,9 @@
 				</div>
 			</a>
 		</div>
-	<?php endforeach ?>
+		<?php endforeach ?>
 	</div>
-	
+
 </div>
 
 

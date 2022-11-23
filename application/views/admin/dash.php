@@ -17,6 +17,7 @@
 		border-radius: 15px;
 		border: 1px solid rgba(0,0,0,.1);
 		padding: .7rem .9rem;
+		background: rgba(255, 212, 82, .6);
 		box-shadow: 0px 2px 7px var(--more-list-shadow);
 		display: flex;
 		flex-direction: column;
@@ -289,7 +290,7 @@
 					<i class="fa fa-trash"></i> Hapus
 				</button>
 				<button type="button" class="btn btn-warning waves-effect text-left btnCopy">
-					<i class="fa fa-copy"></i> Salin
+					<i class="fa fa-clone"></i> Salin
 				</button>
 				<button type="button" class="btn btn-info waves-effect text-left btnEdit" data-dismiss="modal">
 					<i class="fa fa-pencil"></i> Edit
