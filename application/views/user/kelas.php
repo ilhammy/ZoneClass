@@ -47,7 +47,7 @@
 					</div>
 					<div class="project-box-content-header">
 						<p class="box-content-header" style="font-size: 14px; padding-bottom: 7px">
-							<?= $val->nama_kelas ?>
+							<?= $val->nama_kelas ?> Asb Bakilin
 						</p>
 						<p class="box-content-subheader">
 							<b>Pemateri:</b> <?= $val->pengurus ?>

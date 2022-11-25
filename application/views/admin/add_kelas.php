@@ -32,7 +32,8 @@
 
 				<?php $msg = validation_errors() . $this->session->flashdata('newclass');
 				if (!is_null($msg) && !empty($msg)) {
-					echo '<div class="alert alert-info alert-rounded">' . $msg;
+					$alertType = strpos($msg, "Berhasil");
+					echo '<div class="alert alert-' .$alertType. ' alert-rounded">' . $msg;
 					echo '</div>';
 				} ?>
 
@@ -51,11 +52,11 @@
 			<div class="form-group">
 				<label>Apakah memiliki akses khusus?</label>
 				<div class="custom-control custom-radio">
-					<input type="radio" id="customRadio1" name="hasAkses" class="custom-control-input" />
+					<input type="radio" id="customRadio1" name="hasAkses" value="ya" class="custom-control-input" />
 				<label class="custom-control-label" for="customRadio1">Ya</label>
 			</div>
 			<div class="custom-control custom-radio">
-				<input type="radio" id="customRadio2" name="hasAkses" class="custom-control-input" checked />
+				<input type="radio" id="customRadio2" name="hasAkses" value="tidak" class="custom-control-input" checked />
 			<label class="custom-control-label" for="customRadio2">Tidak</label>
 		</div>
 	</div>

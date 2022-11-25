@@ -10,7 +10,7 @@ class Kelas_model extends CI_Model {
 		array(
 			'field' => 'nama_kelas',
 			'label' => 'Nama Kelas',
-			'rules' => 'required|trim|min_length[5]|max_length[30]',
+			'rules' => 'required|trim|min_length[5]|max_length[25]',
 			'errors' => array(
 				'required' => '%s kosong',
 				'min_length' => '%s minimal %s karakter',
@@ -26,7 +26,7 @@ class Kelas_model extends CI_Model {
 
 	function updateClassInfo($kid, $data) {
 		$this->db->update($this->tk, $data, ['id_kelas' => $kid]);
-		return ($this->db->affected_rows() == 1);
+		return ($this->db->affected_rows() > 0);
 	}
 
 	function deleteById($kid) {

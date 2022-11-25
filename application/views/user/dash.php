@@ -32,8 +32,8 @@
 					</div>
 				</div>
 				<div class="project-box-content-header">
-					<p class="box-content-header" style="font-size: 14px; padding-bottom: 7px">
-						<?= $val->nama_kelas ?>
+					<p class="box-content-header" style="font-size: 14px; padding-bottom: 7px;">
+						<?= $val->nama_kelas ?> Padi Dan Sawah kebun lahan lainnya ya bro
 					</p>
 					<p class="box-content-subheader">
 						<ion-icon name="person"></ion-icon> <?= $val->pengurus ?>

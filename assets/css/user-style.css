@@ -511,7 +511,7 @@ button, a {
 }
 .project-boxes.jsListView .project-box-content-header {
 	order: 1;
-	max-width: 120px;
+	max-width: 300px;
 }
 .project-boxes.jsListView .project-box-header {
 	order: 2;
@@ -530,9 +530,10 @@ button, a {
 }
 .project-boxes.jsListView .project-box-content-header p {
 	text-align: left;
-	overflow: hidden;
+	width: 200px;
+	/*overflow: hidden;
 	white-space: nowrap;
-	text-overflow: ellipsis;
+	text-overflow: ellipsis;*/
 }
 .project-boxes.jsListView .project-box-header > span {
 	position: absolute;

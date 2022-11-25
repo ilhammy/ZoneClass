@@ -74,14 +74,14 @@ class Home extends CI_Controller {
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 			$this->form_validation->set_rules($this->Kelas_model->create_rules);
 			if ($this->form_validation->run() !== false) {
-				$inti = array(
+				$inti = [
 					'nama_kelas' => $this->input->post('nama_kelas'),
-					'hasAkses' => $this->input->post('hasAkses') ? true : false
-				);
+					'hasAkses' => $this->input->post('hasAkses') == 'ya' ? true : false
+				];
 				if ($this->Kelas_model->updateClassInfo($idkes, $inti)) {
-					$this->session->set_flashdata('alert', '<b>Berhasil!</b> Perubahan tersimpan.');
+					$this->session->set_flashdata('alert_s', '<b>Berhasil!</b> Perubahan tersimpan.');
 				} else {
-					$this->session->set_flashdata('alert', '<b>Gagal!</b> Terjadi kesalahan, silahkan coba lagi');
+					$this->session->set_flashdata('alert', '<b>Gagal!</b> Terjadi kesalahan, silahkan coba lagi ' . $msg);
 				}
 				redirect('dashboard/kelas/' . $idkes);
 				return;
@@ -109,7 +109,7 @@ class Home extends CI_Controller {
 				$inti = array(
 					'creator_id' => myUid(),
 					'nama_kelas' => $this->input->post('nama_kelas'),
-					'hasAkses' => $this->input->post('hasAkses') ? true : false,
+					'hasAkses' => $this->input->post('hasAkses') == 'ya' ? true : false,
 					'tentang' => null, 
 					'dibuat' => time()
 				);

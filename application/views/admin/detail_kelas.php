@@ -25,13 +25,18 @@
 		<div class="card card-body mailbox">
 			<h5 class="card-title">Detail Kelas</h5>
 
-			<div class="alert alert-info <?= ($data_kelas->creator_id !== myUid() || !isAdmin()) ? '' : 'd-none' ?>">
+			<div class="alert alert-info <?= ($data_kelas->creator_id !== myUid() && !isAdmin()) ? '' : 'd-none' ?>">
 				Kelas ini bukan milik anda.
 			</div>
 
-			<?php $msg = validation_errors() . $this->session->flashdata('alert');
+			<?php $msg = $this->session->flashdata('alert_s');
 			if (!is_null($msg) && !empty($msg)) {
 				echo '<div class="alert alert-info alert-rounded">' . $msg;
+				echo '</div>';
+			}
+			$msg_e = validation_errors() . $this->session->flashdata('alert');
+			if (!is_null($msg_e) && !empty($msg_e)) {
+				echo '<div class="alert alert-danger alert-rounded">' . $msg_e;
 				echo '</div>';
 			} ?>
 
@@ -55,11 +60,11 @@
 				<div class="form-group">
 					<label>Apakah memiliki akses khusus?</label>
 					<div class="custom-control custom-radio">
-						<input type="radio" id="customRadio1" name="hasAkses" class="custom-control-input" <?= $data_kelas->hasAkses ? 'checked' : null ?>/>
+						<input type="radio" id="customRadio1" name="hasAkses" value="ya" class="custom-control-input" <?= $data_kelas->hasAkses ? 'checked' : null ?>/>
 						<label class="custom-control-label" for="customRadio1">Ya</label>
 					</div>
 					<div class="custom-control custom-radio">
-						<input type="radio" id="customRadio2" name="hasAkses" class="custom-control-input" <?= $data_kelas->hasAkses ? null : 'checked' ?>/>
+						<input type="radio" id="customRadio2" name="hasAkses" value="tidak" class="custom-control-input" <?= $data_kelas->hasAkses ? null : 'checked' ?>/>
 						<label class="custom-control-label" for="customRadio2">Tidak</label>
 					</div>
 				</div>

@@ -1,7 +1,7 @@
 <?php
-$currPage = $this->uri->segment('3');
+$currPage = intval($this->uri->segment('3'));
 $totalMat = sizeof($allmateri);
-$urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
+$urlKelas = substr(current_url(), 0, strrpos(current_url(), '/')) . '/';
 ?>
 
 <style>
@@ -47,7 +47,7 @@ $urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
 		color: var(--light-font);
 		font-size: .95em;
 	}
-	
+
 	.navigator {
 		width: 100%;
 		bottom: 0;
@@ -59,7 +59,7 @@ $urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
 		display: flex;
 		justify-content: space-between;
 	}
-	
+
 	.navigator a {
 		background: rgba(0,0,0,.3);
 		color: #fff;
@@ -86,7 +86,7 @@ $urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
 			transform: translateX(0);
 		}
 	}
-	
+
 	@media screen and (min-width: 768px) {
 		.navigator .navigator-content {
 			width: 300px;
@@ -123,10 +123,11 @@ $urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
 	?>
 
 </div>
-	
+
+
 <div class="navigator">
-	<a href="javascript:openLink('<?= $urlKelas . ($currPage - 1) ?>')" class="<?= $currPage <= 1 ? 'disabled' : '' ?>"><ion-icon name="chevron-back" style="font-size: 20px"></ion-icon></a>
-	<a href="javascript:openLink('<?= $urlKelas . ($currPage + 1) ?>')" class="<?= $currPage >= $totalMat ? 'disabled' : '' ?>"><ion-icon class="icon-right" name="chevron-forward" style="font-size: 20px"></ion-icon></a>
+	<a href="javascript:openLink('<?= $urlKelas . intval($currPage - 1) ?>')" class="<?= $currPage <= 1 ? 'disabled' : '' ?>"><ion-icon name="chevron-back" style="font-size: 20px"></ion-icon></a>
+	<a href="javascript:openLink('<?= $urlKelas . intval($currPage + 1) ?>')" class="<?= $currPage >= $totalMat ? 'disabled' : '' ?>"><ion-icon class="icon-right" name="chevron-forward" style="font-size: 20px"></ion-icon></a>
 </div>
 
 <script>
@@ -137,9 +138,11 @@ $urlKelas = substr(current_url(),0 , strlen(current_url()) - 1);
 		lightbox.props.sources = [url];
 		lightbox.open();
 	}
-	
+
 	const openLink = (b) => {
-		history.replaceState({page: <?= $currPage ?>}, 'a', b)
+		history.replaceState({
+			page: <?= $currPage ?>
+		}, 'a', b)
 		window.location.reload(true)
 	}
 </script>
